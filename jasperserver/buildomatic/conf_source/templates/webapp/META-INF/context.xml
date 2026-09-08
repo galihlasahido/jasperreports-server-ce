@@ -21,31 +21,33 @@
 
 <Context path="/jasperserver" reloadable="false">
             
-    <!-- maxActive: Maximum number of dB connections in pool. Make sure you
-         configure your mysqld max_connections large enough to handle
-         all of your db connections. Set to 0 for no limit.
+    <!-- ANGGARAN KONEKSI (BUGFIX: pool melebihi kapasitas server database)
+         Keempat pool di bawah semula maxActive="100", jadi total 400 koneksi,
+         sementara PostgreSQL default hanya mengizinkan max_connections=100.
+         Di bawah beban, pool ke-2 yang penuh akan gagal dengan
+         "FATAL: sorry, too many clients already" alih-alih menunggu.
+
+         Alokasi sekarang berjumlah 80, menyisakan 20 untuk superuser,
+         pekerjaan pemeliharaan, dan psql:
+             repository  40   (jalur panas: resource, ACL, scheduler)
+             audit       10   (tulis bervolume rendah)
+             sugarcrm    15   (datasource contoh)
+             foodmart    15   (datasource contoh + kubus Mondrian)
+         Kalau max_connections dinaikkan, naikkan angka-angka ini bersamaan.
+
+         maxWait: lama menunggu koneksi tersedia (ms) sebelum melempar
+         exception. -1 berarti menunggu selamanya.
+
+         Evictor (timeBetweenEvictionRunsMillis) dinyalakan supaya koneksi
+         menganggur benar-benar ditutup. Tanpa itu DBCP hanya membuang
+         kelebihan idle saat koneksi dikembalikan, sehingga pool yang sempat
+         membesar akan menahan koneksi itu tanpa batas waktu.
     -->
-    <!-- maxIdle: Maximum number of idle dB connections to retain in pool.
-         Set to -1 for no limit.  See also the DBCP documentation on this
-         and the minEvictableIdleTimeMillis configuration parameter.
-     -->
-    <!-- maxWait: Maximum time to wait for a dB connection to become available
-         in ms, in this example 10 seconds. An Exception is thrown if
-         this timeout is exceeded.  Set to -1 to wait indefinitely.
-    -->
-        
-    <!-- Additional properties to consider. Settings for specifying a      -->
-    <!-- validation query to help with reconnect/timeout errors.           -->
-    <!-- Exact syntax may vary with database type (this tested on mysql.   -->
-    <!--                                                                   -->
-    <!--   validationQuery="select 1"                                      -->
-    <!--   testOnBorrow="true"                                             -->
-    <!--   (and add this to url property): &amp;autoReconnectForPools=true -->
-        
-        
 
     <Resource name="${js.jndi}" auth="Container" type="javax.sql.DataSource"
-        maxActive="100" maxIdle="30" maxWait="10000"
+        maxActive="40" maxIdle="10" maxWait="10000"
+        timeBetweenEvictionRunsMillis="30000" minEvictableIdleTimeMillis="60000"
+        testWhileIdle="true"
         username="${js.dbUsername}" password="${escapeXML:js.dbPassword}"
         driverClassName="${jdbcDriverClass}"
         accessToUnderlyingConnectionAllowed = "true"
@@ -56,7 +58,9 @@
         ${js.extraParams} />
 
 	<Resource name="${audit.jndi}" auth="Container" type="javax.sql.DataSource"
-        maxActive="100" maxIdle="30" maxWait="10000"
+        maxActive="10" maxIdle="5" maxWait="10000"
+        timeBetweenEvictionRunsMillis="30000" minEvictableIdleTimeMillis="60000"
+        testWhileIdle="true"
         username="${audit.dbUsername}" password="${escapeXML:audit.dbPassword}"
         driverClassName="${jdbcDriverClass}"
         accessToUnderlyingConnectionAllowed = "true"
@@ -67,7 +71,9 @@
         ${js.extraParams} />
 
     <Resource name="${sugarcrm.jndi}" auth="Container" type="javax.sql.DataSource"
-        maxActive="100" maxIdle="30" maxWait="10000"
+        maxActive="15" maxIdle="5" maxWait="10000"
+        timeBetweenEvictionRunsMillis="30000" minEvictableIdleTimeMillis="60000"
+        testWhileIdle="true"
         username="${sugarcrm.dbUsername}" password="${escapeXML:sugarcrm.dbPassword}"
         driverClassName="${jdbcDriverClass}"
         accessToUnderlyingConnectionAllowed = "true"
@@ -77,7 +83,9 @@
         factory="${tomcatBasicDatasourceFactory}"/>
 
     <Resource name="${foodmart.jndi}" auth="Container" type="javax.sql.DataSource"
-        maxActive="100" maxIdle="30" maxWait="10000"
+        maxActive="15" maxIdle="5" maxWait="10000"
+        timeBetweenEvictionRunsMillis="30000" minEvictableIdleTimeMillis="60000"
+        testWhileIdle="true"
         username="${foodmart.dbUsername}" password="${escapeXML:foodmart.dbPassword}"
         driverClassName="${jdbcDriverClass}"
         accessToUnderlyingConnectionAllowed = "true"
