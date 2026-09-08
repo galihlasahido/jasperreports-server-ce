@@ -61,20 +61,55 @@ import com.tonbeller.wcf.table.EditableTableComponent;
 
 public class CSVServlet extends HttpServlet {
 
+    /*
+     * BUGFIX (audit BUG-01, BUG-02, JSP-15).
+     *
+     * The previous implementation called getDrillThroughSQL(req) and
+     * getConnection(req), both of which dereference getDrillThroughModel(req)
+     * unconditionally. That method returns null on every path that is not a live
+     * Mondrian drill-through, so requesting this URL without an active OLAP
+     * session threw a NullPointerException, which was then swallowed by
+     * catch (Exception) { e.printStackTrace(); } and answered with an empty
+     * 200 OK carrying a CSV content type.
+     *
+     * Now: the model is resolved once, its absence is reported as 409 Conflict,
+     * the JDBC resources are closed with try-with-resources, and failures go to
+     * the configured logger instead of the container's stdout.
+     */
     public void service(HttpServletRequest req,
 			HttpServletResponse resp)
-	throws ServletException
+	throws ServletException, IOException
     {
-	try {
-	    resp.setContentType(MIME_TYPE);
-        resp.setHeader("Pragma", "");
-        resp.setHeader("Cache-Control", "no-store");
-	    //resp.setContentType(HTML_TYPE); // for testing
-	    PrintWriter out = resp.getWriter();
-	    printQuery( getDrillThroughSQL(req), getConnection(req), out );
-	} catch (Exception e) {
-	    e.printStackTrace();
-	    log.error(e);
+	MondrianDrillThroughTableModel model = getDrillThroughModel(req);
+	if (model == null) {
+	    log.warn("Drill-through CSV requested but no drill-through result is present in the session");
+	    resp.sendError(HttpServletResponse.SC_CONFLICT,
+			   "No drill-through result is available for this session.");
+	    return;
+	}
+
+	String sql = model.getSql();
+	if (sql == null || sql.trim().isEmpty()) {
+	    log.warn("Drill-through model carries no SQL statement");
+	    resp.sendError(HttpServletResponse.SC_CONFLICT,
+			   "The drill-through result carries no query.");
+	    return;
+	}
+
+	resp.setContentType(MIME_TYPE);
+	resp.setHeader("Pragma", "");
+	resp.setHeader("Cache-Control", "no-store");
+
+	try (Connection conn = getConnection(model)) {
+	    printQuery(sql, conn, resp.getWriter());
+	} catch (SQLException e) {
+	    log.error("Drill-through CSV export failed", e);
+	    // The failure can also come from Connection.close() after the body has
+	    // already gone out; sendError() would then throw IllegalStateException.
+	    if (!resp.isCommitted()) {
+		resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+			       "Could not export the drill-through result.");
+	    }
 	}
     }
 
@@ -89,51 +124,60 @@ public class CSVServlet extends HttpServlet {
     private MondrianDrillThroughTableModel
 	getDrillThroughModel(HttpServletRequest req)
     {
-	HttpSession session = req.getSession();
-	OlapModel olapModel = (OlapModel)session.getAttribute("olapModel");
+	HttpSession session = req.getSession(false);
+	if (session == null) {
+	    return null;
+	}
+	// BUGFIX (BUG-01): the olapModel attribute may be absent, and when present it
+	// is not guaranteed to be an OlapModelDecorator. The unguarded cast below used
+	// to throw NullPointerException / ClassCastException instead of simply saying
+	// "there is nothing to drill through".
+	Object olapModel = session.getAttribute("olapModel");
+	if (!(olapModel instanceof OlapModelDecorator)) {
+	    return null;
+	}
 	Model mdl = ((OlapModelDecorator) olapModel).getRootModel();
 	String currentView = (String) session.getAttribute("currentView");
 	// only MondrianModel supports Drillthru
-	if (mdl instanceof MondrianModel) {
-	    try {
-		if (currentView != null) {
-		    EditableTableComponent et = (EditableTableComponent) session
-			.getAttribute(currentView + ".drillthroughtable");
-		    if (et != null) {
-			return (MondrianDrillThroughTableModel) et.getModel();
-		    }
+	if (mdl instanceof MondrianModel && currentView != null) {
+	    Object et = session.getAttribute(currentView + ".drillthroughtable");
+	    if (et instanceof EditableTableComponent) {
+		Object tableModel = ((EditableTableComponent) et).getModel();
+		if (tableModel instanceof MondrianDrillThroughTableModel) {
+		    return (MondrianDrillThroughTableModel) tableModel;
 		}
-	    } catch (Exception e) {
-		e.printStackTrace();
-		log.error(e.getStackTrace());
 	    }
 	}
 	return null;
     }
 
-    private Connection getConnection(HttpServletRequest req)
+    // BUGFIX (BUG-01): takes the already-resolved model instead of looking it up
+    // again and dereferencing a possible null.
+    private Connection getConnection(MondrianDrillThroughTableModel model)
 	throws SQLException
     {
-	MondrianDrillThroughTableModel model = getDrillThroughModel(req);
-	if (model.getDataSourceName() == null) {
+	String dataSourceName = model.getDataSourceName();
+	if (dataSourceName == null) {
 	    return DriverManager.getConnection(model.getJdbcUrl(),
 					       model.getJdbcUser(),
 					       model.getJdbcPassword());
-	} else {
-	    return getDataSource(req).getConnection();
 	}
+	return getDataSource(dataSourceName).getConnection();
     }
 
-    private DataSource getDataSource(HttpServletRequest req) {
-	MondrianDrillThroughTableModel model = getDrillThroughModel(req);
-	String dataSourceName = model.getDataSourceName();
+    // BUGFIX (BUG-01, JSP-15): used to log the JNDI failure and return null, so the
+    // caller failed later with a NullPointerException that hid the real cause.
+    private DataSource getDataSource(String dataSourceName) throws SQLException {
 	try {
-	    return (DataSource) getJndiContext().lookup(dataSourceName);
+	    DataSource ds = (DataSource) getJndiContext().lookup(dataSourceName);
+	    if (ds == null) {
+		throw new SQLException("JNDI name '" + dataSourceName + "' resolved to null");
+	    }
+	    return ds;
 	} catch (NamingException e) {
-	    e.printStackTrace();
-	    log.error(e);
+	    throw new SQLException("Cannot look up drill-through data source '"
+				   + dataSourceName + "'", e);
 	}
-	return null;
     }
 
     private Context jndiContext;
@@ -154,32 +198,28 @@ public class CSVServlet extends HttpServlet {
       }
     */
 
-    private String getDrillThroughSQL(HttpServletRequest req)
-    {
-	MondrianDrillThroughTableModel model = getDrillThroughModel(req);
-	return model.getSql();
-    }
-
+    /*
+     * BUGFIX (BUG-02, JSP-15): the Statement and ResultSet were never closed when
+     * createStatement()/executeQuery() threw, and only the Connection was released
+     * in the finally block. The Connection is now owned by the caller's
+     * try-with-resources, and the Statement/ResultSet by this one. Exceptions
+     * propagate to the caller so the response can carry a real status code.
+     */
     private void printQuery(String sqlQuery,
 			    Connection conn,
 			    PrintWriter out)
+	throws SQLException
     {
-	log.info("drill-through SQL = " + sqlQuery);
-	try {
-	    Statement s = conn.createStatement();
-	    ResultSet rs = s.executeQuery(sqlQuery);
+	if (log.isDebugEnabled()) {
+	    log.debug("drill-through SQL = " + sqlQuery);
+	}
+	try (Statement s = conn.createStatement();
+	     ResultSet rs = s.executeQuery(sqlQuery)) {
 	    printCSV(rs, out);
-	    rs.close();
+	} catch (SQLException e) {
+	    throw e;
 	} catch (Exception e) {
-	    e.printStackTrace();
-	    log.error(e);
-	} finally {
-	    try {
-		conn.close();
-	    } catch (SQLException sqle) {
-		sqle.printStackTrace();
-		log.error(sqle);
-	    }
+	    throw new SQLException("Failed to write the drill-through result", e);
 	}
     }
 

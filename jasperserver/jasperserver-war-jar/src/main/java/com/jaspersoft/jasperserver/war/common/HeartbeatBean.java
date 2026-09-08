@@ -333,10 +333,21 @@ public class HeartbeatBean implements ServletContextAware, HeartbeatContributor
 			//+ productVersion + "|" 
 			+ (location == null ? "" : location);
 		
+		/*
+		 * SECURITY FIX (audit JSP-07): this used MessageDigest.getInstance("MD5").
+		 * The digest only de-duplicates telemetry, so it is not a security control
+		 * as such - but MD5 is unavailable on a FIPS-enabled JVM, where the
+		 * NoSuchAlgorithmException below silently degraded the installation id to
+		 * String.hashCode(). SHA-256 is mandatory on every Java platform.
+		 *
+		 * Note: this changes the installation id reported by the heartbeat. That is
+		 * intentional and harmless - the id only has to be stable over time for a
+		 * given install, not comparable with ids issued by earlier versions.
+		 */
 		MessageDigest messageDigest = null;
 		try
 		{
-			messageDigest = MessageDigest.getInstance("MD5");
+			messageDigest = MessageDigest.getInstance("SHA-256");
 		}
 		catch(NoSuchAlgorithmException e)
 		{

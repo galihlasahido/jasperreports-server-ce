@@ -76,6 +76,11 @@ public class RelativeDateRangeTest extends BaseRelativeDateTest {
     public void shouldApplyTimeZoneForDay() throws Exception {
         final TimeZone gmt = TimeZone.getTimeZone("GMT+3");
         TestRelativeDateRange rd = new TestRelativeDateRange("DAY", gmt);
+        // BUGFIX: the fixture's default reference instant is "2012-08-01 00:00" in the JVM's
+        // *default* zone. On a machine east of UTC+3 (e.g. Asia/Jakarta, UTC+7) that instant is
+        // still 2012-07-31 in GMT+3, so this test failed purely because of where the build ran.
+        // Pin the reference to midday in the zone under test, which is unambiguous everywhere.
+        rd.setDate(dateTime("2012-08-01 12:00:00.000", gmt));
 
         assertEquals("2012-08-01 00:00:00.000", formatDate(rd.getStart(), gmt));
         assertEquals("2012-08-01 23:59:59.999", formatDate(rd.getEnd(), gmt));
@@ -116,6 +121,9 @@ public class RelativeDateRangeTest extends BaseRelativeDateTest {
     public void shouldApplyTimeZoneForWeek() throws Exception {
         TimeZone timeZone = TimeZone.getTimeZone("GMT-08");
         TestRelativeDateRange rd = new TestRelativeDateRange("WEEK-63", timeZone);
+        // Same reasoning as shouldApplyTimeZoneForDay: keep the reference instant independent
+        // of the JVM default time zone.
+        rd.setDate(dateTime("2012-08-01 12:00:00.000", timeZone));
 
         assertEquals("2011-05-16 00:00:00.000", formatDate(rd.getStart(), timeZone));
         assertEquals("2011-05-22 23:59:59.999", formatDate(rd.getEnd(), timeZone));

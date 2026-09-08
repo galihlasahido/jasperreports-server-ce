@@ -51,6 +51,11 @@ public class XMLUtils {
 		 */
 		static void transform(Reader source, Writer result, String style) throws TransformerException {
 			TransformerFactory tFactory = TransformerFactory.newInstance();
+			// SECURITY FIX (OWASP A05 - XML External Entity injection): block the XSLT engine from
+			// reaching out to external stylesheets/documents while transforming XMLA payloads.
+			tFactory.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true);
+			tFactory.setAttribute(javax.xml.XMLConstants.ACCESS_EXTERNAL_DTD, "");
+			tFactory.setAttribute(javax.xml.XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
 			Transformer transformer = tFactory.newTransformer(new StreamSource(new StringReader(style)));
 			transformer.transform(new StreamSource(source), new StreamResult(result));
 		}

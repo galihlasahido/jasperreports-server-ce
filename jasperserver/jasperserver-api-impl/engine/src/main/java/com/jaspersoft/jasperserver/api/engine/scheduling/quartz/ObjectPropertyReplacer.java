@@ -32,6 +32,7 @@ import org.springframework.util.PropertyPlaceholderHelper;
 import com.jaspersoft.jasperserver.api.JSException;
 
 import net.sf.jasperreports.engine.JRPropertiesHolder;
+import com.jaspersoft.jasperserver.core.util.SafeObjectInputStream;
 
 /**
  * @author Lucian Chirita (lucianc@users.sourceforge.net)
@@ -58,7 +59,9 @@ public class ObjectPropertyReplacer {
 				objectOut.writeObject(source);
 			}
 			
-			try (ObjectInputStream objectIn = new ObjectInputStream(new ByteArrayInputStream(output.toByteArray()))) {
+			// SECURITY FIX (audit JSP-19): Quartz job data round-trips through this
+			// stream; reject the published gadget chains on the way back in.
+			try (ObjectInputStream objectIn = new SafeObjectInputStream(new ByteArrayInputStream(output.toByteArray()))) {
 				@SuppressWarnings("unchecked")
 				T replaced = (T) objectIn.readObject();
 				return replaced;

@@ -655,6 +655,22 @@
     <session-config>
         <!-- Default to 20 minute session timeouts -->
         <session-timeout>20</session-timeout>
+        <!-- SECURITY FIX (OWASP A05 - Security Misconfiguration):
+             the session cookie had no explicit attributes at all.
+             * http-only     - keeps JSESSIONID out of reach of injected JavaScript.
+             * secure        - set this to true (and switch the transport-guarantee
+                               below to CONFIDENTIAL) as soon as the deployment is
+                               served over HTTPS; left false so a plain-HTTP
+                               evaluation install still works out of the box.
+             * tracking-mode - COOKIE only, so the container never falls back to
+                               rewriting the session id into the URL, where it
+                               leaks through Referer headers, proxy logs and
+                               bookmarks. -->
+        <cookie-config>
+            <http-only>true</http-only>
+            <secure>false</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
 
     <jsp-config>

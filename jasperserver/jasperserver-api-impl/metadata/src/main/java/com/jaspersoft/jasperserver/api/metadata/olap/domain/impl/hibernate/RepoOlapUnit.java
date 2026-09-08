@@ -37,7 +37,6 @@ import com.jaspersoft.jasperserver.api.metadata.olap.domain.client.OlapUnitImpl;
 
 import javax.sql.rowset.serial.SerialBlob;
 import javax.xml.parsers.SAXParserFactory;
-import java.beans.XMLDecoder;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -116,23 +115,44 @@ public class RepoOlapUnit extends RepoResource {
                 throw new JSException(e);
             }
 
+            /*
+             * SECURITY FIX (OWASP A08 - Software and Data Integrity Failures, CWE-502):
+             * java.beans.XMLDecoder executes whatever the document asks for
+             * (constructors, static factories, arbitrary method calls), which turns
+             * this blob into a remote-code-execution sink. It has been removed; the
+             * SAX handler - which now resolves classes through an allow-list, see
+             * XMLDecoderHandler.resolveAllowedClass - is the only decoder used.
+             * The parser is also configured to reject DOCTYPE/external entities
+             * (OWASP A05 - XXE).
+             */
+            XMLDecoderHandler handler = new XMLDecoderHandler();
             try {
-                XMLDecoder d = new XMLDecoder(stream);
-                state = d.readObject();
-                d.close();
-            } catch (Throwable e){
-                // We catch Throwable because under WebSphere and IBM Jdk 8
-                // XMLDecoder java.beans.XMLDecoder.readObject throws javax.xml.parsers.FactoryConfigurationError
-                XMLDecoderHandler handler = new XMLDecoderHandler();
-                try {
-                    SAXParserFactory.newInstance().newSAXParser().parse(stream, handler);
-                    state = handler.getResult();
-                } catch (Exception e1) {
-                    throw new JSException("Cannot parse file state of Olap Unit");
-                }
+                newSecureSaxParserFactory().newSAXParser().parse(stream, handler);
+                state = handler.getResult();
+            } catch (JSException e) {
+                throw e;
+            } catch (Exception e1) {
+                throw new JSException("Cannot parse file state of Olap Unit", e1);
             }
             view.setOlapViewOptions(state);
         }
+    }
+
+    /**
+     * SECURITY FIX (OWASP A05 - XML External Entity injection): the OLAP view
+     * options blob used to be parsed with a stock SAXParserFactory, i.e. DOCTYPE
+     * declarations and external entities were resolved, giving any user who can
+     * store an OLAP view a local-file-read / SSRF primitive.
+     */
+    private static SAXParserFactory newSecureSaxParserFactory() throws javax.xml.parsers.ParserConfigurationException,
+            org.xml.sax.SAXException {
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        factory.setXIncludeAware(false);
+        return factory;
     }
 
     protected void copyFrom(Resource clientRes, ReferenceResolver referenceResolver) {

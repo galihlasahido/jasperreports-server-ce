@@ -53,6 +53,8 @@ import java.sql.Statement;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -100,7 +102,7 @@ class CSVServletTest {
         MockitoAnnotations.initMocks(this);
 
         doReturn(printWriter).when(servletResponse).getWriter();
-        doReturn(httpSession).when(servletRequest).getSession();
+        doReturn(httpSession).when(servletRequest).getSession(false);
         doReturn(olapModel).when(httpSession).getAttribute(OLAP_MODEL_ARGUMENT);
         doReturn(CURRENT_VIEW).when(httpSession).getAttribute(CURRENT_VIEW_ARGUMENT);
         doReturn(editableTableComponent).when(httpSession).getAttribute(CURRENT_VIEW_ARGUMENT + DRILLTHROUGHTABLE_ARGUMENT);
@@ -121,7 +123,7 @@ class CSVServletTest {
     }
 
     @Test
-    void service_columnHeaderPrinted() throws ServletException {
+    void service_columnHeaderPrinted() throws ServletException, IOException {
         objectUnderTest.service(servletRequest, servletResponse);
 
         verify(printWriter).write("\"" + COLUMN_NAME_1 + "\"");
@@ -132,7 +134,7 @@ class CSVServletTest {
     }
 
     @Test
-    void service_rowDataPrinted() throws ServletException, SQLException {
+    void service_rowDataPrinted() throws ServletException, SQLException, IOException {
         when(resultSet.next()).thenReturn(true, false);
 
         objectUnderTest.service(servletRequest, servletResponse);
@@ -145,7 +147,7 @@ class CSVServletTest {
     }
 
     @Test
-    void service_responseHeadersIsSetup() throws ServletException {
+    void service_responseHeadersIsSetup() throws ServletException, IOException {
         objectUnderTest.service(servletRequest, servletResponse);
 
         verify(servletResponse).setContentType(CSVServlet.MIME_TYPE);
@@ -154,14 +156,14 @@ class CSVServletTest {
     }
 
     @Test
-    void service_resultSetIsClosed() throws ServletException, SQLException {
+    void service_resultSetIsClosed() throws ServletException, SQLException, IOException {
         objectUnderTest.service(servletRequest, servletResponse);
 
         verify(resultSet).close();
     }
 
     @Test
-    void service_connectionIsClosed() throws ServletException, SQLException {
+    void service_connectionIsClosed() throws ServletException, SQLException, IOException {
         objectUnderTest.service(servletRequest, servletResponse);
 
         verify(connection).close();
@@ -169,7 +171,7 @@ class CSVServletTest {
 
     @Disabled("Log is obtained from LogFactory.getLog and can not be mocked")
     @Test
-    void service_exceptionIsThrown_exceptionIsLogged() throws ServletException {
+    void service_exceptionIsThrown_exceptionIsLogged() throws ServletException, IOException {
         Exception exception = new IllegalStateException();
         doThrow(exception).when(servletResponse).setContentType(any(String.class));
 
@@ -178,41 +180,49 @@ class CSVServletTest {
         // verify that log.error(exception) was called if exception is thrown in service method
     }
 
-    @Disabled("Null pointer is thrown if getDrillThroughModel() returns null")
+    /*
+     * BUGFIX (audit BUG-01). The three tests below shipped @Disabled with the
+     * reason "Null pointer is thrown if getDrillThroughModel() returns null" -
+     * the defect was known and the tests were switched off instead of the code
+     * being fixed. getDrillThroughModel() returning null is the normal outcome
+     * whenever there is no live Mondrian drill-through, so the servlet now
+     * answers 409 Conflict instead of throwing, and these tests are enabled.
+     */
     @DisplayName("Service() method will not service request with root model that does not support 'Drill Through'")
     @Test
-    void service_rootModelDoesNotSupportDrillThrough_isNotServiced() throws ServletException {
+    void service_rootModelDoesNotSupportDrillThrough_isNotServiced() throws ServletException, IOException {
         Model modelThatDoestNotSupportDrillThrough = mock(Model.class);
         doReturn(modelThatDoestNotSupportDrillThrough).when(olapModel).getRootModel();
 
         objectUnderTest.service(servletRequest, servletResponse);
 
-        // verify that service will fail if root model does not supports DrillThrough
+        verify(servletResponse).sendError(eq(HttpServletResponse.SC_CONFLICT), any(String.class));
+        verify(printWriter, never()).write(any(String.class));
     }
 
-    @Disabled("Null pointer is thrown if getDrillThroughModel() returns null")
     @Test
-    void service_currentViewIsNull_isNotServiced() throws ServletException {
+    void service_currentViewIsNull_isNotServiced() throws ServletException, IOException {
         doReturn(null).when(httpSession).getAttribute(CURRENT_VIEW_ARGUMENT);
 
         objectUnderTest.service(servletRequest, servletResponse);
 
-        // verify that service will fail if current view is null
+        verify(servletResponse).sendError(eq(HttpServletResponse.SC_CONFLICT), any(String.class));
+        verify(printWriter, never()).write(any(String.class));
     }
 
-    @Disabled("Null pointer is thrown if getDrillThroughModel() returns null")
     @Test
-    void service_drillThroughTableIsNull_isNotServiced() throws ServletException {
+    void service_drillThroughTableIsNull_isNotServiced() throws ServletException, IOException {
         doReturn(null).when(httpSession).getAttribute(CURRENT_VIEW_ARGUMENT + DRILLTHROUGHTABLE_ARGUMENT);
 
         objectUnderTest.service(servletRequest, servletResponse);
 
-        // verify that service will fail if drill through table is absent
+        verify(servletResponse).sendError(eq(HttpServletResponse.SC_CONFLICT), any(String.class));
+        verify(printWriter, never()).write(any(String.class));
     }
 
     @Disabled("Log is obtained from LogFactory.getLog and can not be mocked")
     @Test
-    void service_exceptionIsThrownWhileGettingDrillThroughTable_exceptionIsLogged() throws ServletException {
+    void service_exceptionIsThrownWhileGettingDrillThroughTable_exceptionIsLogged() throws ServletException, IOException {
         Exception exception = new IllegalStateException();
         doThrow(exception).when(httpSession).getAttribute(CURRENT_VIEW_ARGUMENT + DRILLTHROUGHTABLE_ARGUMENT);
 
@@ -223,7 +233,7 @@ class CSVServletTest {
 
     @Disabled("Call of static DriverManager.getConnection() can not be mocked")
     @Test
-    void service_drillThroughModelHasNoDataSourceName_connectionIsObtainedFromDriverManager() throws ServletException {
+    void service_drillThroughModelHasNoDataSourceName_connectionIsObtainedFromDriverManager() throws ServletException, IOException {
         doReturn(null).when(drillThroughModel).getDataSourceName();
 
         objectUnderTest.service(servletRequest, servletResponse);
@@ -233,7 +243,7 @@ class CSVServletTest {
 
     @Disabled("Log is obtained from LogFactory.getLog and can not be mocked")
     @Test
-    void service_dataSourceCanNotBeLookupFromJndiContext_exceptionIsLogged() throws ServletException, NamingException {
+    void service_dataSourceCanNotBeLookupFromJndiContext_exceptionIsLogged() throws ServletException, NamingException, IOException {
         Exception exception = new IllegalStateException();
         doThrow(exception).when(jndiContext).lookup(DS_NAME);
 
@@ -244,7 +254,7 @@ class CSVServletTest {
 
     @Disabled("Context is initiating directly by calling the constructor and can not be mocked")
     @Test
-    void service_jndiContextIsNotProvided_jndiContextIsInitedWithInitialContext() throws ServletException {
+    void service_jndiContextIsNotProvided_jndiContextIsInitedWithInitialContext() throws ServletException, IOException {
         CSVServlet csvServletAlternative = new CSVServlet();
 
         csvServletAlternative.service(servletRequest, servletResponse);
@@ -254,7 +264,7 @@ class CSVServletTest {
 
     @Disabled("Log is obtained from LogFactory.getLog and can not be mocked")
     @Test
-    void service_statementCanNotBeCreated_exceptionIsLogged() throws ServletException, SQLException {
+    void service_statementCanNotBeCreated_exceptionIsLogged() throws ServletException, SQLException, IOException {
         Exception exception = new IllegalStateException();
         doThrow(exception).when(connection).createStatement();
 
@@ -265,7 +275,7 @@ class CSVServletTest {
 
     @Disabled("Log is obtained from LogFactory.getLog and can not be mocked")
     @Test
-    void service_connectionCanNotBeClosed_exceptionIsLogged() throws ServletException, SQLException {
+    void service_connectionCanNotBeClosed_exceptionIsLogged() throws ServletException, SQLException, IOException {
         SQLException exception = new SQLException();
         doThrow(exception).when(connection).close();
 

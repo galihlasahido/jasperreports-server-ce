@@ -385,7 +385,10 @@
             Chrome browser does not support ALLOW-FROM.  IE does not support Content-Security-Policy.
             Setting both headers protects all the browsers against click-jacking.
         -->
-        <property name="antiClickJackingEnabled" value="false"/>
+        <!-- SECURITY FIX (OWASP A05 - Security Misconfiguration): clickjacking
+             protection was shipped disabled. SAMEORIGIN keeps the product's own
+             iframes (report viewer, dashboards) working. -->
+        <property name="antiClickJackingEnabled" value="true"/>
         <property name="antiClickJackingOption" value="SAMEORIGIN"/>
 
         <!--
@@ -394,14 +397,18 @@
             See RFC 6797 for further details of HSTS. If not specified, the default value of true
             will be used.
         -->
-        <property name="hstsEnabled" value="false"/>
+        <!-- SECURITY FIX (OWASP A02/A05): HSTS is only emitted on requests that are
+             already secure, so enabling it cannot break a plain-HTTP deployment. -->
+        <property name="hstsEnabled" value="true"/>
 
         <!--
             Should the header that blocks content type sniffing (X-Content-Type-Options) be set on
             every response? If already present, the header will be replaced. If not specified, the
             default value of true will be used.
         -->
-        <property name="blockContentTypeSniffingEnabled" value="false"/>
+        <!-- SECURITY FIX (OWASP A05): X-Content-Type-Options: nosniff. Without it a
+             browser may re-interpret an uploaded resource as HTML/JS and execute it. -->
+        <property name="blockContentTypeSniffingEnabled" value="true"/>
 
         <!--
             Should the header that enables the browser's cross-site scripting filter protection
@@ -515,7 +522,16 @@
                 <security:intercept-url pattern="/xmla" access="ROLE_USER,ROLE_ADMINISTRATOR" />
                 <security:intercept-url pattern="/services/**" access="ROLE_USER,ROLE_ADMINISTRATOR" />
                 <security:intercept-url pattern="/reportimage/**" access="ROLE_USER,ROLE_ADMINISTRATOR" />
-                <security:intercept-url pattern="/reportresource**" access="ROLE_USER,ROLE_ADMINISTRATOR" />
+                <!-- SECURITY FIX (OWASP A01 - Broken Access Control):
+                     the pattern used to be "/reportresource**". AntPathMatcher does NOT let a
+                     "**" wildcard inside a path segment span the "/" separator, so
+                     "/reportresource**" matched only the bare "/reportresource" URL and every
+                     real request ("/reportresource/<uri>/<file>") fell through with no rule
+                     attached, i.e. it was reachable without authentication.
+                     "/reportresource/**" is the pattern that actually covers the servlet
+                     mapping "/reportresource/*" declared in web.xml. -->
+                <security:intercept-url pattern="/reportresource" access="ROLE_USER,ROLE_ADMINISTRATOR" />
+                <security:intercept-url pattern="/reportresource/**" access="ROLE_USER,ROLE_ADMINISTRATOR" />
                 <security:intercept-url pattern="/heartbeatInfo.html" access="ROLE_USER,ROLE_ADMINISTRATOR" />
                 <security:intercept-url pattern="/rest_v2/thumbnails/**" access="ROLE_USER,ROLE_ADMINISTRATOR" />
                 <security:intercept-url pattern="/rest_v2/keys/**" access="ROLE_ADMINISTRATOR" />
@@ -554,6 +570,33 @@
                 <security:intercept-url pattern="/scheduler/main.html" access="ROLE_USER,ROLE_ADMINISTRATOR" />
                 <!--dashboard-->
                 <security:intercept-url pattern="/dashboard/viewer.html" access="ROLE_USER,ROLE_ADMINISTRATOR" />
+
+                <!-- SECURITY FIX (OWASP A01 - Broken Access Control):
+                     These URLs are declared in web.xml but had no access rule at all, so
+                     FilterSecurityInterceptor attached no ConfigAttribute to them and let every
+                     anonymous request through.
+
+                     * /DisplayChart and /GetChart are chart servlets that read images out of the
+                       servlet temp directory from a request parameter.
+                     * /runtime/<hash>/... is ResourceForwardingServlet. It RequestDispatcher.forward()s
+                       to the whitelisted targets, and springSecurityFilterChain is mapped for
+                       REQUEST/ERROR only (and is once-per-request anyway), so the forwarded target is
+                       never re-authorised. Everything reachable that way therefore has to be
+                       authorised on the /runtime/** URL itself. -->
+                <security:intercept-url pattern="/DisplayChart" access="ROLE_USER,ROLE_ADMINISTRATOR" />
+                <security:intercept-url pattern="/GetChart" access="ROLE_USER,ROLE_ADMINISTRATOR" />
+                <security:intercept-url pattern="/runtime/*/reportresource/**" access="ROLE_USER,ROLE_ADMINISTRATOR" />
+                <security:intercept-url pattern="/runtime/*/getRequirejsConfig.html" access="ROLE_USER,ROLE_ADMINISTRATOR" />
+                <security:intercept-url pattern="/runtime/*/getrequirejsconfig.html" access="ROLE_USER,ROLE_ADMINISTRATOR" />
+                <security:intercept-url pattern="/runtime/*/rest_v2/bundles/**" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR" />
+                <security:intercept-url pattern="/runtime/*/rest_v2/settings/**" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR" />
+                <security:intercept-url pattern="/runtime/*/scripts/**" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR" />
+                <security:intercept-url pattern="/runtime/*/optimized-scripts/**" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR" />
+                <security:intercept-url pattern="/runtime/*/themes/**" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR" />
+                <security:intercept-url pattern="/runtime/*/wcf/**" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR" />
+                <security:intercept-url pattern="/runtime/*/fusion/**" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR" />
+                <security:intercept-url pattern="/runtime/*/highmaps/**" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR" />
+                <security:intercept-url pattern="/runtime/*/JavaScriptServlet" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR" />
             </security:filter-security-metadata-source>
         </property>
     </bean>
@@ -629,6 +672,11 @@
 
     <security:filter-security-metadata-source id="filterInvocationInterceptorTheLowestRules" request-matcher="ant" use-expressions="false">
         <security:intercept-url pattern="/awsconfiguration.html" access="ROLE_SUPERUSER" />
+        <!-- SECURITY FIX (OWASP A01): default-deny catch-all for the cache-busting
+             /runtime/<hash>/... forwarding servlet. Anything not explicitly allowed
+             above now requires an administrator instead of falling through
+             unauthenticated. -->
+        <security:intercept-url pattern="/runtime/**" access="ROLE_ADMINISTRATOR" />
         <security:intercept-url pattern="/rest_v2/**" access="ROLE_ADMINISTRATOR" />
         <security:intercept-url pattern="/*.html" access="ROLE_ADMINISTRATOR" />
         <security:intercept-url pattern="/*.jsp" access="ROLE_ADMINISTRATOR" />

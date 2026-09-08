@@ -86,7 +86,9 @@ public class ExternalDataSynchronizerImpl implements ExternalDataSynchronizer, I
 		try {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			if (logger.isDebugEnabled())
-			    logger.debug("Authentication token: " + (auth == null ? "none" : auth));
+			    // SECURITY FIX (JSP-21): Authentication.toString() renders the credentials of
+			    // several implementations. Log only who it is about.
+			    logger.debug("Authentication principal: " + (auth == null ? "none" : String.valueOf(auth.getName())));
 
 			if (auth != null && auth.getPrincipal() != null &&
 					auth.isAuthenticated() &&

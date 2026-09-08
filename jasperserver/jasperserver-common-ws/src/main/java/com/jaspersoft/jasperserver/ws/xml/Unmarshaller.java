@@ -143,6 +143,16 @@ public class Unmarshaller {
                 // Use parser defined at the Java level, not a specific parser
             
                 DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+                // SECURITY FIX (OWASP A05 - XML External Entity injection): this factory parsed the SOAP request body of the
+                // /services/** web service with the JAXP defaults, i.e. DOCTYPE declarations and
+                // external entities were resolved. Any authenticated caller could therefore read
+                // local files or make the server issue outbound requests.
+                docBuilderFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+                docBuilderFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+                docBuilderFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+                docBuilderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+                docBuilderFactory.setXIncludeAware(false);
+                docBuilderFactory.setExpandEntityReferences(false);
                 DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
                 
                 InputSource input_source  = new InputSource( sreader );

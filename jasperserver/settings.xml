@@ -21,12 +21,55 @@
   -->
 
 <settings>
-  <mirrors>
-    <mirror>
-      <mirrorOf>*</mirrorOf>
-      <name>repo</name>
-      <url>http://mvnrepo.jaspersoft.com/artifactory/repo</url>
-      <id>repo</id>
-    </mirror>
-  </mirrors>
+  <!--
+    SECURITY / AVAILABILITY FIX:
+    The previous configuration mirrored *every* artifact through
+    http://mvnrepo.jaspersoft.com/artifactory/repo which
+
+      * is served over plain HTTP  -> dependencies could be silently replaced
+        by anyone on the network path (OWASP A08 - Software and Data Integrity
+        Failures), and
+      * no longer resolves at all  -> the build cannot download anything.
+
+    It is replaced by explicit HTTPS repositories: Maven Central for the
+    third-party dependencies and the public Jaspersoft Artifactory for the
+    Jaspersoft-published artifacts. No wildcard mirror is used, so a
+    compromised/removed host cannot transparently serve every artifact.
+  -->
+  <profiles>
+    <profile>
+      <id>jasperserver-repositories</id>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>https://repo1.maven.org/maven2</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+        <repository>
+          <id>jaspersoft-repo</id>
+          <url>https://jaspersoft.jfrog.io/artifactory/jaspersoft-repo</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>central</id>
+          <url>https://repo1.maven.org/maven2</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </pluginRepository>
+        <pluginRepository>
+          <id>jaspersoft-repo</id>
+          <url>https://jaspersoft.jfrog.io/artifactory/jaspersoft-repo</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>jasperserver-repositories</activeProfile>
+  </activeProfiles>
 </settings>

@@ -142,7 +142,17 @@ log
 log "Running JasperReports Server $JS_SETUP_MODE script at $JS_CURRENT_TIME"
 log
 
-export ANT_OPTS="$ANT_OPTS -Dnet.sf.ehcache.disabled=true -Xms512m -Xmx2048m -noverify"
+# BUGFIX (audit BUG-04): -noverify is deprecated since JDK 13 and a JVM that
+# removes it refuses to start. Add it only where it is still supported.
+jrsNoVerifyFlag() {
+  if [ -n "${JAVA_HOME}" ] && [ -x "${JAVA_HOME}/bin/java" ]; then
+    _jv=$("${JAVA_HOME}/bin/java" -version 2>&1 | head -1 | cut -d '"' -f 2 | cut -d '.' -f1)
+  else
+    _jv=$(java -version 2>&1 | head -1 | cut -d '"' -f 2 | cut -d '.' -f1)
+  fi
+  if [ "${_jv:-0}" -le 12 ] 2>/dev/null; then printf %s " -noverify"; fi
+}
+export ANT_OPTS="$ANT_OPTS -Dnet.sf.ehcache.disabled=true -Xms512m -Xmx2048m$(jrsNoVerifyFlag)"
 
 log
 log "Using ANT_OPTS: $ANT_OPTS"

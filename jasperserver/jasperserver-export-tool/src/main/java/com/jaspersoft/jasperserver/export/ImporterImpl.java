@@ -248,6 +248,21 @@ public class ImporterImpl extends BaseExporterImporter implements Importer {
 		boolean close = true;
 		try {
 			SAXReader reader = new SAXReader();
+			// SECURITY FIX (OWASP A05 - XML External Entity injection): the index.xml of an uploaded import
+			// archive was parsed with dom4j's defaults, which resolve DOCTYPE and external
+			// entities. Importing is an administrative action, but the archive itself is
+			// attacker-supplied content, so the parser is locked down here.
+			try {
+				reader.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+				reader.setFeature("http://xml.org/sax/features/external-general-entities", false);
+				reader.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+				reader.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+			} catch (org.xml.sax.SAXException e) {
+				log.error(e);
+				throw new JSExceptionWrapper(e);
+			}
+			reader.setIncludeExternalDTDDeclarations(false);
+			reader.setIncludeInternalDTDDeclarations(false);
 			reader.setEncoding(getCharacterEncoding());
 			Document document = reader.read(indexInput);
 

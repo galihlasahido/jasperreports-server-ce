@@ -69,6 +69,24 @@ public class BaseRelativeDateTest {
         return calendar.getTime();
     }
 
+    /**
+     * Parses a wall-clock string in an explicit time zone.
+     *
+     * <p>Needed by the time-zone specific tests: building their reference instant with a
+     * bare {@link GregorianCalendar} ties it to the JVM's default zone, so the assertions
+     * (which are wall-clock strings in a <em>different</em> zone) only hold when the machine
+     * running the build happens to sit close enough to UTC.</p>
+     */
+    protected Date dateTime(String date, TimeZone timeZone) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        sdf.setTimeZone(timeZone);
+        try {
+            return sdf.parse(date);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     protected String formatDate(Date date, TimeZone timeZone) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         sdf.setTimeZone(timeZone);

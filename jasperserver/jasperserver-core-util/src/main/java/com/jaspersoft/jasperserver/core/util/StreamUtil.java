@@ -173,7 +173,9 @@ public class StreamUtil {
 	public static Object uncompressObject(byte[] compressed) throws Exception {
 		ByteArrayInputStream bais = new ByteArrayInputStream(compressed);
 		GZIPInputStream gzis = new GZIPInputStream(bais);
-		ObjectInputStream ois = new ObjectInputStream(gzis);
+		// SECURITY FIX (audit JSP-19): reject the published deserialisation gadget
+		// chains. See SafeObjectInputStream for why this is a deny-list.
+		ObjectInputStream ois = new SafeObjectInputStream(gzis);
 		return ois.readObject();
 	}
 

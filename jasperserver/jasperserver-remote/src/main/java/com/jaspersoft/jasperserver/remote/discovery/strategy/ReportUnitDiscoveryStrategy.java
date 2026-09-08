@@ -86,6 +86,15 @@ public class ReportUnitDiscoveryStrategy implements DiscoveryStrategy<ReportUnit
 
         SAXParserFactory factory = SAXParserFactory.newInstance();
         try {
+            // SECURITY FIX (OWASP A05 - XML External Entity injection): the JRXML being scanned for input controls is
+            // user-supplied repository content. Parsing it with the JAXP defaults resolved
+            // DOCTYPEs and external entities, turning "upload a report" into a local file
+            // read / SSRF primitive.
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            factory.setXIncludeAware(false);
             SAXParser saxParser = factory.newSAXParser();
             saxParser.parse(data.getDataStream(), extractor);
 

@@ -2,19 +2,46 @@
 
 handleExtraJarsForJdk17() {
   # Directory paths are relative to JRS_HOME\buildomatic.
-  javaVersion=$(java -version 2>&1 | head -1 | cut -d '"' -f 2 | cut -d '.' -f1)
-  if [ ${javaVersion} -ge 17 ]; then
-    echo "Copying additional jar file(s) that are needed very specific to jdk 17+ runtime."    
+  # BUGFIX (audit BUG-03): use $JAVA_HOME/bin/java when it is set, so the version
+  # that is detected is the one the build will actually run with, and quote the
+  # comparison so an unreadable version string cannot break the script.
+  if [ -n "${JAVA_HOME}" ] && [ -x "${JAVA_HOME}/bin/java" ]; then
+    javaCmd="${JAVA_HOME}/bin/java"
+  else
+    javaCmd="java"
+  fi
+  javaVersion=$("${javaCmd}" -version 2>&1 | head -1 | cut -d '"' -f 2 | cut -d '.' -f1)
+  if [ "${javaVersion:-0}" -ge 17 ] 2>/dev/null; then
+    echo "Copying additional jar file(s) that are needed very specific to jdk 17+ runtime."
     cp ./install_resources/extra-jars-jdk17/asm*.jar ./lib
     cp ./install_resources/extra-jars-jdk17/nashorn*.jar ./lib
   else
-    echo "Deleting any existing jar file(s) that are needed very specific to jdk 17+ runtime." 
-    rm ./lib/asm*.jar
-    rm ./lib/nashorn*.jar
+    # BUGFIX (audit BUG-03): 'rm' without -f printed
+    #   rm: cannot remove './lib/asm*.jar': No such file or directory
+    # on every run against a clean tree, because those jars are only present
+    # after a previous JDK 17+ run.
+    rm -f ./lib/asm*.jar
+    rm -f ./lib/nashorn*.jar
   fi
 }
 
-ANT_OPTS="-Xms128m -Xmx512m -Djava.net.preferIPv4Stack=true -noverify"
+# BUGFIX (audit BUG-04): -noverify was hard-coded here. It is deprecated since
+# JDK 13 and prints a warning on every single invocation; a JVM that removes it
+# refuses to start at all. It is now added only for JDK 12 and older, where it
+# was the flag's supported lifetime anyway.
+buildAntOpts() {
+  ANT_OPTS="-Xms128m -Xmx512m -Djava.net.preferIPv4Stack=true"
+  if [ -n "${JAVA_HOME}" ] && [ -x "${JAVA_HOME}/bin/java" ]; then
+    antJavaCmd="${JAVA_HOME}/bin/java"
+  else
+    antJavaCmd="java"
+  fi
+  antJavaVersion=$("${antJavaCmd}" -version 2>&1 | head -1 | cut -d '"' -f 2 | cut -d '.' -f1)
+  if [ "${antJavaVersion:-0}" -le 12 ] 2>/dev/null; then
+    ANT_OPTS="${ANT_OPTS} -noverify"
+  fi
+}
+buildAntOpts
 
 #
 # setup to use bundled of ant

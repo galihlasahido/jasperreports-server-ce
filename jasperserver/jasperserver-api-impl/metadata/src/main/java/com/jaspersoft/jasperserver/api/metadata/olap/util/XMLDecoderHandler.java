@@ -31,10 +31,13 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -102,6 +105,89 @@ public class XMLDecoderHandler extends DefaultHandler {
         arrayClassMap = Collections.unmodifiableMap(map);
     }
 
+    /*
+     * SECURITY FIX (OWASP A08 - Software and Data Integrity Failures, CWE-502).
+     *
+     * This handler reconstructs a java.beans XML document by calling
+     * Class.forName(), a constructor / static factory and then arbitrary setters
+     * on whatever the document names. The document itself is attacker-controllable
+     * data: it arrives as the olapViewOptions blob of an OlapUnit inside an import
+     * archive (jasperserver-export-tool OlapUnitBean) and out of the repository
+     * (RepoOlapUnit). Without a restriction that is a textbook remote code
+     * execution gadget - e.g. an <object class="java.lang.ProcessBuilder"> node.
+     *
+     * OLAP view options only ever contain JPivot / Mondrian bookmark state plus
+     * plain JDK value types, so resolution is restricted to those. Deployments
+     * that genuinely need another package can add prefixes through the
+     * "jasperserver.olap.viewOptions.allowedPackages" system property
+     * (comma separated); that is a deliberate, auditable decision rather than the
+     * previous unrestricted default.
+     */
+    static final String ALLOWED_PACKAGES_PROPERTY = "jasperserver.olap.viewOptions.allowedPackages";
+
+    private static final Set<String> ALLOWED_CLASS_NAMES = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
+            "java.lang.String", "java.lang.Boolean", "java.lang.Character", "java.lang.Byte",
+            "java.lang.Short", "java.lang.Integer", "java.lang.Long", "java.lang.Float",
+            "java.lang.Double", "java.lang.Number", "java.lang.Object",
+            "java.util.ArrayList", "java.util.LinkedList", "java.util.Vector",
+            "java.util.HashMap", "java.util.LinkedHashMap", "java.util.TreeMap", "java.util.Hashtable",
+            "java.util.HashSet", "java.util.LinkedHashSet", "java.util.TreeSet",
+            "java.util.Date", "java.util.Locale", "java.math.BigDecimal", "java.math.BigInteger")));
+
+    private static final List<String> DEFAULT_ALLOWED_PACKAGES = Collections.unmodifiableList(Arrays.asList(
+            "com.tonbeller.", "mondrian.", "org.olap4j.", "com.jaspersoft."));
+
+    /**
+     * Resolves a class name coming from an untrusted java.beans XML document.
+     *
+     * @throws JSException if the class is not on the allow-list
+     */
+    static Class resolveAllowedClass(String className) throws ClassNotFoundException {
+        if (className == null) {
+            throw new JSException("Missing class name in OLAP view options");
+        }
+        String name = className.trim();
+        // arrays are written as e.g. "[Ljava.lang.String;" - check the element type
+        String elementName = name;
+        while (elementName.startsWith("[")) {
+            elementName = elementName.substring(1);
+        }
+        if (elementName.startsWith("L") && elementName.endsWith(";")) {
+            elementName = elementName.substring(1, elementName.length() - 1);
+        }
+        if (!isAllowedClassName(elementName)) {
+            throw new JSException("Class '" + className + "' is not allowed in OLAP view options. "
+                    + "Add its package to the '" + ALLOWED_PACKAGES_PROPERTY + "' system property "
+                    + "if it is genuinely required.");
+        }
+        return Class.forName(name);
+    }
+
+    private static boolean isAllowedClassName(String name) {
+        if (name.length() <= 1) {
+            // primitive descriptors (I, J, Z, ...) produced by array class names
+            return true;
+        }
+        if (ALLOWED_CLASS_NAMES.contains(name)) {
+            return true;
+        }
+        for (String prefix : DEFAULT_ALLOWED_PACKAGES) {
+            if (name.startsWith(prefix)) {
+                return true;
+            }
+        }
+        String extra = System.getProperty(ALLOWED_PACKAGES_PROPERTY);
+        if (extra != null) {
+            for (String prefix : extra.split(",")) {
+                prefix = prefix.trim();
+                if (!prefix.isEmpty() && name.startsWith(prefix)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         try {
@@ -136,7 +222,7 @@ public class XMLDecoderHandler extends DefaultHandler {
             else if (qName.equals("array")) {
                 String className = attributes.getValue("", "class");
                 int len = Integer.parseInt(attributes.getValue("", "length"));
-                clazz = arrayClassMap.containsKey(className) ? arrayClassMap.get(className) : Class.forName(className);
+                clazz = arrayClassMap.containsKey(className) ? arrayClassMap.get(className) : resolveAllowedClass(className);
                 objects.push(Array.newInstance(clazz, len));
             }
 
@@ -287,7 +373,7 @@ public class XMLDecoderHandler extends DefaultHandler {
     }
 
     private Object constructObject(DeferredOperation objectConstructor) throws Exception {
-        Class clazz = Class.forName(objectConstructor.className);
+        Class clazz = resolveAllowedClass(objectConstructor.className);
         Class[] paramTypes = new Class[objectConstructor.parameters.size()];
         int idx = 0;
         Object obj = null;

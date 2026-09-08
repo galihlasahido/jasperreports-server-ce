@@ -45,6 +45,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import com.jaspersoft.jasperserver.core.util.SafeObjectInputStream;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Parameters for reports and queries from the user profile are injected.
@@ -53,6 +56,8 @@ import java.util.TreeMap;
  * @version $Id$
  */
 public class UserProfileBuiltInParameterProvider implements BuiltInParameterProvider, Serializable {
+
+    private static final Log log = LogFactory.getLog(UserProfileBuiltInParameterProvider.class);
     /*
      * Automatically added by JasperServer when running a report
      *
@@ -176,14 +181,16 @@ public class UserProfileBuiltInParameterProvider implements BuiltInParameterProv
 
                     // Make an input stream from the byte array and read
                     // a copy of the object back in.
-                    ObjectInputStream in = new ObjectInputStream(
+                    // SECURITY FIX (audit JSP-19)
+                    ObjectInputStream in = new SafeObjectInputStream(
                             new ByteArrayInputStream(bos.toByteArray()));
                     returnUserDetails = (MetadataUserDetails) in.readObject();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    // SECURITY FIX (audit JSP-15): was e.printStackTrace()
+                    log.error("Failed to copy the user profile", e);
                     return null;
                 } catch (ClassNotFoundException exception) {
-                    exception.printStackTrace();
+                    log.error("Failed to copy the user profile", exception);
                     return null;
                 }
 

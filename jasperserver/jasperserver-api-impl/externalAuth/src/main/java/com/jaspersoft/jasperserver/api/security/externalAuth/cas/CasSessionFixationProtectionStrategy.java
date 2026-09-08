@@ -20,6 +20,8 @@
  */
 package com.jaspersoft.jasperserver.api.security.externalAuth.cas;
 
+import com.jaspersoft.jasperserver.api.security.externalAuth.LogMasker;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jasig.cas.client.Protocol;
@@ -76,7 +78,9 @@ public class CasSessionFixationProtectionStrategy extends SessionFixationProtect
 
 		final HttpSession newSession = request.getSession();
 		final String token = CommonUtils.safeGetParameter(request, this.artifactParameterName, this.safeParameters);
-		logger.debug("Recording the new session after the previous one was destroyed to prevent session fixation (token " + token + ").");
+		// SECURITY FIX (JSP-21)
+		logger.debug("Recording the new session after the previous one was destroyed to prevent session fixation (token "
+				+ LogMasker.mask(token) + ").");
 		if (token != null && !token.trim().isEmpty())
 			sessionMappingStorage.addSessionById(token, newSession);
 	}

@@ -21,6 +21,8 @@
 
 package com.jaspersoft.jasperserver.api.security.externalAuth.sso;
 
+import com.jaspersoft.jasperserver.api.security.externalAuth.LogMasker;
+
 import com.jaspersoft.jasperserver.api.security.externalAuth.ExternalAuthProperties;
 import com.jaspersoft.jasperserver.api.security.externalAuth.ExternalUserDetails;
 import org.apache.http.client.utils.URIBuilder;
@@ -75,7 +77,8 @@ public class SsoTicketValidatorImpl extends AbstractSsoTicketValidator {
 	protected URI constructValidationUrl(final String ticket) throws AuthenticationServiceException {
 		final Map<String, String> urlParameters = new HashMap<String, String>();
 		try {
-			logger.debug("Constructing SSO token validation URL (ticket: " + ticket + ")");
+			// SECURITY FIX (JSP-21)
+			logger.debug("Constructing SSO token validation URL (ticket: " + LogMasker.mask(ticket) + ")");
 
 			final ExternalAuthProperties externalAuthProperties = getExternalAuthProperties();
 			String ticketParamName = externalAuthProperties.getTicketParameterName();
@@ -103,19 +106,20 @@ public class SsoTicketValidatorImpl extends AbstractSsoTicketValidator {
 
 			return uriBuilder.build();
 		} catch (URISyntaxException e) {
-			logger.error("Failed to construct the token validation URL (ticket: " + ticket + ")", e);
+			logger.error("Failed to construct the token validation URL (ticket: " + LogMasker.mask(ticket) + ")", e);
 			throw new AuthenticationServiceException(e.getMessage(), e);
 		}
 	}
 
     protected ClientHttpResponse requestTicketValidationFromSsoServer(URI validationUrl) throws AuthenticationServiceException {
         try {
-			logger.debug("Requesting SSO token validation from SSO server: " + validationUrl);
+			// SECURITY FIX (JSP-21): the ticket travels in the query string of this URL.
+			logger.debug("Requesting SSO token validation from SSO server: " + LogMasker.maskUrl(validationUrl));
             ClientHttpRequest req = getClientHttpRequestFactory().createRequest(validationUrl, HttpMethod.GET);
             ClientHttpResponse res = req.execute();
             return res;
         } catch (IOException e) {
-			logger.error("Failed to validate SSO token (" + validationUrl + ")", e);
+			logger.error("Failed to validate SSO token (" + LogMasker.maskUrl(validationUrl) + ")", e);
             throw new AuthenticationServiceException(e.getMessage(), e);
         }
     }

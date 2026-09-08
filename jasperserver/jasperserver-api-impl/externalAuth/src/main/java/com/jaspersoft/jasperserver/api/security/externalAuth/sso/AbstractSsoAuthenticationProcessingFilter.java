@@ -21,6 +21,8 @@
 
 package com.jaspersoft.jasperserver.api.security.externalAuth.sso;
 
+import com.jaspersoft.jasperserver.api.security.externalAuth.LogMasker;
+
 import com.jaspersoft.jasperserver.api.security.EncryptionAuthenticationProcessingFilter;
 import com.jaspersoft.jasperserver.api.security.externalAuth.BaseAuthenticationProcessingFilter;
 import com.jaspersoft.jasperserver.api.security.externalAuth.ExternalAuthProperties;
@@ -61,7 +63,8 @@ public abstract class AbstractSsoAuthenticationProcessingFilter extends Encrypti
             logger.debug("Attempt authentication with SSO token ...");
             Object ticket = obtainTicket(request);
 
-            logger.debug("SSO Token: " + ticket);
+            // SECURITY FIX (JSP-21): an SSO ticket is a bearer credential; never log it raw.
+            logger.debug("SSO token: " + LogMasker.mask(ticket));
             String userName = obtainUsername(request);
             userName = userName!=null ? URLDecoder.decode(userName, CharEncoding.UTF_8): null;
             String password = obtainPassword(request);

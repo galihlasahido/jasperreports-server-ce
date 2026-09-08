@@ -49,13 +49,34 @@ public class XMLUtil {
     static{
         domFactory = DocumentBuilderFactory.newInstance();
         domFactory.setNamespaceAware(true);
+        /*
+         * SECURITY FIX (OWASP A05 - XML External Entity injection): getNewDocumentBuilder() handed out
+         * builders created from a factory with the JAXP defaults, so every caller that
+         * parsed repository content (themes, schemas, report descriptors) resolved
+         * DOCTYPEs and external entities.
+         */
+        try {
+            domFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            domFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            domFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            domFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            domFactory.setXIncludeAware(false);
+            domFactory.setExpandEntityReferences(false);
+        } catch (javax.xml.parsers.ParserConfigurationException e) {
+            throw new JSException("Cannot harden the XML parser against XXE", e);
+        }
 
         xPathFactory = XPathFactory.newInstance();
 
     }
 
     public static Document toDocument(InputStream is)throws Exception {
+        // SECURITY FIX (OWASP A05 - XML External Entity injection): SAXBuilder was used with its defaults here.
         SAXBuilder builder = new SAXBuilder();
+        builder.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        builder.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        builder.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        builder.setExpandEntities(false);
 		return builder.build(is);
     }
 

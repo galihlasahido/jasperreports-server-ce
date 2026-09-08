@@ -21,6 +21,8 @@
 
 package com.jaspersoft.jasperserver.api.security.externalAuth.sso;
 
+import com.jaspersoft.jasperserver.api.security.externalAuth.LogMasker;
+
 import com.jaspersoft.jasperserver.api.security.externalAuth.ExternalUserDetails;
 import com.jaspersoft.jasperserver.api.security.externalAuth.ExternalUserDetailsService;
 import org.apache.logging.log4j.LogManager;
@@ -56,7 +58,8 @@ public class SsoAuthenticationProvider implements AuthenticationProvider, Initia
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		final Object ssoToken = ((SsoAuthenticationToken) authentication).getTicket();
-		logger.debug("Calling ticketValidator to authenticate token " + ssoToken);
+		// SECURITY FIX (JSP-21)
+		logger.debug("Calling ticketValidator to authenticate token " + LogMasker.mask(ssoToken));
 		ExternalUserDetails userDetails = ticketValidator.validate(ssoToken);
 
 		List<GrantedAuthority> authorities = externalUserDetailsService.loadAuthoritiesByUsername(userDetails.getUsername());

@@ -20,7 +20,6 @@
  */
 package com.jaspersoft.jasperserver.export.modules.repository.beans;
 
-import java.beans.XMLDecoder;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
@@ -67,23 +66,42 @@ public class OlapUnitBean extends ResourceBean {
 			byte[] viewOptionsData = importHandler.handleData(this, 
 					olapViewOptionsDataFile, DATA_PROVIDER_VIEW_OPTIONS);
             InputStream stream = new ByteArrayInputStream(viewOptionsData);
+            /*
+             * SECURITY FIX (OWASP A08 - Software and Data Integrity Failures, CWE-502):
+             * this data comes straight out of an uploaded import archive. Decoding it
+             * with java.beans.XMLDecoder let the archive execute arbitrary constructors
+             * and methods - remote code execution for anyone who can run an import.
+             * XMLDecoder is gone; the SAX handler resolves classes through an
+             * allow-list (XMLDecoderHandler.resolveAllowedClass) and the parser now
+             * rejects DOCTYPE/external entities (OWASP A05 - XXE).
+             */
+            XMLDecoderHandler handler = new XMLDecoderHandler();
             try {
-                XMLDecoder decoder = new XMLDecoder(stream);
-                options = decoder.readObject();
-                decoder.close();
-            } catch (Throwable e){
-				// We catch Throwable because under WebSphere and IBM Jdk 8
-				// XMLDecoder java.beans.XMLDecoder.readObject throws javax.xml.parsers.FactoryConfigurationError
-                XMLDecoderHandler hander = new XMLDecoderHandler();
-                try {
-                    SAXParserFactory.newInstance().newSAXParser().parse(stream, hander);
-                    options = hander.getResult();
-                } catch (Exception e1) {
-                    throw new JSException("Cannot parse file " + olapViewOptionsDataFile);
-                }
+                newSecureSaxParserFactory().newSAXParser().parse(stream, handler);
+                options = handler.getResult();
+            } catch (JSException e) {
+                throw e;
+            } catch (Exception e1) {
+                throw new JSException("Cannot parse file " + olapViewOptionsDataFile, e1);
             }
 		}
 		return options;
+	}
+
+	/**
+	 * SECURITY FIX (OWASP A05 - XML External Entity injection): harden the parser
+	 * used for the untrusted olapViewOptions document that ships inside an
+	 * import archive.
+	 */
+	private static SAXParserFactory newSecureSaxParserFactory() throws javax.xml.parsers.ParserConfigurationException,
+			org.xml.sax.SAXException {
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+		factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+		factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+		factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+		factory.setXIncludeAware(false);
+		return factory;
 	}
 
 	public String getMdxQuery() {

@@ -549,7 +549,14 @@ public class Validator {
 
     private static JSSecurityException newSecurityException(String sql) {
         String errMsg = (messages == null) ? ERR_MSG_SQL_VALIDATION:messages.getMessage(MSG_VALIDATION_SQL, new Object[]{}, LocaleContextHolder.getLocale());
-        log.warn("Invalid SQL:"  + errMsg + ", SQL: " + sql);
+        // SECURITY FIX (audit JSP-21): the rejected statement was logged in full at
+        // WARN. User-authored SQL routinely carries literals that should not sit in
+        // an operational log. The statement is still available at DEBUG for the
+        // administrator who is actually diagnosing a rejection.
+        log.warn("Invalid SQL: " + errMsg);
+        if (log.isDebugEnabled()) {
+            log.debug("Rejected SQL statement: " + sql);
+        }
         throw new JSSecurityException(errMsg);
     }
 
