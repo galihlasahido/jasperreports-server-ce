@@ -596,7 +596,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId> <!-- has few bugs corrected - for example, Java string escaping -->
       <artifactId>commons-lang3</artifactId>
-      <version>3.0</version>
+      <version>3.18.0</version>
     </dependency>
     <dependency>
       <groupId>xml-apis</groupId>

@@ -232,7 +232,7 @@
         <dependency>
             <groupId>org.apache.thrift</groupId>
             <artifactId>libthrift</artifactId>
-            <version>0.14.1</version>
+            <version>0.24.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -241,6 +241,15 @@
                 <exclusion>
                     <groupId>org.apache.tomcat.embed</groupId>
                     <artifactId>tomcat-embed-core</artifactId>
+                </exclusion>
+                <!-- libthrift 0.24.0 menarik jakarta.servlet-api 5.0.0. API kontainer
+                     servlet tidak boleh berada di WEB-INF/lib (kontainer yang
+                     menyediakannya), dan aplikasi ini memakai namespace javax.servlet
+                     di Tomcat 9, bukan jakarta. Kategori yang sama dengan
+                     tomcat-embed-core di atas. -->
+                <exclusion>
+                    <groupId>jakarta.servlet</groupId>
+                    <artifactId>jakarta.servlet-api</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
