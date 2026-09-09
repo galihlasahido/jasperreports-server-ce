@@ -18,6 +18,26 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
+/*
+ * CATATAN SUBSTITUSI TOKEN (CSRFGuard 4)
+ *
+ * JavaScriptServlet mengganti penanda %...% di berkas ini dengan nilai dari
+ * jrs.csrfguard.properties. CSRFGuard 4 mengubah kunci pencariannya: penanda
+ * yang bernilai boolean atau angka kini dicari dalam bentuk BERKUTIP —
+ * '%DOMAIN_STRICT%', '%INJECT_XHR%', '%TOKENS_PER_PAGE%', dan seterusnya —
+ * supaya seluruh literal berkutip itu diganti menjadi true/false tanpa kutip.
+ * CSRFGuard 3 mencari bentuk telanjang.
+ *
+ * Kutipnya WAJIB dipertahankan. Tanpa itu penanda tidak pernah cocok, terkirim
+ * apa adanya ke browser, dan seluruh berkas gagal di-parse dengan
+ * "SyntaxError: Unexpected token '%'". Akibatnya token CSRF tidak pernah
+ * dipasang ke form maupun XHR, setiap POST ditolak CSRFGuard, dan UI terlihat
+ * memantul kembali ke halaman awal.
+ *
+ * Penanda yang bernilai string (%CONTEXT_PATH%, %SERVLET_PATH%,
+ * %X_REQUESTED_WITH%, %TOKEN_NAME%, %TOKEN_VALUE%) tetap telanjang.
+ */
 (function() {
     "use strict";
 	var isDomLoaded = false;
@@ -180,7 +200,7 @@
 		/** check exact or subdomain match **/
 		if(pageDomain == serverDomain) {
 			result = true;
-		} else if(%DOMAIN_STRICT% == false) {
+		} else if('%DOMAIN_STRICT%' == false) {
 			if(serverDomain.charAt(0) == '.') {
 				result = checkDomain(pageDomain, serverDomain);
 			} else {
@@ -337,7 +357,7 @@
 		/** obtain reference to page tokens if enabled **/
 		var pageTokens = {};
 		
-		if(%TOKENS_PER_PAGE% == true) {
+		if('%TOKENS_PER_PAGE%' == true) {
 			pageTokens = requestPageTokens();
 		}
 		
@@ -346,10 +366,10 @@
 		var len = all.length;
 
 		//these are read from the csrf guard config file(s)
-		var injectForms = %INJECT_FORMS%;
-		var injectGetForms = %INJECT_GET_FORMS%;
-		var injectFormAttributes = %INJECT_FORM_ATTRIBUTES%;
-		var injectAttributes = %INJECT_ATTRIBUTES%;
+		var injectForms = '%INJECT_FORMS%';
+		var injectGetForms = '%INJECT_GET_FORMS%';
+		var injectFormAttributes = '%INJECT_FORM_ATTRIBUTES%';
+		var injectAttributes = '%INJECT_ATTRIBUTES%';
 		
 		for(var i=0; i<len; i++) {
 			var element = all[i];
@@ -431,7 +451,7 @@
 	 */
 
 	/** optionally include Ajax CSRF support **/
-	if(%INJECT_XHR% == true) {
+	if('%INJECT_XHR%' == true) {
 		if (navigator.appName == "Microsoft Internet Explorer") {
 			hijackExplorer();
 		} else {
@@ -444,7 +464,7 @@
 		var token_name = token_pair[0];
 		var token_value = token_pair[1];
 
-		if(%INJECT_XHR% == true) {
+		if('%INJECT_XHR%' == true) {
 			XMLHttpRequest.prototype.onsend = function (data) {
 				if (isValidUrl(this.url)) {
 					this.setRequestHeader("X-Requested-With", "%X_REQUESTED_WITH%");
@@ -453,16 +473,16 @@
 			};
 		}
 
-		if ( %INJECT_FORMS% == true) {
+		if ( '%INJECT_FORMS%' == true) {
 			//inject CSRF token into dynamically created post forms
 			HTMLFormElement.prototype._submit = HTMLFormElement.prototype.submit;
 			HTMLFormElement.prototype.submit = function (data) {
 				// The forms are submitted synchronously; not likely to be submitted during page load.
 				var pageTokens = {};
-				if (%TOKENS_PER_PAGE%) {        // %...% params coming from jrs.csrfguard.properties
+				if ('%TOKENS_PER_PAGE%') {        // %...% params coming from jrs.csrfguard.properties
 					pageTokens = requestPageTokens();
 				}
-				injectTokenForm(this, token_name, token_value, pageTokens, %INJECT_GET_FORMS%);
+				injectTokenForm(this, token_name, token_value, pageTokens, '%INJECT_GET_FORMS%');
 
 				this._submit.apply(this, arguments);
 			};

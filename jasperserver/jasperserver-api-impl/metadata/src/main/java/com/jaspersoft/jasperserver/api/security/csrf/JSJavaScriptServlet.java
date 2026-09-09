@@ -50,22 +50,52 @@ public class JSJavaScriptServlet extends HttpServlet {
 
     /*
      * Method generating and returning CSRF Token from session.
+     *
+     * jrs.csrfguard.js sengaja TIDAK menanamkan token di dalam berkas JavaScript
+     * melainkan memintanya lewat POST ke servlet ini, lalu membaca jawaban
+     * berbentuk "namaToken:nilaiToken". Itu keputusan JasperServer: berkas JS-nya
+     * di-cache lama (org.owasp.csrfguard.JavascriptServlet.cacheControl setahun),
+     * sehingga token yang ikut tertanam akan basi dan bocor lintas sesi.
+     *
+     * CSRFGuard 3 menyediakan perilaku itu lewat header FETCH-CSRF-TOKEN.
+     * CSRFGuard 4 menghapusnya: doPost miliknya kini semata-mata endpoint
+     * token-per-page yang menjawab JSON dan menolak permintaan kalau
+     * TokenPerPage mati - dan di sini TokenPerPage memang false. Token master
+     * pada CSRFGuard 4 dikirim dengan menyulih %TOKEN_NAME% / %TOKEN_VALUE% ke
+     * dalam JS saat GET, yang justru bertentangan dengan alasan di atas.
+     *
+     * Karena itu jawabannya ditulis sendiri di sini, dalam format yang sama
+     * seperti dulu, tanpa mendelegasikan ke JavaScriptServlet.
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        synchronized (this) {
-            // CSRFGuard 4 memindahkan pengelolaan token dari CsrfGuard ke
-            // TokenService, dan sesi diwakili LogicalSession (bukan HttpSession
-            // langsung). Pasangan getTokenValue/updateToken yang lama —
-            // "ambil token, kalau kosong buat" — kini dinyatakan satu metode:
-            // createMasterTokenIfAbsent.
-            CsrfGuard csrfGuard = CsrfGuard.getInstance();
-            LogicalSession logicalSession = csrfGuard.getLogicalSessionExtractor().extract(req);
-            if (logicalSession != null) {
-                csrfGuard.getTokenService().createMasterTokenIfAbsent(logicalSession.getKey());
-            }
+        final CsrfGuard csrfGuard = CsrfGuard.getInstance();
+        final LogicalSession logicalSession = csrfGuard.getLogicalSessionExtractor().extract(req);
+
+        if (logicalSession == null) {
+            // Tanpa sesi logis tidak ada yang bisa dijadikan kunci token.
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+            return;
         }
-        jss.doPost(req, resp);
+
+        final String sessionKey = logicalSession.getKey();
+        final String tokenValue;
+        synchronized (this) {
+            csrfGuard.getTokenService().createMasterTokenIfAbsent(sessionKey);
+            tokenValue = csrfGuard.getTokenService().getMasterToken(sessionKey);
+        }
+
+        if (tokenValue == null) {
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+            return;
+        }
+
+        // Jawaban ini membawa token, jadi tidak boleh ikut ter-cache seperti
+        // berkas JavaScript-nya.
+        resp.setContentType("text/plain; charset=utf-8");
+        resp.setHeader("Cache-Control", "no-store");
+        resp.setHeader("Pragma", "no-cache");
+        resp.getWriter().write(csrfGuard.getTokenName() + ":" + tokenValue);
     }
 
     @Override
