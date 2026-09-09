@@ -403,9 +403,10 @@
                      http://jira.jaspersoft.com/browse/JRS-11892
         -->
         <dependency>
+            <!-- JSF 1.2 (rilis 2010) hasil transformasi ke namespace Jakarta. -->
             <groupId>javax.faces</groupId>
             <artifactId>jsf-api</artifactId>
-            <version>1.2_10</version>
+            <version>1.2_10-jakarta</version>
         </dependency>
 
         <dependency>

@@ -1145,10 +1145,14 @@
         <artifactId>jcommon</artifactId>
         <version>1.0.23</version>
       </dependency>
+      <!-- Varian Jakarta hasil transformasi. Hanya paket org.jfree.chart.servlet
+           yang menyentuh javax.servlet, dan DisplayChart-nya terdaftar sebagai
+           servlet di web.xml. JFreeChart 1.5 justru membuang paket servlet itu,
+           jadi transformasi lebih aman daripada naik versi. -->
       <dependency>
         <groupId>org.jfree</groupId>
         <artifactId>jfreechart</artifactId>
-        <version>1.0.19</version>
+        <version>1.0.19-jakarta</version>
       </dependency>
       <dependency>
         <groupId>net.sf.jasperreports</groupId>
