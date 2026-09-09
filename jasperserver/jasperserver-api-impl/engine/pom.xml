@@ -251,6 +251,25 @@
                     <groupId>jakarta.servlet</groupId>
                     <artifactId>jakarta.servlet-api</artifactId>
                 </exclusion>
+                <!-- Transport HTTP Thrift. Dikecualikan karena tidak ada satu pun
+                     file Java di repo ini yang mengimpor org.apache.thrift dan
+                     tidak ada driver hive-jdbc di WAR, jadi jalur Teiid-Hive yang
+                     memakainya tidak bisa aktif. Ketiga jar ini membawa advisory
+                     sendiri (httpcore5 dan httpcore5-h2 keduanya HIGH), sehingga
+                     membundelnya justru menukar kerentanan Thrift dengan
+                     kerentanan lain tanpa ada kode yang memanfaatkannya. -->
+                <exclusion>
+                    <groupId>org.apache.httpcomponents.client5</groupId>
+                    <artifactId>httpclient5</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents.core5</groupId>
+                    <artifactId>httpcore5</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents.core5</groupId>
+                    <artifactId>httpcore5-h2</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
