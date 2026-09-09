@@ -428,7 +428,7 @@ function updateUsingResponseSubset(xmlhttp, fromLocation, toLoc) {
      * fusioncharts & jasperreports interactive: load JavaScript scripts synchronously
      */
     if (typeof jQuery !== 'undefined' && true) {
-        var scriptTags = response.filter('script.jasperreports'), sz = scriptTags.size(), idx = 0;
+        var scriptTags = response.filter('script.jasperreports'), sz = scriptTags.length, idx = 0;
         iterate();
     }
 }

@@ -123,11 +123,11 @@ describe("components.tooltip", function() {
         var tooltipEl = jQuery("#" + tooltipElementId);
         var tooltipMessageEl = tooltipEl.find("p.message");
 
-        expect(jQuery.trim(tooltipMessageEl.text())).toEqual("Hi all!");
+        expect(String(tooltipMessageEl.text() || '').trim()).toEqual("Hi all!");
 
         tooltip.updateText(["testText"]);
 
-        expect(jQuery.trim(tooltipMessageEl.text())).toEqual("testText");
+        expect(String(tooltipMessageEl.text() || '').trim()).toEqual("testText");
     });
 
     it("should update tooltip text as empty string", function() {
@@ -137,11 +137,11 @@ describe("components.tooltip", function() {
         var tooltipEl = jQuery("#" + tooltipElementId);
         var tooltipMessageEl = tooltipEl.find("p.message");
 
-        expect(jQuery.trim(tooltipMessageEl.text())).toEqual("Hi all!");
+        expect(String(tooltipMessageEl.text() || '').trim()).toEqual("Hi all!");
 
         tooltip.updateText([""]);
 
-        expect(jQuery.trim(tooltipMessageEl.text())).toEqual("");
+        expect(String(tooltipMessageEl.text() || '').trim()).toEqual("");
     });
 
     it("should disable tooltips", function() {

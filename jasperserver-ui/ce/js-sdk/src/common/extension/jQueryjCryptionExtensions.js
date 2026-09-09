@@ -26,7 +26,7 @@ import {BigInt, biToHex, biToString} from 'jCryption';
 
 $.jCryption.encryptKeyWithoutRedundancy = function (string, keyPair, callback) {
     if (string === '') {
-        if ($.isFunction(callback)) {
+        if (typeof callback === 'function') {
             callback(string);
             return;
         } else {
@@ -67,7 +67,7 @@ $.jCryption.encryptKeyWithoutRedundancy = function (string, keyPair, callback) {
                 setTimeout(encryptChar, 1);
             } else {
                 var encryptedString = encrypted.substring(0, encrypted.length - 1);
-                if ($.isFunction(callback)) {
+                if (typeof callback === 'function') {
                     callback(encryptedString);
                 } else {
                     return encryptedString;

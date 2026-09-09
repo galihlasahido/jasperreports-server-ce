@@ -66,6 +66,26 @@ module.exports = ({test = false, coverage = false, ignoreMomentLocales = true}, 
                 //    we prefer to add an alias in some cases
                 // 3. main entry is missed in libraries package.json
 
+                // jquery 4 memindahkan entry point-nya ke field "exports", yang
+                // tidak bisa ditangani webpack 5.21 (kondisi bersarang), sehingga
+                // "import $ from 'jquery'" gagal resolve. Arahkan ke wrapper
+                // yang memang disediakan jquery untuk bundler:
+                //
+                //   const { jQuery } = require("../../dist-module/jquery.module.js");
+                //   module.exports = jQuery;
+                //
+                // Wrapper ini memuaskan kedua gaya konsumsi sekaligus: "import $
+                // from 'jquery'" mendapat fungsi jQuery lewat interop CommonJS
+                // webpack, dan plugin lawas yang melakukan require('jquery')
+                // (mis. jquery-simulate di test) juga menerima fungsinya, bukan
+                // namespace ESM. Menunjuk langsung ke dist-module membuat plugin
+                // seperti itu gagal dengan "$.fn is undefined".
+                //
+                // Jalur absolut, bukan request: resolve.modules di sini hanya
+                // berisi node_modules milik cwd tanpa penelusuran ke atas,
+                // sehingga alias berupa request tidak selalu terselesaikan.
+                'jquery$': path.resolve(process.cwd(), 'node_modules/jquery/dist/wrappers/jquery.bundler-require-wrapper.js'),
+
                 //this aliases are used for jquery.ui.touch-punch 3rd party library
                 'jquery-ui/widget': 'jquery-ui/ui/widget',
                 'jquery-ui/widgets/mouse': 'jquery-ui/ui/widgets/mouse',

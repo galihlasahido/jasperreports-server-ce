@@ -162,7 +162,7 @@ var AttributeModel = Epoxy.Model.extend({
     trimAttrs: function (attrs, options) {
         _.each(attrs, function (attr) {
             var attrValue = this.get(attr);
-            this.set(attr, $.trim(attrValue), options);
+            this.set(attr, String(attrValue || '').trim(), options);
         }, this);
     },
     toJSON: function (options) {

@@ -67,7 +67,7 @@ describe('Export\'s ExtendedFormView', function () {
         describe('should render encryption hint', () => {
 
             it('when jrs is not on aws', () => {
-                const hint = $.trim($('.jr-jEncryptionHint').text());
+                const hint = String($('.jr-jEncryptionHint').text() || '').trim();
 
                 expect(hint).toEqual('encryption hint');
             });
@@ -79,7 +79,7 @@ describe('Export\'s ExtendedFormView', function () {
 
                 renderExportView();
 
-                const hint = $.trim($('.jr-jEncryptionHint').text());
+                const hint = String($('.jr-jEncryptionHint').text() || '').trim();
 
                 expect(hint).toEqual('encryption hint aws');
 
@@ -93,7 +93,7 @@ describe('Export\'s ExtendedFormView', function () {
 
                 renderExportView();
 
-                const hint = $.trim($('.jr-jEncryptionHint').text());
+                const hint = String($('.jr-jEncryptionHint').text() || '').trim();
 
                 expect(hint).toEqual('encryption hint aws');
 

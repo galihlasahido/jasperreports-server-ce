@@ -3,6 +3,10 @@
  * Licensed pursuant to commercial TIBCO End User License Agreement.
  */
 
+// Harus pertama: memulihkan API jQuery yang dihapus di v4 untuk plugin
+// pihak ketiga yang dibekukan dan untuk pembantu tes
+// (jquery-simulate, jasmine-jquery).
+import "js-sdk/src/common/extension/jquery4VendorCompat";
 import "sinon";
 import "jasmine-sinon";
 import "jquery-simulate";

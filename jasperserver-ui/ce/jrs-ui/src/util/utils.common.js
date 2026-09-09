@@ -4918,13 +4918,13 @@ var ValidationModule = {
     methods: {
         //make sure field is not empty and contains not only space characters
         mandatory: function (value, messages) {
-            if (!jQuery.trim(value)) {
+            if (!String(value || '').trim()) {
                 return this._getMessage('mandatory', messages);
             }
             return null;
         },
         minMax: function (value, messages, options) {
-            var val = jQuery.trim(value);
+            var val = String(value || '').trim();
             if (!val) {
                 return null;    //don't validate if no value given
             }

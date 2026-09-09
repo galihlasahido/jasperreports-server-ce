@@ -21,6 +21,9 @@
 
 import bundleLoader from '../i18n/bundleLoader';
 import extendRequest from '../transport/requestExtension';
+// Harus sebelum ekstensi jQuery lain: memulihkan API yang dihapus di
+// jQuery 4 untuk plugin pihak ketiga yang dibekukan (lihat berkasnya).
+import 'js-sdk/src/common/extension/jquery4VendorCompat';
 import 'js-sdk/src/common/extension/jqueryExtension';
 import './prototypeExtension';
 import "js-sdk/src/common/extension/underscoreExtension";

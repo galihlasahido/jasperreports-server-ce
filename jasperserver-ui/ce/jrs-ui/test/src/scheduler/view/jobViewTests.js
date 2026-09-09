@@ -139,8 +139,8 @@ describe("Scheduler Job View", function() {
 
         jobView.render();
 
-        var lastRunDate = $.trim(jobView.$(".lastRanDate").first().text()),
-            nextRunDate = $.trim(jobView.$(".nextRunDate").first().text());
+        var lastRunDate = String(jobView.$(".lastRanDate").first().text() || '').trim(),
+            nextRunDate = String(jobView.$(".nextRunDate").first().text() || '').trim();
 
         expect(date.isoTimestampToLocalizedTimestampByTimezone).toHaveBeenCalledWith("2016-09-13T00:00:00+03:00");
         expect(date.isoTimestampToLocalizedTimestampByTimezone).toHaveBeenCalledWith("2016-09-14T00:00:00+03:00");

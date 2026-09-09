@@ -24,7 +24,6 @@
  * @version: $Id$
  */
 
-import $ from 'jquery';
 
 export default {
     isMozilla: function () {
@@ -34,7 +33,12 @@ export default {
         return (navigator.userAgent.toLowerCase().indexOf("firefox") !== -1);
     },
     isWebKitEngine: function () {
-        return ($.browser && $.browser.webkit);
+        // Dulu memakai $.browser.webkit. jQuery menghapus $.browser di 1.9
+        // (2013), jadi guard "$.browser &&" membuat fungsi ini selalu
+        // mengembalikan undefined sejak saat itu. Diganti dengan pemeriksaan
+        // userAgent, konsisten dengan metode lain di berkas ini.
+        var ua = navigator.userAgent.toLowerCase();
+        return ua.indexOf('applewebkit') !== -1;
     },
     isChrome: function () {
         return navigator.userAgent.toLowerCase().indexOf('chrome');

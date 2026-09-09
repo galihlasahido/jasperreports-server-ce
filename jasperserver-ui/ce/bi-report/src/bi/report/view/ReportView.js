@@ -210,7 +210,7 @@ export default Backbone.View.extend({
             if (elastic) {
 
                 if (showAdhocChartTitle) {
-                    this.highchartsReportTitle = $.trim($output.find("tbody tr td span").text());
+                    this.highchartsReportTitle = String($output.find("tbody tr td span").text() || '').trim();
                 }
 
                 $output = $output

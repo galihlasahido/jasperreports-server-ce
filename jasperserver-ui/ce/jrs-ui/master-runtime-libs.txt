@@ -8,8 +8,8 @@ backbone.wreqr 1.4.0
 dragdropextra 0.5.0-jasper.2
 iscroll 4.1.7-jasper-1
 jCryption 1.2.0
-jquery 3.7.1
-jquery-ui 1.13.2
+jquery 4.0.0
+jquery-ui 1.14.2
 jquery-ui-touch-punch 0.2.3
 jquery.selection 1.0.1
 jquery.urldecoder 1.0.0

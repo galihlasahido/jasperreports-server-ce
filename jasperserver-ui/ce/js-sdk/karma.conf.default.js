@@ -161,7 +161,11 @@ module.exports = {
     // - Opera (has to be installed with `npm install karma-opera-launcher`)
     // - Safari (only Mac; has to be installed with `npm install karma-safari-launcher`)
     // - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
-    browsers: ["ChromeHeadless"],
+    // Rocky Linux 10 aarch64 tidak punya paket Chromium dan Google tidak
+    // merilis Chrome untuk ARM64 Linux, jadi browser bisa dipilih lewat
+    // KARMA_BROWSER (mis. FirefoxHeadless). Default tetap ChromeHeadless
+    // supaya lingkungan yang sudah punya Chrome tidak berubah.
+    browsers: [process.env.KARMA_BROWSER || "ChromeHeadless"],
 
     // If browser does not capture in given timeout [ms], kill it
     captureTimeout: 60000,
@@ -175,6 +179,7 @@ module.exports = {
     plugins: [
         "karma-jasmine",
         "karma-chrome-launcher",
+        "karma-firefox-launcher",
         "karma-coverage",
         'karma-coverage-istanbul-reporter',
         "karma-junit-reporter",

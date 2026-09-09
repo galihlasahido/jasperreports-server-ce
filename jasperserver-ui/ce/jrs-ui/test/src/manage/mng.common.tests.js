@@ -636,11 +636,11 @@ describe('orgModule', function () {
         });
         it('can get assigned entities', function () {
             expect(orgModule.properties._assigned).toBeTruthy();
-            expect(jQuery.isArray(orgModule.properties._assigned)).toBeTruthy();
+            expect(Array.isArray(orgModule.properties._assigned)).toBeTruthy();
         });
         it('can get unassigned entities', function () {
             expect(orgModule.properties._unassigned).toBeTruthy();
-            expect(jQuery.isArray(orgModule.properties._unassigned)).toBeTruthy();
+            expect(Array.isArray(orgModule.properties._unassigned)).toBeTruthy();
         });
         it('can set assigned entities', function () {
             spyOn(orgModule.properties.assignedList, 'setItems');

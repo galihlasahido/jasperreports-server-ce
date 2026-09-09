@@ -77,7 +77,7 @@ export default DialogWithModelInputValidation.extend({
         if (type === 'checkbox' || type === 'radio') {
             value = target.is(':checked');
         } else {
-            value = $.trim(target.val());
+            value = String(target.val() || '').trim();
         }
         columns = this.model.get('columns');
         columns[fieldId][name] = value;

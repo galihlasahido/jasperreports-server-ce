@@ -515,13 +515,13 @@ jQuery.extend(Report, {
 
     },
     close:function(){
-        jQuery(window).unbind("beforeunload");
+        jQuery(window).off("beforeunload");
         let exitParams = Report.exitDialogTextParams(),
             options = exitParams?.options || {};
         confirmationExitDialogUtil.exitDialogBox && confirmationExitDialogUtil.exitDialogBox(options, false)
     },
     navigateBack:function(){
-        jQuery(window).unbind("beforeunload");
+        jQuery(window).off("beforeunload");
         let exitParams = Report.exitDialogTextParams(),
             options = exitParams?.options || {};
         confirmationExitDialogUtil.exitDialogBox && confirmationExitDialogUtil.exitDialogBox(options, true , Report.goBack)

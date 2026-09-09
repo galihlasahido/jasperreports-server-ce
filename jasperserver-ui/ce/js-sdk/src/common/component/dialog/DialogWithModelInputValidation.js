@@ -39,7 +39,7 @@ export default Dialog.extend({
     updateModelProperty: function (e) {
         var update = {}, target = $(e.target);
         if (target[0].tagName.toLowerCase() === 'input' && target.attr('type') === 'text' || target[0].tagName.toLowerCase() === 'select' && target.attr('multiple') !== 'true' || target[0].tagName.toLowerCase() === 'textarea') {
-            update[target.attr('name')] = $.trim(target.val());
+            update[target.attr('name')] = String(target.val() || '').trim();
         } else if (target[0].tagName.toLowerCase() === 'input' && target.attr('type') === 'checkbox') {
             update[target.attr('name')] = target.is(':checked');
         }

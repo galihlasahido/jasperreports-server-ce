@@ -266,7 +266,7 @@ actionModel.initActionModelData = function (scriptTag) {
     if (scriptTag === 'navigationActionModel') {
         actionModel.data = actionModelJson.JSON;
     } else {
-        actionModel.data = _.isString(scriptTag) ? jQuery.parseJSON(jQuery('#' + scriptTag).html()) : scriptTag;
+        actionModel.data = _.isString(scriptTag) ? JSON.parse(jQuery('#' + scriptTag).html()) : scriptTag;
     }
 };
 /*

@@ -155,7 +155,7 @@ export default Backbone.View.extend({
         var $targetEl = $(e.target),
             update = {},
             attr = $targetEl.attr("name"),
-            value = "checkbox" === $targetEl.attr("type") ? $targetEl.is(':checked') : $.trim($targetEl.val());
+            value = "checkbox" === $targetEl.attr("type") ? $targetEl.is(':checked') : String($targetEl.val() || '').trim();
 
         update[attr] = value;
 

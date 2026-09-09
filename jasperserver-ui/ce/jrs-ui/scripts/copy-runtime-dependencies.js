@@ -3,11 +3,15 @@ const fs = require("fs");
 const path = require("path");
 const runtimeLibsGenerateList = require("js-sdk/scripts/utils/runtimeLibsGenerateList");
 const getFafDependencies = require('js-sdk/scripts/utils/getFafDependencies');
+const {getFafModuleDir} = require('js-sdk/scripts/utils/fafModuleUtils');
 
 const cwd = process.cwd();
 
 const copyLibraryFolder = module.exports = function (library) {
-    const libraryFolder = path.dirname(require.resolve(`${library.name}/package.json`, {paths: [cwd]}));
+    // Lewat getFafModuleDir, bukan require.resolve langsung: paket dengan
+    // field "exports" (jquery 4 salah satunya) memblokir subpath
+    // ./package.json dan melempar ERR_PACKAGE_PATH_NOT_EXPORTED.
+    const libraryFolder = getFafModuleDir(library.name, cwd);
 
     const filesToCopy = library.patterns.reduce((acc, pattern) => {
         return acc.concat(glob.sync(pattern, {

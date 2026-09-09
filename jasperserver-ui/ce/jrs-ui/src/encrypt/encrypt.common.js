@@ -25,7 +25,7 @@ import JSEncrypter from 'js-sdk/src/common/util/encrypter';
 
 var self = this, $text1 = $('#text1'), $text2 = $('#text2');
 var submitEncrypt = function (event) {
-    if (!$.trim($text1.val())) {
+    if (!String($text1.val() || '').trim()) {
         return;
     }
     if (window.isEncryptionOn) {

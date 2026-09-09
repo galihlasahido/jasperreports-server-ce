@@ -86,7 +86,7 @@ var ScalableList = Backbone.View.extend({
         if (item.label === undefined) {
             item.label = item.value;
         }
-        item.label = $.trim(item.label);
+        item.label = String(item.label || '').trim();
     },
     _renderItems: function () {
         var bufferStart = this.model.get('bufferStartIndex');

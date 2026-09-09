@@ -698,7 +698,7 @@ var layoutModule = {
                 var title = jQuery('div.title', toMinimize).eq(0);
                 var vTitle = jQuery('div.vtitle', toMinimize);
                 var headerText = title.html();
-                var w = jQuery.trim(title.text()).length * 7;
+                var w = String(title.text() || '').trim().length * 7;
                 primaryPanel.style[thisAlignment] = '24px';
                 jQuery(toMinimize).addClass('minimized');
                 jQuery(toMinimize).removeClass('maximized');
@@ -710,7 +710,7 @@ var layoutModule = {
                         layoutModule.maximize(vTitle[0]);
                         evt.preventDefault();
                     });
-                    vTitle.html(jQuery.trim(headerText)).width(w + 24);
+                    vTitle.html(String(headerText || '').trim()).width(w + 24);
                 }
                 if (isIE7() || isIE8() || isIE9()) {
                     vTitle.css({

@@ -337,7 +337,7 @@ describe('TreeNode', function () {
             var nextId = rootNode.id + 1;
             expect(element.children.length).toEqual(1);
             expect(child.id).toEqual('node' + rootNode.id);
-            expect(jQuery.trim(jQuery(child).find('#node' + nextId + ' > p').text())).toEqual('Simple Name');
+            expect(String(jQuery(child).find('#node' + nextId + ' > p').text() || '').trim()).toEqual('Simple Name');
         });
         it('can be refreshed', function () {
             expect(rootNode.isParent()).toBeTruthy();

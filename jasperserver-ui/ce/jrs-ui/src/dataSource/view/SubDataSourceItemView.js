@@ -47,7 +47,7 @@ export default Backbone.View.extend({
     },
     updateDataSourceId: function (e) {
         var $targetEl = this.$('input[type=\'text\']'), valueObj = {};
-        valueObj['id'] = $.trim($targetEl.val());
+        valueObj['id'] = String($targetEl.val() || '').trim();
         this.model.set(valueObj);
         this.model.validate(valueObj);
         this._listItem.setValue(this.model.toJSON());

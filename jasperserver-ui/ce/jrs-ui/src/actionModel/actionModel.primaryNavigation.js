@@ -167,7 +167,7 @@ var primaryNavModule = {
         if (jQuery('#' + this.ACTION_MODEL_TAG)[0] === null) {
             return;
         }
-        actionModelJson.JSON = jQuery.parseJSON(!!jQuery('#' + this.ACTION_MODEL_TAG)[0] ? jQuery('#' + this.ACTION_MODEL_TAG)[0].text : '{}');
+        actionModelJson.JSON = JSON.parse(!!jQuery('#' + this.ACTION_MODEL_TAG)[0] ? jQuery('#' + this.ACTION_MODEL_TAG)[0].text : '{}');
         var re = /[A-Za-z]+[_]{1}[A-Za-z]+/;    //go through json and get keys. Keys == action model context == nav menu muttons
         //go through json and get keys. Keys == action model context == nav menu muttons
         for (navKey in actionModelJson.JSON) {
