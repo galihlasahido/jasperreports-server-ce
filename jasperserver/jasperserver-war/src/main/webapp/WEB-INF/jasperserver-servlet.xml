@@ -56,6 +56,15 @@
 
     <!-- Handler for URL Mapping in the JS Application -->
     <bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <!-- Spring 6.2 mengganti pencocokan URL bawaan handler mapping dari
+             AntPathMatcher ke PathPatternParser, yang hanya mengizinkan satu **
+             dan hanya di akhir pola. Pemetaan di sini memakai bentuk lama
+             seperti /**/flow.html dan /**/flowFile/** untuk URL beraksen tenant.
+             Menulis ulangnya berarti mengubah arti pencocokan URL - dan URL yang
+             sama dipakai aturan intercept-url di lapisan keamanan. Karena itu
+             parser baru dimatikan (null) supaya AntPathMatcher tetap dipakai dan
+             rutenya persis seperti sebelumnya. -->
+        <property name="patternParser"><null/></property>
         <property name="mappings">
             <ref bean="${bean.handlerMapping.mappings}"/>
         </property>
@@ -205,6 +214,8 @@
 	</bean>
 
     <bean id="logSettingsMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <!-- lihat catatan di bean handlerMapping -->
+        <property name="patternParser"><null/></property>
         <property name="mappings">
             <props>
                 <prop key="/log_settings.html">logSettingsController</prop>
@@ -263,7 +274,12 @@
         <webflow:flow-location-pattern value="/WEB-INF/flows/**/*Flow.xml" />
     </webflow:flow-registry>
 
-    <webflow:flow-builder-services id="flowBuilderServices" view-factory-creator="mvcViewFactoryCreator" expression-parser="expressionParser"/>
+    <!-- Spring Web Flow 3 membuang dukungan OGNL sepenuhnya; satu-satunya bahasa
+         ekspresi yang tersisa adalah SpEL, dan itulah default flow-builder-services
+         ketika expression-parser tidak disebutkan. Atribut dan bean
+         WebFlowOgnlExpressionParser karenanya dihapus. Ekspresi di berkas
+         *Flow.xml perlu diperiksa: sintaks OGNL dan SpEL tidak sepenuhnya sama. -->
+    <webflow:flow-builder-services id="flowBuilderServices" view-factory-creator="mvcViewFactoryCreator"/>
 
     <bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
         <property name="viewResolvers">
@@ -277,8 +293,6 @@
     <bean id="jsonFlowViewResolver" class="com.jaspersoft.jasperserver.war.webflow.JsonFlowViewResolver">
     	<property name="order" value="10"/>
     </bean>
-
-    <bean id="expressionParser" class="org.springframework.webflow.expression.WebFlowOgnlExpressionParser"/>
 
     <bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">
         <property name="flowExecutor"><ref bean="flowExecutor"/></property>

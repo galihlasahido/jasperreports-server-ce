@@ -59,6 +59,22 @@
         <param-value>/WEB-INF/log4j2.properties</param-value>
     </context-param>
 
+    <!--
+        SecurityContextHolder.setStrategyName(MODE_INHERITABLETHREADLOCAL)
+
+        HARUS didaftarkan sebelum ContextLoaderListener. Sampai Spring Security 5
+        setiap filter memanggil SecurityContextHolder.getContext() yang statis,
+        sehingga strategy boleh diganti kapan saja. Spring Security 6 mengubahnya:
+        tiap filter menyimpan referensi SecurityContextHolderStrategy saat dibuat.
+        Kalau konteks Spring dibangun lebih dulu, filter memegang strategy
+        ThreadLocal yang lama, sementara kode aplikasi membaca strategy
+        InheritableThreadLocal yang baru - dan selalu melihat Authentication null
+        meski rantai filter sudah meng-authorize permintaannya.
+    -->
+    <listener>
+        <listener-class>com.jaspersoft.jasperserver.war.util.SecurityContextHolderStrategyInitializer</listener-class>
+    </listener>
+
     <!-- listener to load the root application context -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -90,10 +106,6 @@
         <listener-class>com.jaspersoft.jasperserver.war.OlapSessionKiller</listener-class>
     </listener>
 
-    <!-- SecurityContextHolder.setStrategyName(MODE_INHERITABLETHREADLOCAL) -->
-    <listener>
-        <listener-class>com.jaspersoft.jasperserver.war.util.SecurityContextHolderStrategyInitializer</listener-class>
-    </listener>
 
     <listener>
         <display-name>Session mutex</display-name>

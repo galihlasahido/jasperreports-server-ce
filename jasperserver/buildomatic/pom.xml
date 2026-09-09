@@ -41,8 +41,8 @@
         <istack-commons-runtime.version>3.0.8</istack-commons-runtime.version>
         <xerces.version>2.12.1-sp1</xerces.version>
         <semver4j.version>3.1.0</semver4j.version>
-        <jackson.version>2.13.4</jackson.version>
-        <jackson-databind.version>2.13.4</jackson-databind.version>
+        <jackson.version>2.18.4</jackson.version>
+        <jackson-databind.version>2.18.4</jackson-databind.version>
 		<log4j.version>2.25.5</log4j.version>
         <js-crypto.version>3.1.2</js-crypto.version>
     </properties>

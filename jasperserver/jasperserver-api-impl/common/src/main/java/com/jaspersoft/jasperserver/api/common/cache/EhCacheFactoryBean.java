@@ -19,6 +19,7 @@ package com.jaspersoft.jasperserver.api.common.cache;
 
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.config.CacheConfiguration;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -27,15 +28,19 @@ import org.springframework.beans.factory.InitializingBean;
  * Pengganti com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean, yang dihapus
  * di Spring 6 bersama seluruh dukungan Ehcache 2.
  *
- * Konfigurasi di sini hanya memakai cacheManager dan cacheName; cache-nya
- * sendiri dideklarasikan di ehcache.xml. Kalau cacheName tidak diset, nama bean
- * yang dipakai — sama seperti perilaku Spring.
+ * Konfigurasi di sini memakai cacheManager, cacheName, dan untuk satu cache
+ * (inputControlCache) juga timeToIdleSeconds/timeToLiveSeconds. Cache yang sudah
+ * dideklarasikan di ehcache.xml dipakai apa adanya; yang belum dibuat di sini.
+ * Kalau cacheName tidak diset, nama bean yang dipakai — sama seperti perilaku
+ * Spring.
  */
 public class EhCacheFactoryBean implements FactoryBean<Ehcache>, InitializingBean, BeanNameAware {
 
     private CacheManager cacheManager;
     private String cacheName;
     private String beanName;
+    private Long timeToIdleSeconds;
+    private Long timeToLiveSeconds;
 
     private Ehcache cache;
 
@@ -45,6 +50,16 @@ public class EhCacheFactoryBean implements FactoryBean<Ehcache>, InitializingBea
 
     public void setCacheName(String cacheName) {
         this.cacheName = cacheName;
+    }
+
+    /** Berapa lama entri boleh menganggur sebelum kedaluwarsa, dalam detik. */
+    public void setTimeToIdleSeconds(long timeToIdleSeconds) {
+        this.timeToIdleSeconds = timeToIdleSeconds;
+    }
+
+    /** Umur maksimum sebuah entri, dalam detik. */
+    public void setTimeToLiveSeconds(long timeToLiveSeconds) {
+        this.timeToLiveSeconds = timeToLiveSeconds;
     }
 
     @Override
@@ -64,6 +79,19 @@ public class EhCacheFactoryBean implements FactoryBean<Ehcache>, InitializingBea
             this.cacheManager.addCache(name);
         }
         this.cache = this.cacheManager.getEhcache(name);
+
+        // Ehcache mengizinkan kedua nilai ini diubah saat berjalan, jadi
+        // penerapannya sama baik cache-nya baru dibuat di atas maupun sudah
+        // dideklarasikan di ehcache.xml.
+        if (this.timeToIdleSeconds != null || this.timeToLiveSeconds != null) {
+            CacheConfiguration config = this.cache.getCacheConfiguration();
+            if (this.timeToIdleSeconds != null) {
+                config.setTimeToIdleSeconds(this.timeToIdleSeconds);
+            }
+            if (this.timeToLiveSeconds != null) {
+                config.setTimeToLiveSeconds(this.timeToLiveSeconds);
+            }
+        }
     }
 
     @Override

@@ -352,6 +352,13 @@
           <configuration>
             <source>21</source>
             <target>21</target>
+            <!-- Spring 6.1 menghapus LocalVariableTableParameterNameDiscoverer,
+                 satu-satunya cara Spring membaca nama parameter dari tabel debug.
+                 Sekarang nama parameter hanya ada kalau dikompilasi dengan
+                 -parameters. Tanpa itu, penyelesaian @Autowired berdasarkan nama
+                 tidak lagi bekerja dan setiap titik injeksi dengan lebih dari
+                 satu kandidat gagal, mis. MessageSource yang punya tiga bean. -->
+            <parameters>true</parameters>
             <forceJavacCompilerUse>true</forceJavacCompilerUse>
           </configuration>
         </plugin>
@@ -554,6 +561,8 @@
             <configuration>
                 <source>21</source>
                 <target>21</target>
+                <!-- lihat catatan di pluginManagement -->
+                <parameters>true</parameters>
             </configuration>
         </plugin>
     </plugins>
@@ -1643,8 +1652,12 @@
     <ant.version>1.10.15</ant.version>
     <hibernate.commons.annotations.version>5.1.2.Final</hibernate.commons.annotations.version> <!-- matches hiberante.tools version 5.4.2 -->
     <guava.version>32.1.3-jre</guava.version>
-    <jackson.version>2.13.5</jackson.version>
-    <jackson.databind.version>2.13.5</jackson.databind.version>    <commons.beanutils.version>1.11.0</commons.beanutils.version>
+    <!-- Spring 6.2 memakai com.fasterxml.jackson.databind.cfg.DatatypeFeature,
+         yang baru ada sejak Jackson 2.15; dengan 2.13 konverter pesan HTTP
+         Spring gagal dimuat (NoClassDefFoundError). -->
+    <jackson.version>2.18.4</jackson.version>
+    <jackson.databind.version>2.18.4</jackson.databind.version>
+    <commons.beanutils.version>1.11.0</commons.beanutils.version>
     <activemq.version>5.16.7</activemq.version>
     <js-crypto.version>3.1.2</js-crypto.version>
     <commons-codec.version>1.10</commons-codec.version>

@@ -67,6 +67,17 @@
             <artifactId>jakarta.annotation-api</artifactId>
             <version>2.1.1</version>
         </dependency>
+        <!-- javax.activation, bagian dari pulau javax Teiid: rantai kelasnya
+             (WorkManager -> jakarta/javax mail & activation) memakai
+             javax.activation.DataSource. Dulu ikut sebagai activation-1.1
+             transitif; setelah lapisan surel pindah ke jakarta.mail +
+             angus-mail, jar itu hilang dari WAR dan Teiid gagal dimuat dengan
+             NoClassDefFoundError: javax/activation/DataSource. -->
+        <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>javax.activation</artifactId>
+            <version>1.2.0</version>
+        </dependency>
         <dependency>
             <!-- JCA (javax.resource). Dipakai kode integrasi Teiid
                  (WorkManager, ConnectionFactory, XATerminator). Teiid 9.1.1 dan

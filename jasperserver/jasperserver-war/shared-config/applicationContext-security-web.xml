@@ -27,7 +27,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
        http://www.springframework.org/schema/security
-       http://www.springframework.org/schema/security/spring-security-5.7.xsd
+       http://www.springframework.org/schema/security/spring-security-6.5.xsd
        http://www.springframework.org/schema/util
        http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 
@@ -44,10 +44,37 @@
     NOTE: This filter chain is ONLY for authentication and authorization.  Other filters should go into web.xml or another filter proxy chain.
     -->
 
+
+    <!--
+        Spring Security 6 memilih MvcRequestMatcher untuk atribut pattern kalau
+        Spring MVC ada di classpath, dan matcher itu menuntut bean
+        mvcHandlerMappingIntrospector di konteks yang sama. Rantai filter ini
+        hidup di konteks root (ContextLoaderListener), sedangkan Spring MVC ada
+        di konteks anak DispatcherServlet, sehingga bean itu tidak akan pernah
+        terlihat. Mendaftarkannya di konteks root pun keliru: tidak ada handler
+        mapping untuk diintrospeksi, dan pencocokan URL - yang di sini bersifat
+        keamanan - bisa diam-diam berubah arti. Karena itu matcher-nya
+        dinyatakan eksplisit sebagai Ant, persis seperti perilaku sebelumnya dan
+        sama dengan request-matcher="ant" di filter-security-metadata-source
+        di bawah.
+    -->
+    <bean id="xmlaChainMatcher" class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+        <constructor-arg value="/xmla"/>
+    </bean>
+    <bean id="servicesChainMatcher" class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+        <constructor-arg value="/services/**"/>
+    </bean>
+    <bean id="restV2ChainMatcher" class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+        <constructor-arg value="/rest_v2/**"/>
+    </bean>
+    <bean id="defaultChainMatcher" class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+        <constructor-arg value="/**"/>
+    </bean>
+
     <bean id="authenticationAuthoirizationFilterChainProxy" class="org.springframework.security.web.FilterChainProxy">
         <constructor-arg index="0">
             <list>
-                <security:filter-chain pattern="/xmla" filters="
+                <security:filter-chain request-matcher-ref="xmlaChainMatcher" filters="
                 	httpSessionContextIntegrationFilter,
                 	${bean.loggingFilter},
                 	${bean.basicProcessingFilter},
@@ -55,7 +82,7 @@
                 	anonymousProcessingFilter,
                 	basicAuthExceptionTranslationFilter,
                 	filterInvocationInterceptor"/>
-                <security:filter-chain pattern="/services/**" filters="
+                <security:filter-chain request-matcher-ref="servicesChainMatcher" filters="
                 	httpSessionContextIntegrationFilter,
                 	${bean.loggingFilter},
                 	delegatingCASSingleSignOutFilter,
@@ -67,7 +94,7 @@
                 	anonymousProcessingFilter,
                 	wsBasicAuthExceptionTranslationFilter,
                 	filterInvocationInterceptor"/>
-                <security:filter-chain pattern="/rest_v2/**" filters="
+                <security:filter-chain request-matcher-ref="restV2ChainMatcher" filters="
                 	httpSessionContextIntegrationFilter,
                 	encryptionFilter,
                 	delegatingCASSingleSignOutFilter,
@@ -89,7 +116,7 @@
                 	filterInvocationInterceptor,
                 	${bean.jrioForwardingFilter},
                     #{'${scalableQueryEngine.enabled}' &amp;&amp; '${bean.adhocworkerForwardingFilter}'=='adhocworkerForwardingFilter' ? 'adhocworkerForwardingFilter' : 'nullFilter' }"/>
-                <security:filter-chain pattern="/**" filters="
+                <security:filter-chain request-matcher-ref="defaultChainMatcher" filters="
                 	httpSessionContextIntegrationFilter,
                 	encryptionFilter,
                 	delegatingCASSingleSignOutFilter,

@@ -196,8 +196,15 @@ Make sure you have compiled the jasperserver source code.
                         -configResources=file:blah/import-export/dir/applicationContext*.xml
                       -->
                     <pathelement location="${importExportConfig}"/>
-                    <!-- classpath jar for lib dir --> 
-                    <pathelement location="${iecpjar}"/>
+                    <!-- Jar-jar lib dipasang langsung, bukan lewat iecp.jar.
+                         iecp.jar hanya berisi manifest Class-Path; pemindaian
+                         paket Spring (classpath*:) tidak menelusurinya, sehingga
+                         <context:component-scan> di applicationContext.xml tidak
+                         menemukan apa pun. Spring 5 diam saja saat pemindaian
+                         kosong, Spring 6 menjadikannya kesalahan fatal:
+                         "class path resource [classpath*:com/.../impl/] cannot
+                         be resolved to URL". -->
+                    <fileset dir="${ieLib}" includes="*.jar" excludes="iecp.jar"/>
                     <fileset dir="${currentDbJDBCDir}" includes="${jdbcJar}"/>
                     <pathelement location="${currentConf}"/>
                 </classpath>
