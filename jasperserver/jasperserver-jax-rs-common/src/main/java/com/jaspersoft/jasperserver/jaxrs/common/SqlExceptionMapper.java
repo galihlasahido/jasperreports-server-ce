@@ -23,10 +23,10 @@ package com.jaspersoft.jasperserver.jaxrs.common;
 
 import com.jaspersoft.jasperserver.remote.exception.SqlErrorDescriptorBuilder;
 import java.sql.SQLException;
-import javax.annotation.Resource;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
+import jakarta.annotation.Resource;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
 import org.springframework.stereotype.Component;
 
 /**

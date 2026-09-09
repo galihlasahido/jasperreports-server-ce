@@ -20,7 +20,7 @@
  */
 package com.jaspersoft.jasperserver.api.engine.scheduling.domain.jaxb;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.SortedSet;
 import java.util.TreeSet;
 

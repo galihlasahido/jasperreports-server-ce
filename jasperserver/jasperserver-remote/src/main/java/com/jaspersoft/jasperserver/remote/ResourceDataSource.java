@@ -22,7 +22,7 @@ package com.jaspersoft.jasperserver.remote;
 
 import com.jaspersoft.jasperserver.api.metadata.common.domain.FileResourceData;
 import java.io.IOException;
-import javax.activation.DataSource;
+import jakarta.activation.DataSource;
 
 /**
  * This class is used to transfer file usimg MTOM and SOAP with Attachments

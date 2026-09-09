@@ -350,8 +350,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.1</version>
           <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
+            <source>21</source>
+            <target>21</target>
             <forceJavacCompilerUse>true</forceJavacCompilerUse>
           </configuration>
         </plugin>
@@ -470,7 +470,7 @@
             <ksp>${project.build.directory}/test-classes</ksp>
           </environmentVariables>
           <printSummary>false</printSummary>
-          <argLine>${argLine}</argLine>
+          <argLine>${argLine} ${surefire.addOpens}</argLine>
          </configuration>
       </plugin>
       <plugin>
@@ -552,13 +552,25 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-                <source>8</source>
-                <target>8</target>
+                <source>21</source>
+                <target>21</target>
             </configuration>
         </plugin>
     </plugins>
   </build>
   <dependencies>
+    <!-- commons-configuration2 2.15.0 beralih ke commons-beanutils2 (paket
+         org.apache.commons.beanutils2), sehingga commons-beanutils lama tidak
+         lagi datang transitif. Kode ini masih memakai
+         org.apache.commons.beanutils.*, jadi dideklarasikan eksplisit. -->
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -617,6 +629,14 @@
   </dependencies>
   <dependencyManagement>
     <dependencies>
+      <!-- jakarta.xml.bind-api hanya API. Tanpa implementasinya, setiap
+           JAXBContext.newInstance gagal dengan "Implementation of Jakarta XML
+           Binding-API has not been found on module path or classpath". -->
+      <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+        <version>${jaxb-runtime.version}</version>
+      </dependency>
       <!-- Override transitif: keduanya tidak dideklarasikan di modul mana pun,
            jadi versinya ditentukan induknya dan tertinggal jauh. -->
       <!-- CVE-2022-40152: parser crash (DoS). -->
@@ -824,7 +844,7 @@
       </dependency>
       <dependency>
         <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-core</artifactId>
+        <artifactId>hibernate-core-jakarta</artifactId>
         <version>${hibernate.core.version}</version>
         <exclusions>
           <exclusion>
@@ -883,7 +903,7 @@
       <dependency>
         <groupId>pentaho</groupId>
         <artifactId>mondrian</artifactId>
-        <version>3.6.7-JS-vfs1-1</version>
+        <version>3.6.7-JS-vfs1-1-jakarta</version>
         <exclusions>
           <!-- exclude XML APIs -->
           <exclusion>
@@ -899,8 +919,8 @@
             <artifactId>xmlParserAPIs</artifactId>
           </exclusion>
           <exclusion>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jsp-api</artifactId>
+            <groupId>jakarta.servlet.jsp</groupId>
+            <artifactId>jakarta.servlet.jsp-api</artifactId>
           </exclusion>
           <exclusion>
             <groupId>org.apache.ant</groupId>
@@ -1322,6 +1342,17 @@
         <groupId>org.jboss.teiid.connectors</groupId>
         <artifactId>translator-jdbc</artifactId>
         <version>${teiid.version}</version>
+        <exclusions>
+          <!-- Menarik hibernate-core 5.0.9 (javax) hanya untuk dialek SQL-nya.
+               Dua inti Hibernate di classpath membuat org.hibernate.query.Query
+               yang terpilih adalah turunan javax.persistence.Query, sehingga
+               getResultList() hilang saat kompilasi. Inti yang dipakai proyek
+               ini adalah hibernate-core-jakarta 5.6. -->
+          <exclusion>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.jboss.teiid.connectors</groupId>
@@ -1359,7 +1390,16 @@
       <dependency>
         <groupId>org.owasp</groupId>
         <artifactId>csrfguard</artifactId>
-        <version>3.1.0</version>
+        <version>4.5.0-jakarta</version>
+      </dependency>
+      <!-- CSRFGuard 4 memindahkan implementasi LogicalSessionExtractor ke modul
+           ekstensi, dan menjadikan parameter itu WAJIB. Tanpa modul ini CsrfGuard
+           menolak start dengan "Mandatory parameter
+           [org.owasp.csrfguard.LogicalSessionExtractor] is missing". -->
+      <dependency>
+        <groupId>org.owasp</groupId>
+        <artifactId>csrfguard-extension-session</artifactId>
+        <version>4.5.0-jakarta</version>
       </dependency>
       <dependency>
         <groupId>net.sf.ehcache</groupId>
@@ -1433,15 +1473,21 @@
         <artifactId>hibernate-commons-annotations</artifactId>
         <version>${hibernate.commons.annotations.version}</version>
       </dependency>
+      <!-- Byte Buddy menolak berkas kelas yang lebih baru dari versi yang
+           dikenalnya. 1.11.20 berhenti di Java 17, sehingga di JDK 21 Mockito
+           gagal membaca method default sebuah interface dan melaporkannya
+           sebagai abstract ("Cannot call abstract real method on java object").
+           1.18.13 adalah versi yang sama dengan yang dipatok
+           hibernate-enhance-maven-plugin. -->
       <dependency>
         <groupId>net.bytebuddy</groupId>
         <artifactId>byte-buddy</artifactId>
-        <version>1.11.20</version>
+        <version>${byte-buddy.version}</version>
       </dependency>
       <dependency>
         <groupId>net.bytebuddy</groupId>
         <artifactId>byte-buddy-agent</artifactId>
-        <version>1.11.20</version>
+        <version>${byte-buddy.version}</version>
       </dependency>
       <dependency>
         <groupId>org.mockito</groupId>
@@ -1512,30 +1558,56 @@
   </distributionManagement>
 
   <properties>
-    <jersey.version>2.39</jersey.version>
-    <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+    <jersey.version>3.1.12</jersey.version>
+    <javax.servlet-api.version>6.0.0</javax.servlet-api.version>
     <jpivot-groupId>jaspersoft.ji-pro.ji-jpivot-ui</jpivot-groupId>
     <connector-version>${project.version}</connector-version>
     <jpivot-artifactId>ji-jpivot</jpivot-artifactId>
-    <jpivot-version>6.1.1</jpivot-version>
+    <!-- ji-jpivot dan ji-wcf adalah fork Jaspersoft dari server yang sudah mati,
+         dan kelasnya (com.tonbeller.jpivot.*) dipakai langsung oleh kode kita.
+         Karena bentrokan tipenya terjadi saat kompilasi, varian -jakarta hasil
+         transformasi harus sudah terpasang di repositori Maven lokal sebelum
+         build. Lihat vm/jakarta-transform.sh. -->
+    <jpivot-version>6.1.1-jakarta</jpivot-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <my.build.directory>target</my.build.directory>
-    <spring.version>5.3.39</spring.version>
-    <jms-api.version>2.0.1</jms-api.version>
-    <spring.security.version>5.7.13</spring.security.version>
+    <spring.version>6.2.19</spring.version>
+    <jms-api.version>3.1.0</jms-api.version>
+    <spring.security.version>6.5.11</spring.security.version>
     <aws-java-sdk.version>1.12.797</aws-java-sdk.version>
     <teiid.version>9.1.1</teiid.version>
-    <validation.api.version>1.1.0.Final</validation.api.version>
-    <jasperreports.version>6.20.3</jasperreports.version>
+    <validation.api.version>3.0.2</validation.api.version>
+    <!-- JasperReports 6.20.3 hasil transformasi ke namespace Jakarta oleh
+         Apache Tomcat jakartaee-migration; lihat vm/jakarta-transform.sh.
+         JasperReports 7 sempat dicoba dan ditinggalkan: ia menghapus seluruh
+         lapisan viewer interaktifnya (net.sf.jasperreports.web.util.WebUtil,
+         WebReportContext, web.actions.*, web.commands.* seperti CommandStack
+         dan SaveZoomCommand, RequirejsModuleMapping, DefaultWebResourceHandler),
+         yang dipakai 11 berkas di jasperserver-war-jar dan jasperserver-remote
+         untuk sortir, zoom dan penyajian sumber daya laporan. Memakainya berarti
+         membuang fitur, bukan memigrasi namespace. Jejak javax di 6.20.3 sempit
+         dan seluruhnya tercakup transformer: javax.servlet, javax.xml.soap dan
+         javax.persistence.
+         Artefak tambahan (fonts, chart-themes, custom-visualization, functions,
+         chart-customizers) tidak menyentuh javax sama sekali, jadi tetap 6.20.3
+         apa adanya - karena itu versinya dipisah dari jasperreports.ext.version. -->
+    <jasperreports.version>6.20.3-jakarta</jasperreports.version>
     <jasperreports.ext.version>6.20.3</jasperreports.ext.version>
-    <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
-    <hibernate.core.version>5.6.11.Final</hibernate.core.version>
-    <hibernate.tools.version>5.6.2.Final</hibernate.tools.version>
+    <hibernate.validator.version>8.0.5.Final</hibernate.validator.version>
+    <!-- hibernate-core-jakarta: build resmi Hibernate 5.6 di namespace Jakarta.
+         Hibernate 6 menghapus API org.hibernate.criterion yang dipakai 60 berkas
+         (589 referensi Criteria/Restrictions/Projections) di basis kode ini;
+         memakai varian Jakarta 5.6 memisahkan migrasi namespace dari penulisan
+         ulang lapisan persistensi. -->
+    <hibernate.core.version>5.6.15.Final</hibernate.core.version>
+    <hibernate.tools.version>5.6.15.Final</hibernate.tools.version>
     <ehcache.version>2.10.9.2</ehcache.version>
     <jboss.logging.version>3.4.1.Final</jboss.logging.version>
     <quartz.version>2.3.2</quartz.version>
     <junit.version>4.12</junit.version>
     <mockito-core.version>2.23.0</mockito-core.version>
+    <byte-buddy.version>1.18.13</byte-buddy.version>
+    <groovy.version>4.0.28</groovy.version>
     <maven.dependency.plugin.version>2.10</maven.dependency.plugin.version>
     <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
     <testng.version>6.8.21</testng.version>
@@ -1552,7 +1624,17 @@
          no compile-time or load-time weaving, so the upgrade is behaviour-neutral. -->
     <aspectj.version>1.9.22.1</aspectj.version>
     <antlr.version>2.7.7</antlr.version>
-    <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+    <!-- 0.8.11+ diperlukan untuk membaca kelas Java 17+; versi sebelumnya
+         (0.8.7) gagal dengan "Unsupported class file major version". -->
+    <jaxb-runtime.version>4.0.5</jaxb-runtime.version>
+    <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
+    <!-- JDK 9+ menutup akses refleksi ke paket internal. Tes yang memakai
+         refleksi (mis. Object.clone) gagal dengan 'module java.base does
+         not opens java.lang'. Daftar ini sama dengan yang dipakai runtime
+         Tomcat, ditambah java.util.regex yang hanya dibutuhkan tes (refleksi
+         ke internal Pattern), dan valid juga di JDK 11 sehingga tidak memutus
+         build lama. -->
+    <surefire.addOpens>--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.base/java.math=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/javax.crypto=ALL-UNNAMED --add-opens=java.base/java.security=ALL-UNNAMED --add-opens=java.sql/java.sql=ALL-UNNAMED --add-opens=java.desktop/java.awt=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED --add-opens=java.desktop/sun.awt=ALL-UNNAMED --add-opens=java.desktop/sun.font=ALL-UNNAMED --add-opens=java.naming/javax.naming=ALL-UNNAMED --add-opens=java.base/java.util.regex=ALL-UNNAMED</surefire.addOpens>
     <junit-platform-surefire-provider.version>1.3.2</junit-platform-surefire-provider.version>
     <junit-jupiter.version>5.5.0</junit-jupiter.version>
     <log4j.version>2.25.5</log4j.version>

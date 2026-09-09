@@ -45,7 +45,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import javax.validation.Validator;
+import jakarta.validation.Validator;
 import java.text.SimpleDateFormat;
 
 import static org.mockito.ArgumentMatchers.*;

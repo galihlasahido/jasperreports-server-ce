@@ -26,8 +26,8 @@ import com.jaspersoft.jasperserver.api.metadata.user.domain.TenantQualified;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.taglibs.authz.JspAuthorizeTag;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.Tag;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.tagext.Tag;
 
 public class TenantAwareAuthorizeTag extends JspAuthorizeTag {
 

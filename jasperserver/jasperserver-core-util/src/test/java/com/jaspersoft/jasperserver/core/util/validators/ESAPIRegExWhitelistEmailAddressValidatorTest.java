@@ -40,7 +40,7 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(locations={"classpath:context.xml"})
 public class ESAPIRegExWhitelistEmailAddressValidatorTest {
 
-    @javax.annotation.Resource(name="ESAPIRegExWhitelistPatternEmailAddressesValidator")
+    @jakarta.annotation.Resource(name="ESAPIRegExWhitelistPatternEmailAddressesValidator")
     private InputValidator<String> validator;
 
     @Test

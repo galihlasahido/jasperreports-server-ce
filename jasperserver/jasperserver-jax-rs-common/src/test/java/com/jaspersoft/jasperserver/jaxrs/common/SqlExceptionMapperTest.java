@@ -22,7 +22,7 @@ package com.jaspersoft.jasperserver.jaxrs.common;
 
 import com.jaspersoft.jasperserver.remote.exception.SqlErrorDescriptorBuilder;
 import org.testng.annotations.Test;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 import java.sql.SQLException;
 
 import static org.testng.Assert.assertEquals;

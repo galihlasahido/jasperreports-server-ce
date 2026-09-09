@@ -22,7 +22,7 @@
 
 <%@ page contentType="text/html; charset=utf-8" %>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="authz" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="js" uri="/WEB-INF/jasperserver.tld" %>
 

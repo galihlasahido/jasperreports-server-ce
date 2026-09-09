@@ -25,7 +25,7 @@ import com.jaspersoft.jasperserver.api.logging.service.LoggingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;

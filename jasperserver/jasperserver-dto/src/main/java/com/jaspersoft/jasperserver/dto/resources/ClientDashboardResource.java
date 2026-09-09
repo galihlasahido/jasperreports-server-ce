@@ -22,8 +22,8 @@ package com.jaspersoft.jasperserver.dto.resources;
 
 import com.jaspersoft.jasperserver.dto.common.DeepCloneable;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElements;
 
 import java.io.Serializable;
 

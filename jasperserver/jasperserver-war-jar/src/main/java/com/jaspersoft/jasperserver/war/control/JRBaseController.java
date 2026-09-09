@@ -33,7 +33,7 @@ import com.jaspersoft.jasperserver.war.common.JasperServerConst;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.support.WebContentGenerator;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

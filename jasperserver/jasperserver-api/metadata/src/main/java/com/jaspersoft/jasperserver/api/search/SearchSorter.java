@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.api.search;
 
 import com.jaspersoft.jasperserver.api.common.domain.ExecutionContext;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  */

@@ -21,10 +21,10 @@
 package com.jaspersoft.jasperserver.api.security.externalAuth.wrappers.jasig;
 
 import com.jaspersoft.jasperserver.api.JasperServerAPI;
-import org.jasig.cas.client.validation.Cas20ServiceTicketValidator;
+import org.apereo.cas.client.validation.Cas20ServiceTicketValidator;
 
 /**
- * Wrapper class for org.jasig.cas.client.validation.Cas20ServiceTicketValidator
+ * Wrapper class for org.apereo.cas.client.validation.Cas20ServiceTicketValidator
  * @author dlitvak
  * @version $Id$
  * @since 6.0

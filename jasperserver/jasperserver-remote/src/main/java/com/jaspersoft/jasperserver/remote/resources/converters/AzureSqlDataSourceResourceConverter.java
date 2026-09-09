@@ -20,7 +20,7 @@
  */
 package com.jaspersoft.jasperserver.remote.resources.converters;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import com.jaspersoft.jasperserver.api.common.domain.ExecutionContext;
 import org.springframework.stereotype.Service;

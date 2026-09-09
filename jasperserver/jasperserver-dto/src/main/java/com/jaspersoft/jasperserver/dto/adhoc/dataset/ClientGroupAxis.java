@@ -23,8 +23,8 @@ package com.jaspersoft.jasperserver.dto.adhoc.dataset;
 
 import com.jaspersoft.jasperserver.dto.common.DeepCloneable;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

@@ -24,7 +24,7 @@ package com.jaspersoft.jasperserver.jaxrs.common;
 import com.jaspersoft.jasperserver.remote.exception.ResourceCorruptedException;
 import org.testng.annotations.Test;
 
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;

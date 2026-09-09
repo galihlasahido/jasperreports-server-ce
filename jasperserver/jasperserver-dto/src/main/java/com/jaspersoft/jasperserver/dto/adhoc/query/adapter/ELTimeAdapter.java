@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.dto.adhoc.query.adapter;
 import com.jaspersoft.jasperserver.dto.adhoc.query.el.adapters.DomELCommonSimpleDateFormats;
 import org.apache.commons.lang3.time.DateUtils;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 

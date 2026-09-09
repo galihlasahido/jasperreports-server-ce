@@ -38,7 +38,7 @@ Usage:
 
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="tx" uri="http://tiles.apache.org/tags-tiles-extras"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <tx:useAttribute id="containerID" name="containerID" classname="java.lang.String" ignore="true"/>
 <tx:useAttribute id="containerClass" name="containerClass" classname="java.lang.String" ignore="true"/>

@@ -25,7 +25,7 @@ import com.jaspersoft.jasperserver.api.engine.jasperreports.util.AwsProperties;
 import com.jaspersoft.jasperserver.api.engine.jasperreports.util.InstanceProductTypeResolver;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

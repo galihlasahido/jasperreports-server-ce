@@ -21,9 +21,9 @@
 
 package com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.common.cache;
 
-import javax.ws.rs.core.CacheControl;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.CacheControl;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
 
 /**
  * @author: Igor.Nesterenko

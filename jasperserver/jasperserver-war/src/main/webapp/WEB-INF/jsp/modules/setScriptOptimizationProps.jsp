@@ -20,7 +20,7 @@
   ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
   --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <c:set var="runtimeHash" value="${jsOptimizationProperties.runtimeHash}" scope="request"/>
 <c:set var="notOptimizedScriptsFolder" value="runtime/${jsOptimizationProperties.runtimeHash}/scripts" scope="request"/>

@@ -35,7 +35,7 @@ import net.sf.jasperreports.web.util.WebHtmlResourceHandler;
 
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;

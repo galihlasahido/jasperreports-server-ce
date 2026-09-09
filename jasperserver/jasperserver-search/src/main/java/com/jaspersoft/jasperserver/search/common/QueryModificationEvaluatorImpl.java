@@ -42,7 +42,7 @@ import java.util.List;
  * @see com.jaspersoft.jasperserver.api.search.QueryModificationEvaluator;
  */
 public class QueryModificationEvaluatorImpl implements QueryModificationEvaluator {
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private FolderFilter folderFilter;
 
     /**

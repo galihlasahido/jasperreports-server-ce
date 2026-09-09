@@ -23,19 +23,19 @@ package com.jaspersoft.jasperserver.war.common;
 import java.io.IOException;
 import java.util.Iterator;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.ServletContext;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletContext;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 //import org.springframework.web.multipart.cos.CosMultipartResolver;
 
 /**
@@ -50,7 +50,11 @@ public class UploadMultipartFilter implements Filter{
 	                    
 	      HttpServletRequest hRequest = (HttpServletRequest)request;
 	      //Check whether we're dealing with a multipart request
-	      MultipartResolver resolver= new CommonsMultipartResolver();
+	      // Spring 6 menghapus CommonsMultipartResolver bersama dukungan
+	      // Commons FileUpload. Penggantinya memakai jakarta.servlet.http.Part
+	      // bawaan kontainer; pemakaian di sini hanya isMultipart() dan
+	      // resolveMultipart(), yang perilakunya sama.
+	      MultipartResolver resolver= new StandardServletMultipartResolver();
               
 	      // Giulio: If the getContentLength is -1, avoid to consider this
               // message like a multipart request

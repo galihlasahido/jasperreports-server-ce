@@ -23,8 +23,8 @@ package com.jaspersoft.jasperserver.dto.adhoc.query.el.literal;
 import com.jaspersoft.jasperserver.dto.adhoc.query.el.ClientLiteral;
 import com.jaspersoft.jasperserver.dto.adhoc.query.el.ast.ClientELVisitor;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  * @author Grant Bacon <gbacon@tibco.com>

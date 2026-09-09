@@ -78,21 +78,21 @@ import java.util.Map;
 @Service
 public class ReportExecutorImpl implements ReportExecutor {
     private final static Log log = LogFactory.getLog(ReportExecutorImpl.class);
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private AuditHelper auditHelper;
-    @javax.annotation.Resource(name = "engineService")
+    @jakarta.annotation.Resource(name = "engineService")
     private EngineService engine;
-    @javax.annotation.Resource(name = "remoteServiceConfiguration")
+    @jakarta.annotation.Resource(name = "remoteServiceConfiguration")
     private ServicesConfiguration servicesConfiguration;
-    @javax.annotation.Resource(name = "engineServiceDataCacheProvider")
+    @jakarta.annotation.Resource(name = "engineServiceDataCacheProvider")
     private DataCacheProvider dataCacheProvider;
-    @javax.annotation.Resource(name = "dataSnapshotService")
+    @jakarta.annotation.Resource(name = "dataSnapshotService")
     private DataSnapshotService dataSnapshotService;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private JasperReportsContext jasperReportsRemoteContext;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private CachedRepositoryService cachedRepositoryService;
-    @javax.annotation.Resource(name = "concreteVirtualizerFactory")
+    @jakarta.annotation.Resource(name = "concreteVirtualizerFactory")
     private VirtualizerFactory virtualizerFactory;
 
     @Override

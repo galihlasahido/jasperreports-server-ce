@@ -20,7 +20,7 @@
  */
 package com.jaspersoft.jasperserver.dto.resources;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = ResourceMediaType.AZURE_SQL_DATA_SOURCE_CLIENT_TYPE)
 public class ClientAzureSqlDataSource extends AbstractClientJdbcDataSource<ClientAzureSqlDataSource> {

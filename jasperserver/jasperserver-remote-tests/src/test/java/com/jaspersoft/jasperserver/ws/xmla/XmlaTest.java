@@ -148,8 +148,8 @@ public class XmlaTest extends TestCase {
 	    throw new SecurityException("should have thrown a Bad credentials exception");
 	} catch (Throwable t) {
 	    // message should look like this:
-	    // javax.xml.soap.SOAPException: java.security.PrivilegedActionException:
-	    // javax.xml.soap.SOAPException: Bad response: (401Bad credentials"
+	    // jakarta.xml.soap.SOAPException: java.security.PrivilegedActionException:
+	    // jakarta.xml.soap.SOAPException: Bad response: (401Bad credentials"
 	    if (!t.getMessage().endsWith("Bad credentials")) {
 		//something other than we expected went wrong
 		throw new SecurityException("Unexpected error while testing credentials", t);

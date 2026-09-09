@@ -29,10 +29,10 @@ import org.glassfish.jersey.internal.ExceptionMapperFactory;
 import org.springframework.stereotype.Component;
 import org.glassfish.jersey.internal.inject.InjectionManager;
 
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
 
 @Provider
 @Component

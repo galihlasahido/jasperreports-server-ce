@@ -24,7 +24,7 @@ import com.jaspersoft.jasperserver.remote.exception.NoSuchTaskException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Set;
 
 /**

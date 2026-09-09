@@ -26,8 +26,8 @@ import com.jaspersoft.jasperserver.dto.adhoc.query.el.ClientLiteral;
 import com.jaspersoft.jasperserver.dto.adhoc.query.el.adapters.DomELCommonSimpleDateFormats;
 import com.jaspersoft.jasperserver.dto.adhoc.query.el.ast.ClientELVisitor;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;

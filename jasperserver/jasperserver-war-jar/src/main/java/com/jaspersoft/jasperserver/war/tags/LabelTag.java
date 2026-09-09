@@ -24,7 +24,7 @@ package com.jaspersoft.jasperserver.war.tags;
 import com.jaspersoft.jasperserver.api.engine.jasperreports.util.InputControlLabelResolver;
 import org.springframework.context.MessageSource;
 
-import javax.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspException;
 import java.util.HashMap;
 import java.util.Map;
 

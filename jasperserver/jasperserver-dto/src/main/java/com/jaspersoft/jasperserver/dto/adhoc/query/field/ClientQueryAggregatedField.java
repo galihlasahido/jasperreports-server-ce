@@ -43,9 +43,9 @@ import com.jaspersoft.jasperserver.dto.adhoc.query.validation.CheckExpressionTyp
 import com.jaspersoft.jasperserver.dto.adhoc.query.validation.NotEmpty;
 import com.jaspersoft.jasperserver.dto.common.DeepCloneable;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 import java.io.Serializable;
 

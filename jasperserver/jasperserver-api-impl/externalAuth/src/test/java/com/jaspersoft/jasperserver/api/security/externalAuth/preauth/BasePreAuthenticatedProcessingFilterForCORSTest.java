@@ -24,8 +24,8 @@ package com.jaspersoft.jasperserver.api.security.externalAuth.preauth;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -89,6 +89,15 @@ public class BasePreAuthenticatedProcessingFilterForCORSTest {
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
+        // Spring Security 6 memindahkan akses konteks di
+        // AbstractPreAuthenticatedProcessingFilter dari SecurityContextHolder
+        // statis ke SecurityContextHolderStrategy yang diambil saat filter
+        // dibuat. PowerMockito.mockStatic(SecurityContextHolder.class) karena
+        // itu tidak lagi mencegat penyimpanan Authentication hasil otentikasi:
+        // token dari tes pertama tertinggal di ThreadLocal yang sebenarnya dan
+        // terbawa ke tes kedua. Bersihkan lewat strategy asli sebelum kelasnya
+        // di-mock, supaya tiap tes mulai dari konteks kosong.
+        SecurityContextHolder.getContextHolderStrategy().clearContext();
         PowerMockito.mockStatic(SecurityContextHolder.class);
         setupRequest();
         setFilterAttributes();

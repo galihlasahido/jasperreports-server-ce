@@ -86,10 +86,10 @@ public class RepositorySearchServiceImpl implements RepositorySearchService, Dia
     protected Map<String, List<String>> filterOptionToResourceTypes;
     protected ByLabelSorter sorter;
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private TextFilter textFilter;
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private AccessTypeFilter accessTypeFilter;
 
     public ByLabelSorter getSorter() {

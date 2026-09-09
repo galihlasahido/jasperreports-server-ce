@@ -55,13 +55,13 @@ public class ResourceLookupContextStrategy implements
         ContextQueryExecutor<Object, ClientResourceLookup>, GenericTypeMetadataBuilder<ClientResourceLookup>,
         ContextParametrizedMetadataBuilder<ClientResourceLookup, Object> {
     private static final String INNER_UUID = "innerUuid";
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     private RepositoryService repository;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ResourceConverterProvider resourceConverterProvider;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ContextsManager contextsManager;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ProfileAttributesResolver profileAttributesResolver;
 
     protected ClientResource getFullClientResource(ClientResourceLookup resourceLookup){

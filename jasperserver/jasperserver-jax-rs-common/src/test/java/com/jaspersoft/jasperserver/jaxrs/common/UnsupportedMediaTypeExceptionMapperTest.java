@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.jaxrs.common;
 
 import com.jaspersoft.jasperserver.dto.common.ErrorDescriptor;
 import com.jaspersoft.jasperserver.remote.exception.UnsupportedMediaTypeException;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;

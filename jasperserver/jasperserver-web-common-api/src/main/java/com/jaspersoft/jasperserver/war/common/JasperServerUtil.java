@@ -25,7 +25,7 @@ import com.jaspersoft.jasperserver.api.common.util.StaticExecutionContextProvide
 import com.jaspersoft.jasperserver.api.metadata.common.domain.DataType;
 import com.jaspersoft.jasperserver.core.util.validators.ValidationUtil;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.regex.PatternSyntaxException;
 
 /**

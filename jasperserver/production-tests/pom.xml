@@ -114,14 +114,17 @@
             <version>2.5</version>
         </dependency>
         <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>javax.el-api</artifactId>
-            <version>2.2.4</version>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
+            <version>5.0.1</version>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>javax.el</artifactId>
-            <version>2.2.4</version>
+            <!-- Implementasi EL Glassfish mentok di 4.0.2; API-nya 5.0.1.
+                 Tomcat 10.1 menyediakan EL 5.0 sendiri, jadi implementasi ini
+                 hanya dipakai di luar kontainer. -->
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <version>4.0.2</version>
         </dependency>
         <!-- This artifact is a wrapper for a dynamically generated POM that contains the JDBC driver dependency.
              It replaces the dependency with property placeholders like "${repository.database.driver.groupId}"
@@ -141,21 +144,21 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.0</version>
+            <groupId>jakarta.servlet.jsp</groupId>
+            <artifactId>jakarta.servlet.jsp-api</artifactId>
+            <version>3.1.1</version>
             <scope>provided</scope>
             <optional>true</optional>
             <exclusions>
                 <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
+                    <groupId>jakarta.servlet</groupId>
+                    <artifactId>jakarta.servlet-api</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <version>${javax.servlet-api.version}</version>
         </dependency>
         <dependency>
@@ -446,7 +449,7 @@
                         <ks>${project.build.directory}/test-classes</ks>
                         <ksp>${project.build.directory}/test-classes</ksp>
                     </environmentVariables>
-                    <argLine>${argLine} </argLine>
+                    <argLine>${argLine} ${surefire.addOpens} </argLine>
 <!--                     <argLine>-Xms512m -Xmx1024m -XX:PermSize=32m -XX:MaxPermSize=128m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005</argLine>-->
                 </configuration>
                 <executions>

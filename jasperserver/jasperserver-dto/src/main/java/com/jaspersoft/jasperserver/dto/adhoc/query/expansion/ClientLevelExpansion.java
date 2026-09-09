@@ -22,8 +22,8 @@ package com.jaspersoft.jasperserver.dto.adhoc.query.expansion;
 
 import com.jaspersoft.jasperserver.dto.adhoc.query.ClientFieldReference;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 import java.io.Serializable;
 

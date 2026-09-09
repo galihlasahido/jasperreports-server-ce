@@ -24,8 +24,8 @@ package com.jaspersoft.jasperserver.api.metadata.common.util;
 import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 
-import javax.validation.ConstraintValidatorContext;
-import javax.validation.ConstraintViolation;
+import jakarta.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintViolation;
 import java.util.List;
 import java.util.Map;
 
@@ -104,5 +104,16 @@ public class ConstraintValidatorContextDecorator implements ConstraintValidatorC
     @Override
     public <T> T unwrap(Class<T> type) {
         return context.unwrap(type);
+    }
+
+    /**
+     * Bean Validation 2.0 menambahkan getClockProvider() ke
+     * ConstraintValidatorContext. Sebagai dekorator, metode ini meneruskan ke
+     * konteks yang dibungkus supaya validator berbasis waktu (@Past, @Future)
+     * memakai sumber waktu yang sama.
+     */
+    @Override
+    public jakarta.validation.ClockProvider getClockProvider() {
+        return context.getClockProvider();
     }
 }

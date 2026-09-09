@@ -43,7 +43,7 @@ import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.workflow.representation.
 import com.jaspersoft.jasperserver.remote.services.BatchRepositoryService;
 import com.jaspersoft.jasperserver.search.service.RepositorySearchCriteria;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

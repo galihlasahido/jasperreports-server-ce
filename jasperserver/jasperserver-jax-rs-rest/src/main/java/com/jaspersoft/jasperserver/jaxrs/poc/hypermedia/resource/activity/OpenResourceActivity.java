@@ -29,7 +29,7 @@ import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.common.provider.RequestI
 import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.common.representation.Link;
 import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.common.representation.embedded.EmbeddedElement;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;

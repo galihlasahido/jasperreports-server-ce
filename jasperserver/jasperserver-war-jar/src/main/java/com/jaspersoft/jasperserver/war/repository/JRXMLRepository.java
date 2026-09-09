@@ -51,7 +51,7 @@ public class JRXMLRepository {
 
     private final Log log = LogFactory.getLog(JRXMLRepository.class);
 
-    @javax.annotation.Resource(name = "${bean.repositoryService}")
+    @jakarta.annotation.Resource(name = "${bean.repositoryService}")
     private RepositoryService repository;
 
     /**

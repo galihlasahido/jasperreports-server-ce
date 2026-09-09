@@ -114,7 +114,7 @@
 
     <!-- SSO -  single sign out listener -->
     <listener>
-        <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+        <listener-class>org.apereo.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
     </listener>
 
     <!-- XSS jsp ELResolver -->
@@ -437,6 +437,17 @@
             <param-value>true</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
+        <!-- Servlet 3+ hanya mem-parsing badan multipart kalau servletnya
+             dideklarasikan multipart-config; sampai Spring 5 pekerjaan itu
+             dilakukan CommonsMultipartResolver sendiri, yang dihapus di Spring 6.
+             Angka di sini adalah pagar terluar dan sengaja disamakan dengan nilai
+             bawaan file.upload.max.size (200 MB); batas efektif yang bisa
+             diperketat lewat konfigurasi ada di JSStandardMultipartResolver. -->
+        <multipart-config>
+            <max-file-size>209715200</max-file-size>
+            <max-request-size>209715200</max-request-size>
+            <file-size-threshold>0</file-size-threshold>
+        </multipart-config>
     </servlet>
     <servlet-mapping>
         <servlet-name>jasperserver</servlet-name>
@@ -544,7 +555,7 @@
         <servlet-name>JerseyREST</servlet-name>
         <servlet-class>com.jaspersoft.jasperserver.jaxrs.JrsJerseyServletContainer</servlet-class>
         <init-param>
-            <param-name>javax.ws.rs.Application</param-name>
+            <param-name>jakarta.ws.rs.Application</param-name>
             <param-value>com.jaspersoft.jasperserver.jaxrs.RestSpringApplication</param-value>
         </init-param>
         <init-param>
@@ -557,14 +568,14 @@
                 com.jaspersoft.ji.adhoc_engine.rest
 
                 <!-- Jackson 2.x JAX-RS @Providers -->
-                <!--com.fasterxml.jackson.jaxrs.json-->
+                <!--com.fasterxml.jackson.jakarta.rs.json-->
             </param-value>
         </init-param>
         <init-param>
             <param-name>com.sun.jersey.config.property.classname</param-name>
             <param-value>
-                class com.fasterxml.jackson.jaxrs.xml.JacksonXMLProvider,
-                class com.fasterxml.jackson.jaxrs.xml.JacksonJaxbXMLProvider
+                class com.fasterxml.jackson.jakarta.rs.xml.JacksonXMLProvider,
+                class com.fasterxml.jackson.jakarta.rs.xml.JacksonXmlBindXMLProvider
             </param-value>
         </init-param>
         <!--Enable to log request/responces-->

@@ -51,7 +51,7 @@ public class ResourceAction extends BaseSearchAction {
     private ResourceService resourceService;
 
     public Event init(RequestContext context) throws Exception {
-        Assert.notNull(resourceService);
+        Assert.notNull(resourceService, "resourceService tidak boleh null");
 
         return success();
     }

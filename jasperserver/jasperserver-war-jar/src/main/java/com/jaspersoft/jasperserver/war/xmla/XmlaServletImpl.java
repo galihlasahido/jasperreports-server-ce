@@ -30,11 +30,11 @@ import mondrian.server.JsMondrianServerRegistry;
 import mondrian.server.Repository;
 import mondrian.spi.impl.IdentityCatalogLocator;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import mondrian.xmla.XmlaHandler;
 import mondrian.xmla.impl.MondrianXmlaServlet;

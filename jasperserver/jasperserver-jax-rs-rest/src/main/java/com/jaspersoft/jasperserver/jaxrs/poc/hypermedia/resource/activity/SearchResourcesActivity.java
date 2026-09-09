@@ -42,8 +42,8 @@ import com.jaspersoft.jasperserver.search.service.RepositorySearchCriteria;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.annotation.Resource;
-import javax.ws.rs.core.MediaType;
+import jakarta.annotation.Resource;
+import jakarta.ws.rs.core.MediaType;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;

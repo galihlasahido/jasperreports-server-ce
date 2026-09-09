@@ -90,19 +90,19 @@ public class BatchRepositoryServiceImpl implements BatchRepositoryService {
         FILE_TYPES = Collections.unmodifiableSet(fileTypes);
     }
 
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     private RepositoryService service;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private RepositorySearchService repositorySearchService;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private LookupResourceConverter lookupResourceConverter;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ResourceConverterProvider resourceConverterProvider;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private UriHardModifyProtectionChecker uriHardModifyProtectionChecker;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private SearchCriteriaFactory searchCriteriaFactory;
-    @javax.annotation.Resource(name = "restSearchModeSettingsResolver")
+    @jakarta.annotation.Resource(name = "restSearchModeSettingsResolver")
     private SearchModeSettingsResolver searchModeSettingsResolver;
 
 

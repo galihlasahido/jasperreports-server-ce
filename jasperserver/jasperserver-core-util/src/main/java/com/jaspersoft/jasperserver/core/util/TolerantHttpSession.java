@@ -20,9 +20,8 @@
  */
 package com.jaspersoft.jasperserver.core.util;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionContext;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -85,13 +84,15 @@ public class TolerantHttpSession implements HttpSession
         return httpSession.getMaxInactiveInterval();
     }
 
-    /**
-     * @deprecated
+    /*
+     * Jakarta Servlet 6.0 menghapus sekumpulan anggota HttpSession yang sudah
+     * usang sejak Servlet 2.1/2.2: getSessionContext() beserta tipe
+     * HttpSessionContext, lalu getValue, getValueNames, putValue dan
+     * removeValue. Tidak ada padanannya; pemanggil memakai getAttribute,
+     * getAttributeNames, setAttribute dan removeAttribute yang tetap ada.
+     * Kelas ini adalah dekorator HttpSession, jadi metode-metode itu ikut
+     * dihapus agar tetap mengimplementasikan antarmukanya.
      */
-    @Override
-    public HttpSessionContext getSessionContext() {
-        return httpSession.getSessionContext();
-    }
 
 
 
@@ -135,26 +136,12 @@ public class TolerantHttpSession implements HttpSession
         return missingAttributeNames;
     }
 
-    /**
-     * @deprecated
-     */
-    @Override
-    public Object getValue(String s) {
-       return this.getAttribute(s);
-    }
 
     @Override
     public Enumeration getAttributeNames() {
         return httpSession.getAttributeNames();
     }
 
-    /**
-     * @deprecated
-     */
-    @Override
-    public String[] getValueNames() {
-        return httpSession.getValueNames();
-    }
 
 
     /*
@@ -174,28 +161,12 @@ public class TolerantHttpSession implements HttpSession
 
     }
 
-    /**
-     * @deprecated
-     */
-    @Override
-    public void putValue(String name, Object obj) {
-        this.setAttribute(name, obj);
-
-    }
 
     @Override
     public void removeAttribute(String s) {
         httpSession.removeAttribute(s);
     }
 
-    /**
-     * @deprecated
-     */
-    @Override
-    public void removeValue(String s) {
-        httpSession.removeValue(s);
-
-    }
 
     @Override
     public void invalidate() {

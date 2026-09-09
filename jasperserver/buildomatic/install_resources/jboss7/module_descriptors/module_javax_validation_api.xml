@@ -21,7 +21,7 @@
   ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<module xmlns="urn:jboss:module:1.1" name="jaspersoft.javax.validation.api" slot="1.1">
+<module xmlns="urn:jboss:module:1.1" name="jaspersoft.jakarta.validation.api" slot="1.1">
     <resources>
         <resource-root path="validation-api-1.1.0.Final.jar"/>
     </resources>

@@ -26,7 +26,7 @@ import com.jaspersoft.jasperserver.api.engine.scheduling.domain.ReportJob;
 import com.jaspersoft.jasperserver.api.engine.scheduling.service.ReportSchedulingService;
 import com.jaspersoft.jasperserver.dto.connection.FtpConnection;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @author akasych

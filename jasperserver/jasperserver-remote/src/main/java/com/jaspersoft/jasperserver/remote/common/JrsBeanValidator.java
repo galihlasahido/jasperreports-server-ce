@@ -22,10 +22,10 @@ package com.jaspersoft.jasperserver.remote.common;
 
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import javax.validation.Validator;
+import jakarta.annotation.Resource;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Validator;
 import java.util.Set;
 
 /**

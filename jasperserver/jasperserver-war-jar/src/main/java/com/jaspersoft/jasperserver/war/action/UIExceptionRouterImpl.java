@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.war.action;
 import com.jaspersoft.jasperserver.api.JSShowOnlyErrorMessage;
 import com.jaspersoft.jasperserver.core.util.type.GenericTypeProcessorRegistry;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * Base implementation of {@link UIExceptionRouter}

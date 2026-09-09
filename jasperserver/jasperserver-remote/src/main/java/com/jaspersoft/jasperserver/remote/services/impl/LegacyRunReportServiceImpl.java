@@ -52,7 +52,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.activation.DataSource;
+import jakarta.activation.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
@@ -71,15 +71,15 @@ import static com.jaspersoft.jasperserver.api.logging.audit.domain.AuditEventTyp
 public class LegacyRunReportServiceImpl implements LegacyRunReportService, Serializable {
     private final static Log log = LogFactory.getLog(LegacyRunReportServiceImpl.class);
     private static final String KEY_JASPER_PRINT_RESOURCE = "jasperPrint";
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private AuditHelper auditHelper;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ReportExecutor reportExecutor;
     @Autowired
     private MessageSource messageSource;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ServicesUtils servicesUtils;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private InputControlsLogicService inputControlsLogicService;
 
     private final Map<String, Object> attributes = new HashMap<String, Object>();

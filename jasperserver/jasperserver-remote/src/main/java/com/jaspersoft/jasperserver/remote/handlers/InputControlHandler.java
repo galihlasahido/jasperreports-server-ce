@@ -51,7 +51,7 @@ import java.util.Map;
 @Service
 public class InputControlHandler extends RepositoryResourceHandler {
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private EngineService engineService;
 
     public void setEngineService(EngineService engineService) {

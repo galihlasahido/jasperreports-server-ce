@@ -35,7 +35,7 @@ import com.jaspersoft.jasperserver.search.mode.SearchMode;
 import com.jaspersoft.jasperserver.search.service.RepositorySearchCriteria;
 import org.hibernate.criterion.*;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
 

@@ -31,7 +31,7 @@ import com.jaspersoft.jasperserver.remote.resources.converters.BeanDataSourceRes
 import com.jaspersoft.jasperserver.remote.resources.converters.ToServerConversionOptions;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Map;
 
 /**

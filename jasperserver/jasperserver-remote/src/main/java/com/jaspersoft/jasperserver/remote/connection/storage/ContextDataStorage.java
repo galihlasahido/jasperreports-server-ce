@@ -25,7 +25,7 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.UUID;
 
 /**

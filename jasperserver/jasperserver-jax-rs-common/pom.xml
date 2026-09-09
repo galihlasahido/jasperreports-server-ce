@@ -96,7 +96,9 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.ext</groupId>
-            <artifactId>jersey-spring5</artifactId>
+            <!-- Jersey 3.1 (Jakarta) hanya merilis jembatan Spring-nya sebagai
+                 jersey-spring6; jersey-spring5 berhenti di Jersey 2.x. -->
+            <artifactId>jersey-spring6</artifactId>
             <version>${jersey.version}</version>
             <exclusions>
                 <!-- excluding the asm 7x version of the jar, else we can't support JDK 17+ -->
@@ -156,7 +158,7 @@
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <artifactId>jackson-module-jakarta-xmlbind-annotations</artifactId>
             <version>${jackson.version}</version>
             <exclusions>
                 <exclusion>
@@ -166,19 +168,19 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <groupId>com.fasterxml.jackson.jakarta.rs</groupId>
+            <artifactId>jackson-jakarta-rs-json-provider</artifactId>
             <version>${jackson.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate.validator.version}</version>
         </dependency>
         <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>javax.el-api</artifactId>
-            <version>2.2.4</version>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
+            <version>5.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
@@ -192,9 +194,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -210,8 +212,8 @@
         </dependency>
 		<dependency>
 			<groupId>io.swagger.core.v3</groupId>
-			<artifactId>swagger-jaxrs2</artifactId>
-			<version>2.0.5</version>
+			<artifactId>swagger-jaxrs2-jakarta</artifactId>
+			<version>2.2.55</version>
 			<scope>compile</scope>
 			<optional>true</optional>
 		</dependency>        
@@ -239,12 +241,57 @@
 		          <groupId>axis.axis-saaj</groupId>
 		          <artifactId>saaj-ri</artifactId>
 		        </exclusion>
+		        <!-- Teiid 9.1.1 mewarisi dependencyManagement dari teiid-parent,
+		             yang memakai koordinat build Red Hat (httpclient
+		             4.5.14.redhat-00009 -> commons-codec 1.11.0.redhat-00005).
+		             Koordinat itu hanya ada di repositori JBoss yang sudah mati.
+		             Reactor sendiri tidak terpengaruh karena root pom mengunci
+		             httpclient 4.5.13, tetapi classpath plugin diselesaikan
+		             terpisah dan ikut menariknya. Generator OpenAPI hanya membaca
+		             anotasi JAX-RS, jadi lapisan Teiid memang tidak diperlukan. -->
+		        <exclusion>
+		          <groupId>org.jboss.teiid</groupId>
+		          <artifactId>*</artifactId>
+		        </exclusion>
+		        <exclusion>
+		          <groupId>org.jboss.teiid.connectors</groupId>
+		          <artifactId>*</artifactId>
+		        </exclusion>
+		        <!-- Maven membaca descriptor setiap simpul SEBELUM memilih versi,
+		             jadi mematok versi saja tidak cukup: pembacaan pom
+		             commons-codec 1.11.0.redhat-00005 sudah menggagalkan koleksi
+		             lebih dulu. Simpulnya harus dipangkas, lalu versi yang dipakai
+		             dinyatakan langsung di bawah. -->
+		        <exclusion>
+		          <groupId>commons-codec</groupId>
+		          <artifactId>commons-codec</artifactId>
+		        </exclusion>
+		        <exclusion>
+		          <groupId>org.apache.httpcomponents</groupId>
+		          <artifactId>httpclient</artifactId>
+		        </exclusion>
 		      </exclusions>
 		    </dependency>
 		    <dependency>
-		      <groupId>javax.servlet</groupId>
-		      <artifactId>javax.servlet-api</artifactId>
-		      <version>3.1.0</version>
+		      <groupId>jakarta.servlet</groupId>
+		      <artifactId>jakarta.servlet-api</artifactId>
+		      <version>6.0.0</version>
+		    </dependency>
+		    <!-- Dinyatakan eksplisit supaya menang atas versi transitif. Rantai
+		         dependensi Teiid diatur teiid-parent, yang memakai koordinat build
+		         Red Hat (httpclient 4.5.14.redhat-00009 -> commons-codec
+		         1.11.0.redhat-00005); koordinat itu hanya ada di repositori JBoss
+		         yang sudah mati. Reactor tidak terpengaruh karena root pom
+		         menguncinya, tetapi classpath plugin diselesaikan terpisah. -->
+		    <dependency>
+		      <groupId>org.apache.httpcomponents</groupId>
+		      <artifactId>httpclient</artifactId>
+		      <version>4.5.13</version>
+		    </dependency>
+		    <dependency>
+		      <groupId>commons-codec</groupId>
+		      <artifactId>commons-codec</artifactId>
+		      <version>1.10</version>
 		    </dependency>
 		  </dependencies>
 		  <!-- END - Classpath workaround -->

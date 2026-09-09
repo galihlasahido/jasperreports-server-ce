@@ -20,7 +20,7 @@
   --%>
 <%@ page contentType="text/html; charset=utf-8" %>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="js" uri="/WEB-INF/jasperserver.tld" %>
 

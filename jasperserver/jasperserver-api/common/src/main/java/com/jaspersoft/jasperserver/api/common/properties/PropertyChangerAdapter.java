@@ -20,7 +20,7 @@
  */
 package com.jaspersoft.jasperserver.api.common.properties;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 

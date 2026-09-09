@@ -28,7 +28,7 @@ import com.jaspersoft.jasperserver.dto.resources.ClientFile;
 import com.jaspersoft.jasperserver.remote.exception.IllegalParameterValueException;
 import org.springframework.stereotype.Service;
 
-import javax.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.DatatypeConverter;
 import java.util.List;
 
 /**

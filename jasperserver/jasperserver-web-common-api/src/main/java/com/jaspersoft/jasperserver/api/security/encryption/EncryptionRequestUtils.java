@@ -23,8 +23,8 @@ package com.jaspersoft.jasperserver.api.security.encryption;
 import com.jaspersoft.jasperserver.api.security.SecurityConfiguration;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

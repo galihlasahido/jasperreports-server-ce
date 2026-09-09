@@ -20,8 +20,8 @@
  */
 package com.jaspersoft.jasperserver.war.util;
 
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionEvent;
+import jakarta.servlet.http.HttpSessionBindingEvent;
+import jakarta.servlet.http.HttpSessionEvent;
 
 import com.jaspersoft.jasperserver.war.util.LRUSessionObjectAccessor.ObjectSerie;
 

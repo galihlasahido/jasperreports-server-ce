@@ -68,8 +68,8 @@
             <package-name>com.sun.jersey.*</package-name>
             <package-name>com.sun.research.ws.wadl.*</package-name>
             <package-name>jersey.repackaged.com.google.common*</package-name>
-            <package-name>javax.ws.rs.*</package-name>
-            <package-name>javax.inject.*</package-name>
+            <package-name>jakarta.ws.rs.*</package-name>
+            <package-name>jakarta.inject.*</package-name>
             <package-name>org.jvnet.hk2.*</package-name>
             <package-name>org.jvnet.tiger_types.*</package-name>
             <package-name>org.glassfish.hk2.*</package-name>
@@ -83,13 +83,13 @@
             <package-name>com.sun.activation.*</package-name>
             <package-name>com.sun.istack.*</package-name>
             <package-name>com.sun.mail.*</package-name>
-            <package-name>javax.mail.*</package-name>
-            <package-name>javax.mail.event.*</package-name>
-            <package-name>javax.mail.internet.*</package-name>
-            <package-name>javax.mail.search.*</package-name>
-            <package-name>javax.mail.util.*</package-name>
-            <package-name>javax.transaction.*</package-name>
-            <package-name>javax.transaction.xa.*</package-name>
+            <package-name>jakarta.mail.*</package-name>
+            <package-name>jakarta.mail.event.*</package-name>
+            <package-name>jakarta.mail.internet.*</package-name>
+            <package-name>jakarta.mail.search.*</package-name>
+            <package-name>jakarta.mail.util.*</package-name>
+            <package-name>jakarta.transaction.*</package-name>
+            <package-name>jakarta.transaction.xa.*</package-name>
             <package-name>org.joda.convert.*</package-name>
             <package-name>org.joda.time.*</package-name>
             <package-name>org.mozilla.classfile.*</package-name>
@@ -106,7 +106,7 @@
                 org.hibernate.validator was upgraded hence force application package to be used.
             -->
             <package-name>org.hibernate.validator.*</package-name>
-            <package-name>javax.validation.*</package-name>
+            <package-name>jakarta.validation.*</package-name>
 
         </prefer-application-packages>
         <prefer-application-resources>
@@ -115,7 +115,7 @@
             <resource-name>META-INF/services/org.glassfish.jersey.server.spi.ComponentProvider</resource-name>
             <resource-name>META-INF/services/org.glassfish.jersey.internal.spi.ForcedAutoDiscoverable</resource-name>
             <resource-name>META-INF/services/org.glassfish.jersey.internal.spi.AutoDiscoverable</resource-name>
-            <resource-name>META-INF/services/javax.ws.rs.ext.RuntimeDelegate</resource-name>
+            <resource-name>META-INF/services/jakarta.ws.rs.ext.RuntimeDelegate</resource-name>
             <resource-name>org.glassfish.jersey.*</resource-name>
             <resource-name>jersey.repackaged.*</resource-name>
         </prefer-application-resources>

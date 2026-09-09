@@ -24,7 +24,7 @@ package com.jaspersoft.jasperserver.dto.adhoc.query.validation;
 import com.jaspersoft.jasperserver.dto.adhoc.query.el.ClientExpressionContainer;
 import org.junit.jupiter.api.Test;
 
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidatorContext;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

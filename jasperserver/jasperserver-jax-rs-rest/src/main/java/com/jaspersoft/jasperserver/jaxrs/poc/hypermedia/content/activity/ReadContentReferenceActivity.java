@@ -28,7 +28,7 @@ import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.content.data.ContentRefe
 import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.content.dto.ContentReference;
 import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.content.representation.ContentReferenceRepresentation;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @author: Igor.Nesterenko

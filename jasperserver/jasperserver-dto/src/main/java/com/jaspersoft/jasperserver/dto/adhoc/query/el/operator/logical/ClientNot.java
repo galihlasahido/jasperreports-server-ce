@@ -28,9 +28,9 @@ import com.jaspersoft.jasperserver.dto.adhoc.query.el.ast.ClientELVisitor;
 import com.jaspersoft.jasperserver.dto.adhoc.query.el.literal.ClientBoolean;
 import com.jaspersoft.jasperserver.dto.adhoc.query.el.operator.ClientOperation;
 
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.validation.constraints.Size;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
 

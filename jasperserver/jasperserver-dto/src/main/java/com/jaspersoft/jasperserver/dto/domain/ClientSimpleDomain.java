@@ -24,7 +24,7 @@ import com.jaspersoft.jasperserver.dto.common.DeepCloneable;
 import com.jaspersoft.jasperserver.dto.connection.metadata.TableMetadata;
 import com.jaspersoft.jasperserver.dto.resources.AbstractClientDataSourceHolder;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import static com.jaspersoft.jasperserver.dto.utils.ValueObjectUtils.copyOf;
 

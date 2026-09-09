@@ -22,8 +22,8 @@ package com.jaspersoft.jasperserver.war.tags;
 
 import com.jaspersoft.jasperserver.war.SessionXssNonceSetterFilter;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.tagext.TagSupport;
 
 /**
  * @author Stanislav Chubar

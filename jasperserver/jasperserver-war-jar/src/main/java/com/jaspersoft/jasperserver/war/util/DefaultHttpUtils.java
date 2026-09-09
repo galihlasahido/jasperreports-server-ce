@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.war.util;
 
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import com.jaspersoft.jasperserver.api.common.util.CharacterEncodingProvider;
 

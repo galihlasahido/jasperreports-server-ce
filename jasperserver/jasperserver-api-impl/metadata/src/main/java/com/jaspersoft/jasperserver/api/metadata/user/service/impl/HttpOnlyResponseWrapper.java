@@ -23,9 +23,9 @@ package com.jaspersoft.jasperserver.api.metadata.user.service.impl;
 
 import java.util.Locale;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponseWrapper;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;

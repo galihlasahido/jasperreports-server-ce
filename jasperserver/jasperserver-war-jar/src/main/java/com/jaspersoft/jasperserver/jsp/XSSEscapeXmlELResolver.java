@@ -27,9 +27,9 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.util.JavaScriptUtils;
 
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.servlet.jsp.JspContext;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.servlet.jsp.JspContext;
 import java.beans.FeatureDescriptor;
 import java.io.IOException;
 import java.io.InputStream;

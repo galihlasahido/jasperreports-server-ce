@@ -39,14 +39,14 @@ import com.jaspersoft.jasperserver.remote.exception.MandatoryParameterNotFoundEx
  */
 public abstract class DataSourceHolderResourceConverter<ResourceType extends Resource, ClientType extends AbstractClientDataSourceHolder<ClientType>>
         extends ResourceConverterImpl<ResourceType, ClientType> {
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected ResourceReferenceConverterProvider resourceReferenceConverterProvider;
 
     protected abstract void setDataSourceToResource(ResourceReference dataSourceReference, ResourceType resource);
 
     protected abstract ResourceReference getDataSourceFromResource(ResourceType resource);
 
-    @javax.annotation.Resource(name = "${bean.repositoryService}")
+    @jakarta.annotation.Resource(name = "${bean.repositoryService}")
     protected RepositoryService repositoryService;
 
     @Override

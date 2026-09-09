@@ -40,7 +40,7 @@ import static com.jaspersoft.jasperserver.remote.resources.validation.Validation
  * @version $Id$
  */
 public abstract class GenericResourceValidator<ResourceType extends Resource> implements ResourceValidator<ResourceType> {
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ProfileAttributesResolver profileAttributesResolver;
 
     @Override

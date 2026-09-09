@@ -56,13 +56,13 @@ import com.jaspersoft.jasperserver.remote.resources.converters.ResourceConverter
 @SuppressWarnings("rawtypes")
 @Service
 public class BaseClientExecutionValidator implements ClientValidator<AbstractClientExecution> {
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     private RepositoryService repositoryService;
 
-    @javax.annotation.Resource(name = "resourceConverterProvider")
+    @jakarta.annotation.Resource(name = "resourceConverterProvider")
     private ResourceConverterProvider resourceConverterProvider;
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private DefaultMessageApplier defaultMessageApplier;
 
     @Override

@@ -38,7 +38,7 @@ import com.jaspersoft.jasperserver.export.util.CommandOut;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @author Lucian Chirita (lucianc@users.sourceforge.net)

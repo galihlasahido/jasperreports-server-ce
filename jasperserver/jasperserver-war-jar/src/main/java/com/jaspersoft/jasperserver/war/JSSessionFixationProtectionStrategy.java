@@ -24,7 +24,7 @@ import com.jaspersoft.jasperserver.api.JasperServerAPI;
 import org.owasp.csrfguard.CsrfGuard;
 import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -46,7 +46,14 @@ public class JSSessionFixationProtectionStrategy extends SessionFixationProtecti
     @Override
     protected Map<String, Object> extractAttributes(HttpSession session) {
         Map<String, Object> attrMap = super.extractAttributes(session);
-        attrMap.remove(CsrfGuard.getInstance().getSessionKey());
+        // CSRFGuard 3 menyimpan token sebagai atribut HttpSession, dan namanya
+        // dibaca lewat CsrfGuard.getSessionKey(); atribut itu harus dibuang agar
+        // token pra-otentikasi tidak ikut pindah ke sesi yang sudah terotentikasi.
+        // CSRFGuard 4 menghapus metode itu karena tokennya tidak lagi disimpan di
+        // atribut sesi melainkan di TokenService, dikunci oleh sesi logis - yaitu
+        // id HttpSession. Begitu strategi ini mengganti sesi, id-nya berubah dan
+        // token lama tidak lagi bisa ditemukan, jadi perlindungan yang sama
+        // didapat tanpa ada yang perlu dibuang di sini.
         attrMap.remove(SessionXssNonceSetterFilter.XSS_NONCE_ATTRIB_NAME);
         return attrMap;
     }

@@ -20,7 +20,7 @@
  */
 package com.jaspersoft.jasperserver.remote.services.impl;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.TimeZone;
 
 /**

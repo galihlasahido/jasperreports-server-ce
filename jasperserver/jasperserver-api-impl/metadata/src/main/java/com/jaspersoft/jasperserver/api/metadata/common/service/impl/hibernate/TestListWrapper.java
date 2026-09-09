@@ -30,7 +30,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.core.io.ClassPathResource;
 
 import com.jaspersoft.jasperserver.api.metadata.common.domain.ListOfValuesItem;
@@ -101,7 +102,11 @@ public class TestListWrapper {
 		loadJdbcProps();
 
 		ClassPathResource resource = new ClassPathResource("viewService.xml");
-		XmlBeanFactory factory = new XmlBeanFactory(resource);
+		// XmlBeanFactory sudah dihapus dari Spring (usang sejak 3.1). Cara yang
+		// setara sekarang adalah DefaultListableBeanFactory yang diisi oleh
+		// XmlBeanDefinitionReader.
+		DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+		new XmlBeanDefinitionReader(factory).loadBeanDefinitions(resource);
 
 		PropertyPlaceholderConfigurer cfg = new PropertyPlaceholderConfigurer();
 		cfg.setSystemPropertiesModeName("SYSTEM_PROPERTIES_MODE_OVERRIDE");

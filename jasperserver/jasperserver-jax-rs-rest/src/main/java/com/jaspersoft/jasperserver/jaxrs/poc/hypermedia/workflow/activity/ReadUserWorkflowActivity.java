@@ -32,7 +32,7 @@ import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.workflow.representation.
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 

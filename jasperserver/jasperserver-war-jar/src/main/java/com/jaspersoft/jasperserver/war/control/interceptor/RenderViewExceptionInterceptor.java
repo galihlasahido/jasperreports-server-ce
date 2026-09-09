@@ -25,10 +25,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
 /**
@@ -36,7 +36,12 @@ import java.util.Locale;
  *
  * @author Yuriy Plakosh
  */
-public class RenderViewExceptionInterceptor extends HandlerInterceptorAdapter {
+/*
+ * Spring 6 menghapus HandlerInterceptorAdapter: sejak Spring 5 seluruh metode
+ * HandlerInterceptor punya implementasi default, sehingga kelas adapternya tidak
+ * lagi diperlukan. Yang di-override di sini hanya afterCompletion.
+ */
+public class RenderViewExceptionInterceptor implements HandlerInterceptor {
     protected final Log log = LogFactory.getLog(this.getClass());
 
     private MessageSource messageSource;

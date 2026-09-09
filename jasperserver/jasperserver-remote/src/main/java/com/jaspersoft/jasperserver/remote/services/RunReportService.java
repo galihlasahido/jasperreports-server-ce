@@ -27,7 +27,7 @@ import com.jaspersoft.jasperserver.api.engine.jasperreports.domain.impl.Paginati
 import com.jaspersoft.jasperserver.api.ErrorDescriptorException;
 import com.jaspersoft.jasperserver.remote.exception.ResourceNotFoundException;
 
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 import java.util.Map;
 import java.util.Set;
 

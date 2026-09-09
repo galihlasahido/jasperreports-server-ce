@@ -130,7 +130,7 @@ public class ParametersImpl implements Parameters {
 
 	@Override
 	public Parameters setParameterValue(String parameterName, String parameterValue) {
-		Assert.notNull(parameterName);
+		Assert.notNull(parameterName, "parameterName tidak boleh null");
 		params.put(parameterName, parameterValue);
 
 		return this;

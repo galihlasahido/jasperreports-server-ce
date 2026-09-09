@@ -20,9 +20,9 @@
  */
 package com.jaspersoft.jasperserver.jaxrs.report;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlValue;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

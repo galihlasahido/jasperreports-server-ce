@@ -26,9 +26,9 @@ import com.jaspersoft.jasperserver.dto.adhoc.query.el.operator.arithmetic.Client
 import com.jaspersoft.jasperserver.dto.common.ErrorDescriptor;
 import org.junit.jupiter.api.Test;
 
-import javax.validation.ConstraintValidatorContext;
-import javax.validation.ConstraintViolation;
-import javax.validation.Path;
+import jakarta.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Path;
 
 import static com.jaspersoft.jasperserver.dto.executions.QueryExecutionsErrorCode.EXPRESSION_REPRESENTATION_REQUIRED;
 import static org.junit.jupiter.api.Assertions.assertEquals;

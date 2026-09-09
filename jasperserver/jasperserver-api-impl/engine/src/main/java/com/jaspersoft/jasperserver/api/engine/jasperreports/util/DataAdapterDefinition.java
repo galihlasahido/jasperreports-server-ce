@@ -59,7 +59,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.beans.PropertyDescriptor;
 import java.util.*;
 

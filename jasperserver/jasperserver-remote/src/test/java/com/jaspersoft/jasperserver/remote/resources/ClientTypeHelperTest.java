@@ -23,8 +23,8 @@ package com.jaspersoft.jasperserver.remote.resources;
 import com.jaspersoft.jasperserver.api.metadata.common.domain.util.ToClientConverter;
 import org.testng.annotations.Test;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 import static org.junit.Assert.assertEquals;
 

@@ -34,7 +34,7 @@ Usage:
 
 <%@ taglib prefix="tx" uri="http://tiles.apache.org/tags-tiles-extras"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <tx:useAttribute id="pageHeaderClass" name="pageHeaderClass" classname="java.lang.String" ignore="true"/>
 <tx:useAttribute id="pageHeaderText" name="pageHeaderText" classname="java.lang.String" ignore="true"/>

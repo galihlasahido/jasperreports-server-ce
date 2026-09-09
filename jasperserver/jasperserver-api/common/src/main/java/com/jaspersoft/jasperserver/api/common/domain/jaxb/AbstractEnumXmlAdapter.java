@@ -20,7 +20,7 @@
  */
 package com.jaspersoft.jasperserver.api.common.domain.jaxb;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.Arrays;
 import java.util.List;
 

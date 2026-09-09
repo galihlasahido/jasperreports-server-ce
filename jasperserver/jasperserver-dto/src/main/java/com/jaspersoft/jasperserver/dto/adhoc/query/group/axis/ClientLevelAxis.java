@@ -25,11 +25,11 @@ import com.jaspersoft.jasperserver.dto.adhoc.query.expansion.ClientLevelExpansio
 import com.jaspersoft.jasperserver.dto.adhoc.query.expansion.ClientMemberExpansion;
 import com.jaspersoft.jasperserver.dto.adhoc.query.field.ClientQueryLevel;
 
-import javax.validation.Valid;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.validation.Valid;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
+import jakarta.xml.bind.annotation.XmlElements;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Collection;
 import java.util.List;
 

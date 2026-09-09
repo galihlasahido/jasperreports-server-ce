@@ -346,7 +346,10 @@
 
     <bean id="multipartRequestWrapperFilter" class="com.jaspersoft.jasperserver.war.MultipartRequestWrapperFilter">
         <property name="multipartResolver">
-            <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+            <!-- Spring 6 menghapus CommonsMultipartResolver; JSStandardMultipartResolver
+                 memakai parsing multipart bawaan kontainer sambil tetap menghormati
+                 file.upload.max.size. -->
+            <bean class="com.jaspersoft.jasperserver.war.JSStandardMultipartResolver">
                 <property name="maxUploadSize" value="${file.upload.max.size}" />
             </bean>
         </property>

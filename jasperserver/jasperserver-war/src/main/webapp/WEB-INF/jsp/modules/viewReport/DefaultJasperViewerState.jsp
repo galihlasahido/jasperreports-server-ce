@@ -25,9 +25,9 @@
  It fixes all pagination issues, exporters issues in all browsers including IE.
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="js" uri="/WEB-INF/jasperserver.tld" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <%@ page import="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.ReportUnit" %>
 <%@ page import="com.jaspersoft.jasperserver.war.action.ExporterConfigurationBean" %>

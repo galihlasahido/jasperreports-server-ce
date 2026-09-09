@@ -24,7 +24,7 @@ package com.jaspersoft.jasperserver.dto.job.adapters;
 import com.jaspersoft.jasperserver.dto.common.OutputFormat;
 import com.jaspersoft.jasperserver.dto.job.wrappers.ClientReportJobOutputFormatsWrapper;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.HashSet;
 import java.util.Set;
 

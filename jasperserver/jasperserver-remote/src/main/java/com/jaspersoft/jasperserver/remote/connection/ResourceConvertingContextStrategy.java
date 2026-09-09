@@ -55,7 +55,7 @@ public class ResourceConvertingContextStrategy implements GenericTypeContextStra
     private static final List<Class<?>> SUPPORTED_PROCESSING_CLASSES = (List) Arrays.asList(ClientDomain.class,
             ClientSemanticLayerDataSource.class, ClientReportUnit.class, ClientDomainTopic.class);
     public static final String CLIENT_TYPE_KEY = "clientType";
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ResourceConverterProvider resourceConverterProvider;
     @Override
     public Resource createContext(ExecutionContext ctx, ClientResource contextDescription, Map<String, Object> contextData) throws IllegalParameterValueException {

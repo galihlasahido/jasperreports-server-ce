@@ -78,22 +78,22 @@ public class SingleRepositoryServiceImpl implements SingleRepositoryService {
 
     private Pattern nameWithNumber = Pattern.compile("^.*_\\d+$", Pattern.CASE_INSENSITIVE);
 
-    @javax.annotation.Resource(name = "configurationBean")
+    @jakarta.annotation.Resource(name = "configurationBean")
     private RepositoryConfiguration configuration;
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private UriHardModifyProtectionChecker uriHardModifyProtectionChecker;
 
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     protected RepositoryService repositoryService;
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected Set<String> fileResourceTypes;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ResourceConverterProvider resourceConverterProvider;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private SearchCriteriaFactory searchCriteriaFactory;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private Map<String, CopyMoveOperationStrategy> copyMoveStrategies;
 
     private DefaultCopyMoveStrategy defaultCopyMoveStrategy = new DefaultCopyMoveStrategy();

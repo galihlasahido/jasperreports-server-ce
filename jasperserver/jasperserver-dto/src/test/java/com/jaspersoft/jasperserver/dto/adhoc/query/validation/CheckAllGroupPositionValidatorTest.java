@@ -26,9 +26,9 @@ import com.jaspersoft.jasperserver.dto.common.ErrorDescriptor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
-import javax.validation.ConstraintValidatorContext;
-import javax.validation.ConstraintViolation;
-import javax.validation.Path;
+import jakarta.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Path;
 import java.util.Arrays;
 import java.util.Collections;
 

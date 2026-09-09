@@ -68,29 +68,29 @@
     </util:map>
 </beans>
 <beans profile="jrs">
-    <bean id="contextsCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+    <bean id="contextsCache" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean">
         <property name="cacheManager" ref="cacheManager"/>
         <property name="cacheName">
             <value>connection.descriptions</value>
         </property>
     </bean>
 
-    <bean id="dashboardTasks" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+    <bean id="dashboardTasks" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean">
         <property name="cacheManager" ref="cacheManager"/>
         <property name="cacheName" value="dashboardTasks"/>
     </bean>
 
-    <bean id="dashboardResults" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+    <bean id="dashboardResults" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean">
         <property name="cacheManager" ref="cacheManager"/>
         <property name="cacheName" value="dashboardResults"/>
     </bean>
 
-    <bean id="dashboardProcesses" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+    <bean id="dashboardProcesses" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean">
         <property name="cacheManager" ref="cacheManager"/>
         <property name="cacheName" value="dashboardProcesses"/>
     </bean>
 
-    <bean id="dashboardIDToUsers" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+    <bean id="dashboardIDToUsers" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean">
         <property name="cacheManager" ref="cacheManager"/>
         <property name="cacheName" value="dashboardIDToUsers"/>
     </bean>

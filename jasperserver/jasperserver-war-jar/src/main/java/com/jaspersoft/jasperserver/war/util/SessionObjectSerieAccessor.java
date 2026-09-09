@@ -21,8 +21,8 @@
 
 package com.jaspersoft.jasperserver.war.util;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * @author Lucian Chirita (lucianc@users.sourceforge.net)

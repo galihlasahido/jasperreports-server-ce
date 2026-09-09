@@ -24,7 +24,7 @@ import com.jaspersoft.jasperserver.api.metadata.xml.domain.impl.OperationResult;
 import com.jaspersoft.jasperserver.remote.ServiceException;
 import net.sf.jasperreports.engine.JasperPrint;
 
-import javax.activation.DataSource;
+import jakarta.activation.DataSource;
 import java.util.Map;
 
 /**

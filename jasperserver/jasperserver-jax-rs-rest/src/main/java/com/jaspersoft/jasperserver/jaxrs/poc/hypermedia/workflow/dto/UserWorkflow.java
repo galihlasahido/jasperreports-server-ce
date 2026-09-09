@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.workflow.dto;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author Igor.Nesterenko

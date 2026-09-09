@@ -21,7 +21,7 @@
 
 package com.jaspersoft.jasperserver.dto.job;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 /**
  * <p/>
  * <p/>

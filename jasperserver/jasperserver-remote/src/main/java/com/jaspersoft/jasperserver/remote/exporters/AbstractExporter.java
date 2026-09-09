@@ -37,7 +37,7 @@ import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.export.ExporterInputItem;
 import net.sf.jasperreports.export.SimpleExporterInputItem;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.HashMap;

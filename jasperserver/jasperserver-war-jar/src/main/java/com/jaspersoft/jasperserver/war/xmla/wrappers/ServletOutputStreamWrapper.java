@@ -22,9 +22,9 @@ package com.jaspersoft.jasperserver.war.xmla.wrappers;
 
 import java.io.IOException;
 
-import javax.servlet.ServletInputStream;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.WriteListener;
+import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.WriteListener;
 
 public class ServletOutputStreamWrapper extends ServletOutputStream {
 

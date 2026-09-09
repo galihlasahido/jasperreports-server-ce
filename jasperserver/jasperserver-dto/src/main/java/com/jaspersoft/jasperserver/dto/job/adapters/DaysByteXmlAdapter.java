@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.dto.job.adapters;
 
 import com.jaspersoft.jasperserver.dto.job.wrappers.ClientDaysSortedSetWrapper;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.SortedSet;
 import java.util.TreeSet;
 

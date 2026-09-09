@@ -34,6 +34,50 @@
         <version>${buildArtifactVersionName}</version>
     </parent>
     <dependencies>
+        <!-- jakarta.inject-api: @Inject/@Named di InternalReportExecutorProducer.
+             Rantai dependensi Jakarta tidak lagi membawanya secara transitif. -->
+        <dependency>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <!-- jakarta.xml.soap-api: JSXmlaQueryExecuter meng-override
+             createQueryMessage() milik JRXmlaQueryExecuter, yang setelah
+             transformasi JasperReports 6.20.3 ke Jakarta mengembalikan
+             jakarta.xml.soap.SOAPMessage. Di pom JasperReports dependensi ini
+             optional, jadi tidak ikut transitif. saaj-impl adalah
+             implementasinya, dibutuhkan saat runtime untuk berbicara XMLA. -->
+        <dependency>
+            <groupId>jakarta.xml.soap</groupId>
+            <artifactId>jakarta.xml.soap-api</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.messaging.saaj</groupId>
+            <artifactId>saaj-impl</artifactId>
+            <version>3.0.4</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- jakarta.annotation-api: @PostConstruct/@Resource dipakai luas di modul
+             ini. Sebelumnya ikut transitif lewat jakarta.resource-api; setelah
+             subsistem Teiid dikembalikan ke javax.resource, dependensinya harus
+             dinyatakan sendiri. -->
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+        <dependency>
+            <!-- JCA (javax.resource). Dipakai kode integrasi Teiid
+                 (WorkManager, ConnectionFactory, XATerminator). Teiid 9.1.1 dan
+                 Bitronix BTM tidak punya penerus Jakarta, jadi subsistem virtual
+                 data source sengaja tetap di javax; lihat catatan di
+                 TeiidEmbeddedServer. Dinyatakan eksplisit karena dulu hanya ikut
+                 transitif lewat jar Teiid. -->
+            <groupId>javax.resource</groupId>
+            <artifactId>javax.resource-api</artifactId>
+            <version>1.7.1</version>
+        </dependency>
         <dependency>
           <groupId>com.sun.xml.ws</groupId>
           <artifactId>jaxws-ri</artifactId>
@@ -60,8 +104,8 @@
                     <artifactId>jakarta.mail-api</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>javax.xml.bind</groupId>
-                    <artifactId>jaxb-api</artifactId>
+                    <groupId>jakarta.xml.bind</groupId>
+                    <artifactId>jakarta.xml.bind-api</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>jakarta.xml.bind</groupId>
@@ -113,6 +157,15 @@
                     <groupId>com.sun.jersey</groupId>
                     <artifactId>jersey-json</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>jakarta.mail</groupId>
+                    <artifactId>jakarta.mail-api</artifactId>
+                </exclusion>
+                <!-- azure-core 0.7.0 membawa javax.mail:mail 1.4.5. Dulu tertutup
+                     oleh javax.mail:javax.mail 1.6.2 yang dipakai lapisan surel;
+                     setelah lapisan itu pindah ke jakarta.mail + angus-mail, jar
+                     lama ini tidak lagi dipakai siapa pun dan hanya menambah
+                     permukaan serangan di WEB-INF/lib. -->
                 <exclusion>
                     <groupId>javax.mail</groupId>
                     <artifactId>mail</artifactId>
@@ -349,7 +402,7 @@
 		<!--  ********************************  -->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
+            <artifactId>hibernate-core-jakarta</artifactId>
             <version>${hibernate.core.version}</version>
             <exclusions>
                 <exclusion>
@@ -383,6 +436,18 @@
                 <exclusion>
                     <groupId>net.sf.ehcache</groupId>
                     <artifactId>ehcache</artifactId>
+                </exclusion>
+                <!-- Hibernate tidak pernah merilis hibernate-ehcache-jakarta:
+                     modul ini hanya ada dalam varian javax dan menarik
+                     hibernate-core (javax) secara transitif. Dua inti Hibernate
+                     di classpath membuat org.hibernate.query.Query yang terpilih
+                     adalah yang mewarisi javax.persistence.Query, sehingga
+                     getResultList() tidak ditemukan saat kompilasi. Kelas region
+                     factory-nya sendiri tidak menyentuh paket persistence, jadi
+                     aman berjalan di atas hibernate-core-jakarta. -->
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-core</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -486,9 +551,9 @@
             <version>${commons-collections.version}</version>
         </dependency>
         <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-            <version>1.1</version>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <version>2.1.3</version>
         </dependency>
         <dependency>
             <groupId>commons-net</groupId>
@@ -532,8 +597,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+          <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <version>${javax.servlet-api.version}</version>
           <scope>provided</scope>
         </dependency>

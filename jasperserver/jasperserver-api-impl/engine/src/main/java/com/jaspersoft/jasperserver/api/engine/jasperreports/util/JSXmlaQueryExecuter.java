@@ -26,8 +26,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Map;
 
-import javax.xml.soap.MimeHeaders;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.MimeHeaders;
+import jakarta.xml.soap.SOAPMessage;
 
 import org.fusesource.hawtbuf.ByteArrayInputStream;
 

@@ -22,18 +22,18 @@
 package com.jaspersoft.jasperserver.jsp;
 
 import junit.framework.Assert;
-import org.apache.taglibs.standard.lang.jstl.test.PageContextImpl;
+import org.springframework.mock.web.MockPageContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.binding.expression.el.DefaultELContext;
 import org.springframework.web.util.JavaScriptUtils;
 
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.el.MapELResolver;
-import javax.servlet.jsp.JspContext;
-import javax.servlet.jsp.PageContext;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.el.MapELResolver;
+import jakarta.servlet.jsp.JspContext;
+import jakarta.servlet.jsp.PageContext;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +59,11 @@ public class XSSEscapeXmlELResolverTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 
-		pageContext = new PageContextImpl();
+		// PageContextImpl adalah kelas bantu tes milik taglibs-standard (JSTL 1.2),
+		// yang tidak ada di JSTL 3.0 Jakarta. Tes ini hanya memerlukan PageContext
+		// yang set/getAttribute-nya bekerja, dan MockPageContext dari spring-test
+		// menyediakannya.
+		pageContext = new MockPageContext();
 		xssElResolver = new XSSEscapeXmlELResolver();
 
 		ELResolver baseElResolver = new MapELResolver();

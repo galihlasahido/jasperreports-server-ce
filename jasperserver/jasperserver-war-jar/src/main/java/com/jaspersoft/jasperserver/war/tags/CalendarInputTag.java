@@ -25,8 +25,8 @@ import com.jaspersoft.jasperserver.api.common.util.TimeZoneContextHolder;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.jsp.JspException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;

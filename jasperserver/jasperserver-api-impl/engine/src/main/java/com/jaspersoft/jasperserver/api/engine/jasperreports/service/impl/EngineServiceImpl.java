@@ -129,6 +129,7 @@ import net.sf.ehcache.pool.impl.DefaultSizeOfEngine;
 import net.sf.jasperreports.data.cache.DataSnapshotException;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.fill.*;
 import net.sf.jasperreports.engine.query.JRQueryExecuter;
@@ -159,9 +160,9 @@ import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.naming.NameNotFoundException;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -223,7 +224,7 @@ public class EngineServiceImpl implements EngineService, ReportExecuter,
 
     private AuditContext auditContext;
     protected boolean recordSizeof=false;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected GlobalDefaultValueProvider globalDefaultValueProvider;
 
     protected InputControlsInfoExtractor inputControlsInfoExtractor = new InputControlsInfoRoutingExtractor();
@@ -232,13 +233,13 @@ public class EngineServiceImpl implements EngineService, ReportExecuter,
     /*** THE FOLLOWING PARAMETER ARE USED FOR CANCEL EXECUTIONS **/
     private final ThreadLocal<ReportExecutionStatus> currentExecutionStatus = new ThreadLocal<ReportExecutionStatus>();
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private Map<String, ReportExecutionStatus> engineExecutions;
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private Map<String, ErrorTemplateReportService> errorReportDSFactory;
 
-    @javax.annotation.Resource(name="monitoringExceptionMapping")
+    @jakarta.annotation.Resource(name="monitoringExceptionMapping")
 	private Map<String, List<String>> monitoringExceptionMapping;
 
     private Executor syncReportExecutorService =

@@ -34,7 +34,7 @@ import com.jaspersoft.jasperserver.remote.exception.NotAcceptableException;
 import com.jaspersoft.jasperserver.remote.services.SingleRepositoryService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,11 +49,11 @@ import static com.jaspersoft.jasperserver.api.metadata.common.domain.FileResourc
 @Service
 @VirtualResourceConverter
 public class PropertiesFileConverter extends ResourceConverterImpl<FileResource, ClientPropertiesFile> {
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     protected RepositoryService repositoryService;
     @Resource
     protected FileResourceConverter fileResourceConverter;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private SingleRepositoryService singleRepositoryService;
 
     @Override

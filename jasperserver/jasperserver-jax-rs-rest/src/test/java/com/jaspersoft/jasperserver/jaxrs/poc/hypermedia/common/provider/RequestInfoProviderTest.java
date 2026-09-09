@@ -31,7 +31,7 @@ import org.mockito.InjectMocks;
 import static org.testng.Assert.assertEquals;
 
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import static org.mockito.Mockito.when;
 

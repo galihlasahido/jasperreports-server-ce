@@ -38,7 +38,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -124,8 +124,8 @@ public class MockServletContextLoader extends AbstractContextLoader {
 	 * {@code SmartContextLoader}. Beans will therefore automatically be
 	 * candidates for annotation-based dependency injection using
 	 * {@link org.springframework.beans.factory.annotation.Autowired @Autowired},
-	 * {@link javax.annotation.Resource @Resource}, and
-	 * {@link  //javax.inject.Inject @Inject}. In addition, concrete implementations
+	 * {@link jakarta.annotation.Resource @Resource}, and
+	 * {@link  //jakarta.inject.Inject @Inject}. In addition, concrete implementations
 	 * should set the active bean definition profiles in the context's
 	 * {@link org.springframework.core.env.Environment Environment}.
 	 * <p>Any <code>ApplicationContext</code> loaded by a

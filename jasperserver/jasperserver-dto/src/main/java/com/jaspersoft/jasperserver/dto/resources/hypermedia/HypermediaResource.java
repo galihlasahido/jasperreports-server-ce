@@ -24,7 +24,7 @@ package com.jaspersoft.jasperserver.dto.resources.hypermedia;
 import com.jaspersoft.jasperserver.dto.common.DeepCloneable;
 import com.jaspersoft.jasperserver.dto.resources.ClientResource;
 
-import javax.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElement;
 
 import static com.jaspersoft.jasperserver.dto.utils.ValueObjectUtils.copyOf;
 

@@ -22,7 +22,7 @@
 
 <%@ page import="com.jaspersoft.jasperserver.war.tags.PaginatorLinksTag, com.jaspersoft.jasperserver.war.tags.PaginatorTag"%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="js" uri="/WEB-INF/jasperserver.tld" %>
 

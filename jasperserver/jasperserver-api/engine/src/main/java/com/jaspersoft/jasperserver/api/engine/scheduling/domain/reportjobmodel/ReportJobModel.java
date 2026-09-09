@@ -43,10 +43,10 @@ import com.jaspersoft.jasperserver.api.engine.scheduling.domain.ReportJobSimpleT
 import com.jaspersoft.jasperserver.api.engine.scheduling.domain.ReportJobSource;
 import com.jaspersoft.jasperserver.api.engine.scheduling.domain.ReportJobTrigger;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElements;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.sql.Timestamp;
 import java.util.Set;
 @XmlRootElement(name = "jobModel")

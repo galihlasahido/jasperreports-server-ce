@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.dto.executions;
 import com.jaspersoft.jasperserver.dto.common.DeepCloneable;
 import com.jaspersoft.jasperserver.dto.common.ErrorDescriptor;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.Objects;
 

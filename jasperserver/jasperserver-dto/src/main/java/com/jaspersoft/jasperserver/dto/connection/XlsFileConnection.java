@@ -20,7 +20,7 @@
  */
 package com.jaspersoft.jasperserver.dto.connection;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * <p></p>

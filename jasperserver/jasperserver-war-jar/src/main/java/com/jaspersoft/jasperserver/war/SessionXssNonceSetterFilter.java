@@ -24,9 +24,9 @@ package com.jaspersoft.jasperserver.war;
 import org.owasp.csrfguard.CsrfGuard;
 import org.owasp.csrfguard.util.RandomGenerator;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**

@@ -24,7 +24,7 @@ package com.jaspersoft.jasperserver.dto.job;
 import com.jaspersoft.jasperserver.dto.common.DeepCloneable;
 import com.jaspersoft.jasperserver.dto.job.adapters.NoTimezoneDateToStringXmlAdapter;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.lang.reflect.Constructor;
 import java.util.Date;
 

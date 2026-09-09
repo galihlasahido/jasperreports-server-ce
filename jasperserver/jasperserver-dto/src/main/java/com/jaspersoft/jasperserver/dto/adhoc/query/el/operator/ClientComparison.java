@@ -32,7 +32,7 @@ import com.jaspersoft.jasperserver.dto.adhoc.query.el.operator.comparison.Client
 import com.jaspersoft.jasperserver.dto.adhoc.query.el.operator.comparison.ClientNotEqual;
 import com.jaspersoft.jasperserver.dto.adhoc.query.validation.CheckExpressionOperandsSize;
 
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
 

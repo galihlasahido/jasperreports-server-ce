@@ -26,7 +26,7 @@ import com.jaspersoft.jasperserver.api.metadata.user.service.ProfileAttributesRe
 import com.jaspersoft.jasperserver.dto.common.ErrorDescriptor;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 

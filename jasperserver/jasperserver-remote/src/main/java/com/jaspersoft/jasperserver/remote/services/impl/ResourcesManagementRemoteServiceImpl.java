@@ -44,7 +44,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -60,13 +60,13 @@ public class ResourcesManagementRemoteServiceImpl implements ResourcesManagement
 
     private final static Log log = LogFactory.getLog(ResourcesManagementRemoteServiceImpl.class);
 
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     private RepositoryService repository;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private AuditHelper auditHelper;
     @Autowired
     private MessageSource messageSource;
-    @javax.annotation.Resource(name = "remoteResourceHandlerRegistry")
+    @jakarta.annotation.Resource(name = "remoteResourceHandlerRegistry")
     private ResourceHandlerRegistry handlerRegistry;
 
     public ResourceHandler getHandler(Resource resource) {

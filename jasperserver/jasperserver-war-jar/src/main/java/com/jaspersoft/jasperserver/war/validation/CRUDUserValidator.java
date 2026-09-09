@@ -32,7 +32,7 @@ public class CRUDUserValidator implements Validator {
 
 	private UserAuthorityService userService;
 
-    @javax.annotation.Resource(name = "emailInputValidator")
+    @jakarta.annotation.Resource(name = "emailInputValidator")
     private InputValidator emailValidator;
 
     public UserAuthorityService getUserService()

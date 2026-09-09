@@ -65,9 +65,24 @@
             <version>${cglib.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- jakarta.inject-api: dulu javax.inject ikut transitif lewat
+             spring-security-cas 5.x. Rantai Jakarta tidak lagi membawanya,
+             sedangkan ExternalDataSynchronizerImpl memakai @Inject. -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <!-- ehcache: JSEhCacheBasedTicketCache kini mengimplementasikan sendiri
+             StatelessTicketCache di atas Ehcache 2.10, karena Spring Security 6
+             menghapus EhCacheBasedTicketCache. -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <version>${javax.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -135,10 +150,17 @@
             </exclusions>
         </dependency>
         <!-- Added cas-client-core specifically as the version which is dependency from spring-security-cas has CVE -->
+        <!-- Klien CAS pindah rumah: org.jasig.cas.client 3.x masih javax.servlet
+             dan tidak akan pernah dibuat versi Jakarta-nya. Penerusnya,
+             org.apereo.cas.client 4.x, sudah Jakarta dan justru inilah yang
+             dipakai spring-security-cas 6. Nama paketnya ikut berubah
+             (org.jasig.cas.client -> org.apereo.cas.client), jadi setiap import
+             dan setiap referensi kelas di web.xml serta contoh konfigurasi CAS
+             ikut disesuaikan. -->
         <dependency>
-            <groupId>org.jasig.cas.client</groupId>
+            <groupId>org.apereo.cas.client</groupId>
             <artifactId>cas-client-core</artifactId>
-            <version>3.6.2</version>
+            <version>4.0.4</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>

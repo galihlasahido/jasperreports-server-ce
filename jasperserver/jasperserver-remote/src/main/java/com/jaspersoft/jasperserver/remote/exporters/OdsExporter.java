@@ -26,7 +26,7 @@ import net.sf.jasperreports.engine.export.oasis.JROdsExporter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @author Yaroslav.Kovalchyk

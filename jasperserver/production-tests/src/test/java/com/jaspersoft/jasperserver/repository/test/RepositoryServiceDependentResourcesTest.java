@@ -122,7 +122,7 @@ public class RepositoryServiceDependentResourcesTest  extends BaseServiceSetupTe
 
     }
 
-    @javax.annotation.Resource(name = "searchCriteriaFactory")
+    @jakarta.annotation.Resource(name = "searchCriteriaFactory")
     public void setSearchCriteriaFactory(SearchCriteriaFactory searchCriteriaFactory) {
         this.searchCriteriaFactory = searchCriteriaFactory;
     }

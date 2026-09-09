@@ -22,7 +22,7 @@ package com.jaspersoft.jasperserver.api.engine.scheduling.domain.jaxb;
 
 import com.jaspersoft.jasperserver.api.engine.scheduling.domain.FTPInfo;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * <p></p>

@@ -21,7 +21,7 @@
 
 package com.jaspersoft.hibernate;
 
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlSchema;
 
 
 import org.hibernate.tool.ant.HibernateToolTask;

@@ -38,7 +38,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration>
-                    <argLine>${argLine} -Xmx1024m -Duser.timezone=GMT-07:00 -Duser.country=US -Duser.language=en</argLine>
+                    <argLine>${argLine} ${surefire.addOpens} -Xmx1024m -Duser.timezone=GMT-07:00 -Duser.country=US -Duser.language=en</argLine>
                 </configuration>
             </plugin>
         </plugins>
@@ -61,8 +61,8 @@
         <!-- Third-parties -->
 
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <version>${javax.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>

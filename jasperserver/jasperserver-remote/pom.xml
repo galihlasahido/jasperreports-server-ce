@@ -80,8 +80,8 @@
           <artifactId>jasperserver-search</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <version>${javax.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -99,7 +99,7 @@
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <artifactId>jackson-module-jakarta-xmlbind-annotations</artifactId>
             <version>${jackson.version}</version>
             <exclusions>
                 <exclusion>
@@ -109,14 +109,14 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <groupId>com.fasterxml.jackson.jakarta.rs</groupId>
+            <artifactId>jackson-jakarta-rs-json-provider</artifactId>
             <version>${jackson.version}</version>
         </dependency>
         <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0.1</version>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>3.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
@@ -155,7 +155,7 @@
                         <exclude>**/BatchRepositoryServicePeganatedSearchTest.java</exclude>
                         <exclude>com/jaspersoft/jasperserver/remote/services/impl/async/*Test.java</exclude>
                     </excludes>
-                    <argLine>${argLine} </argLine>
+                    <argLine>${argLine} ${surefire.addOpens} </argLine>
 <!--                    <environmentVariables>-->
 <!--                        <ks>${project.build.directory}/test-classes</ks>-->
 <!--                        <ksp>${project.build.directory}/test-classes</ksp>-->

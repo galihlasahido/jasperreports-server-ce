@@ -24,7 +24,7 @@ import com.jaspersoft.jasperserver.api.JasperServerAPI;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Wrapper class for org.springframework.security.authentication.AuthenticationDetailsSourceImpl

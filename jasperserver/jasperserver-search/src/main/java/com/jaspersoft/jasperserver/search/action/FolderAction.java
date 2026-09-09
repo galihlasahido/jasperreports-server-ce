@@ -43,7 +43,7 @@ public class FolderAction extends BaseSearchAction {
     private FolderService folderService;
 
     public Event init(RequestContext context) throws Exception {
-        Assert.notNull(folderService);
+        Assert.notNull(folderService, "folderService tidak boleh null");
 
         return success();
     }

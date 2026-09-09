@@ -53,7 +53,7 @@
 			<!--		
 				2016-09-28  thorick
 				https://jira.tibco.com/browse/JS-30422
-				Do not pick up JBoss  javax.mail.api module.  
+				Do not pick up JBoss  jakarta.mail.api module.  
 				To do that we have to exclude the entire javaee.api
 			-->
             <module name="javaee.api"/>
@@ -109,8 +109,8 @@
                             Exclude the jboss jsf/jstl packages
             -->
             <module name="javax.faces.api"/>
-            <module name="javax.servlet.jstl.api"/>
-            <module name="javax.xml.bind.api"/>
+            <module name="jakarta.servlet.jstl.api"/>
+            <module name="jakarta.xml.bind.api"/>
 
 
             <!-- http://bugzilla.jaspersoft.com/show_bug.cgi?id=44406
@@ -130,17 +130,17 @@
             <module name="org.codehaus.jackson.jackson-mapper-asl"/>
             <module name="org.codehaus.jackson.jackson-xc"/>
             <module name="org.codehaus.jettison"/>
-            <module name="javax.ws.rs.api"/>
+            <module name="jakarta.ws.rs.api"/>
 
             <!--  http://bugzilla.jaspersoft.com/show_bug.cgi?id=44994 -->
-            <module name="javax.annotation"/>
+            <module name="jakarta.annotation"/>
 			
 			<!--  
 				2016-09-28  thorick
 				https://jira.tibco.com/browse/JS-30422
 				do NOT include the default mail jar
 			-->
-			<module name="javax.mail.api"/>
+			<module name="jakarta.mail.api"/>
         </exclusions>
 
 
@@ -162,7 +162,7 @@
                   Declaring a dependency on this jaspserver created module makes them available.
 			-->
             <module name="jaspersoft.org.apache.batik"/>
-            <module name="jaspersoft.javax.validation.api" slot="1.1" export="true"/>
+            <module name="jaspersoft.jakarta.validation.api" slot="1.1" export="true"/>
 
             <!--
                 2013-03-26  thorick
@@ -180,8 +180,8 @@
 
             <module name="com.sun.xml.bind" slot="2.1.5"/>
             <module name="javax.faces.api" slot="1.1"/>
-            <module name="javax.servlet.jstl.api" slot="1.1.2"/>
-            <module name="javax.xml.bind.api" slot="2.1"/>
+            <module name="jakarta.servlet.jstl.api" slot="1.1.2"/>
+            <module name="jakarta.xml.bind.api" slot="2.1"/>
             <module name="org.apache.log4j" slot="1.2.12"/>
             -->
 
@@ -193,8 +193,8 @@
             		
             -->
             <module name="javax.faces.api"/>
-            <module name="javax.servlet.jstl.api"/>
-			<module name="javax.xml.bind.api"/>
+            <module name="jakarta.servlet.jstl.api"/>
+			<module name="jakarta.xml.bind.api"/>
 			
 
             <!--  http://bugzilla.jaspersoft.com/show_bug.cgi?id=31844 jboss7-->
@@ -214,35 +214,35 @@
 				2016-09-28  thorick
 				https://jira.tibco.com/browse/JS-30422				
 			    add back all modules in javaee.api that we excluded  
-				EXCEPT for javax.mail.api  which we want to install our own version of	"1.4:
+				EXCEPT for jakarta.mail.api  which we want to install our own version of	"1.4:
 			-->
 
-			<module name="javax.activation.api" export="true"/>
-			<module name="javax.annotation.api" export="true"/>
+			<module name="jakarta.activation.api" export="true"/>
+			<module name="jakarta.annotation.api" export="true"/>
 			<module name="javax.ejb.api" export="true"/>
-			<module name="javax.el.api" export="true"/>
-			<module name="javax.enterprise.api" export="true"/>
-			<module name="javax.enterprise.deploy.api" export="true"/>
-			<module name="javax.inject.api" export="true"/>
-			<module name="javax.interceptor.api" export="true"/>
-			<module name="javax.jms.api" export="true"/>
-			<module name="javax.jws.api" export="true"/>
+			<module name="jakarta.el.api" export="true"/>
+			<module name="jakarta.enterprise.api" export="true"/>
+			<module name="jakarta.enterprise.deploy.api" export="true"/>
+			<module name="jakarta.inject.api" export="true"/>
+			<module name="jakarta.interceptor.api" export="true"/>
+			<module name="jakarta.jms.api" export="true"/>
+			<module name="jakarta.jws.api" export="true"/>
 			<module name="javax.management.j2ee.api" export="true"/>
-			<module name="javax.persistence.api" export="true"/>
-			<module name="javax.resource.api" export="true"/>
+			<module name="jakarta.persistence.api" export="true"/>
+			<module name="jakarta.resource.api" export="true"/>
 			<module name="javax.rmi.api" export="true"/>
 			<module name="javax.security.auth.message.api" export="true"/>
 			<module name="javax.security.jacc.api" export="true"/>
-			<module name="javax.servlet.api" export="true"/>
-			<module name="javax.servlet.jsp.api" export="true"/>
-			<module name="javax.transaction.api" export="true"/>
-			<module name="javax.validation.api" export="true"/>
-			<module name="javax.xml.bind.api" export="true"/>
+			<module name="jakarta.servlet.api" export="true"/>
+			<module name="jakarta.servlet.jsp.api" export="true"/>
+			<module name="jakarta.transaction.api" export="true"/>
+			<module name="jakarta.validation.api" export="true"/>
+			<module name="jakarta.xml.bind.api" export="true"/>
 			<module name="javax.xml.registry.api" export="true"/>
-			<module name="javax.xml.soap.api" export="true"/>
+			<module name="jakarta.xml.soap.api" export="true"/>
 		
 		<!--  thorick 2016-10-17   try NOT using a slot and pickup directly from WEB-INF/lib as a resource
-			<module name="javax.mail.api" slot="1.4"/> 	
+			<module name="jakarta.mail.api" slot="1.4"/> 	
 		-->
 		
 			<!-- This one always goes last. According to some JBoss spokesperson -->
@@ -348,7 +348,7 @@
             <resource-root path="WEB-INF/lib/slf4j-api-1.7.25.jar"  use-physical-code-source="true"/>
             <resource-root path="WEB-INF/lib/commons-logging-1.2.jar" use-physical-code-source="true"/>
 
-            <resource-root path="WEB-INF/lib/javax.ws.rs-api-2.0.1.jar" use-physical-code-source="true"/>
+            <resource-root path="WEB-INF/lib/jakarta.ws.rs-api-2.0.1.jar" use-physical-code-source="true"/>
         </resources>
     </deployment>
 

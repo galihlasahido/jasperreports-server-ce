@@ -22,7 +22,7 @@ package com.jaspersoft.jasperserver.jaxrs.resources;
 
 import com.jaspersoft.jasperserver.dto.resources.ResourceMediaType;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

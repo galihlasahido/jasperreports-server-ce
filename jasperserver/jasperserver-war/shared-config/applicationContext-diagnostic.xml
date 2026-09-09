@@ -438,7 +438,7 @@
         <property name="hibernateStatistics" ref="hibernateStatistics"/>
     </bean>
 
-    <bean id="cacheForStatistics" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+    <bean id="cacheForStatistics" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean">
         <property name="cacheManager" ref="cacheManager"/>
         <property name="cacheName" value="aclCache" />
     </bean>

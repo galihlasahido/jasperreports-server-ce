@@ -110,13 +110,13 @@ public class RepositorySearchAction extends BaseSearchAction {
     protected RepositoryService repository;
     protected RepositoryService unsecuredRepository;
     protected NavigationActionModelSupport navigationActionModelSupport;
-    @javax.annotation.Resource(name = "${bean.favoriteResourceService}")
+    @jakarta.annotation.Resource(name = "${bean.favoriteResourceService}")
     protected FavoriteResourceService favoriteResourceService;
 
-    @javax.annotation.Resource(name="resourceService")
+    @jakarta.annotation.Resource(name="resourceService")
     protected ResourceService resourceService;
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected TextFilter textFilter;
 
     protected boolean methodOverride = false;

@@ -20,7 +20,7 @@
   ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
   --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="js" uri="/WEB-INF/jasperserver.tld" %>

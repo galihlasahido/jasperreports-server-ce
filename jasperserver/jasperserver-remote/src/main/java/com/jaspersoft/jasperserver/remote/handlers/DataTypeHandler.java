@@ -37,7 +37,7 @@ import java.util.Map;
 @Service
 public class DataTypeHandler extends RepositoryResourceHandler {
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private DataConverterService dataConverterService;
 
     public Class getResourceType() {

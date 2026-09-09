@@ -44,11 +44,11 @@ import java.util.Set;
  */
 @Component
 public class BinaryDataResourceConverter implements ResourceConverter<Resource, ClientFile> {
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private Set<String> fileResourceTypes;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ResourceConverter<Resource, ClientFile> fileResourceConverter;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ResourceConverter<Resource, ClientFile> contentResourceConverter;
 
     @Override

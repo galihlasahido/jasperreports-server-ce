@@ -30,13 +30,13 @@ import com.jaspersoft.jasperserver.remote.validation.ValidationErrorPostProcesso
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import javax.validation.ValidationException;
-import javax.ws.rs.core.GenericEntity;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
+import jakarta.annotation.Resource;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.ValidationException;
+import jakarta.ws.rs.core.GenericEntity;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
 
 import org.springframework.stereotype.Component;
 
@@ -48,7 +48,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Michal Gajdos (michal.gajdos at oracle.com)
  */
-@javax.ws.rs.ext.Provider
+@jakarta.ws.rs.ext.Provider
 @Component
 public class ValidationExceptionMapper implements ExceptionMapper<ValidationException> {
     @Resource

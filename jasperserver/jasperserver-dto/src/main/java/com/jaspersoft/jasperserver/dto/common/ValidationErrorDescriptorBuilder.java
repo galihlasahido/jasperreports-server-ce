@@ -20,7 +20,7 @@
  */
 package com.jaspersoft.jasperserver.dto.common;
 
-import javax.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolation;
 
 /**
  * <p></p>

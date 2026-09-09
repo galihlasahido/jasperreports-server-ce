@@ -20,7 +20,7 @@
  */
 package com.jaspersoft.jasperserver.dto.resources;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

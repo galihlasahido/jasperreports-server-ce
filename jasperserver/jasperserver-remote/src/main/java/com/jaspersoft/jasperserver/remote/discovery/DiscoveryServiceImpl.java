@@ -47,13 +47,13 @@ import java.util.List;
 
 @Service("discoveryService")
 public class DiscoveryServiceImpl implements DiscoveryService {
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private DiscoveryStrategyProvider provider;
 
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     protected RepositoryService repositoryService;
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private GenericTypeProcessorRegistry genericTypeProcessorRegistry;
 
     @Override

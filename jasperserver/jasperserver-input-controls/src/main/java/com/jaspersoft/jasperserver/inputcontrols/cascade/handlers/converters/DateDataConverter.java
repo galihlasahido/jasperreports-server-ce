@@ -24,7 +24,7 @@ import com.jaspersoft.jasperserver.api.engine.jasperreports.util.CalendarFormatP
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.text.ParseException;
 import java.util.Date;
 

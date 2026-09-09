@@ -37,7 +37,7 @@ import java.util.List;
  */
 @Service
 public class OlapUnitResourceConverter extends ResourceConverterImpl<OlapUnit, ClientOlapUnit> {
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected ResourceReferenceConverterProvider resourceReferenceConverterProvider;
     @Override
     protected OlapUnit resourceSpecificFieldsToServer(ExecutionContext ctx, ClientOlapUnit clientObject, OlapUnit resultToUpdate,

@@ -22,7 +22,7 @@ package com.jaspersoft.jasperserver.api.metadata.common.domain;
 
 import com.jaspersoft.jasperserver.api.JasperServerAPI;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Optional;
 

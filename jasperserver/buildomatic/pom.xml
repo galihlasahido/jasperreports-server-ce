@@ -36,8 +36,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <ant.version>1.10.12</ant.version>
-        <jaxb-api.version>2.3.3</jaxb-api.version>
-        <jaxb-runtime.version>2.3.2</jaxb-runtime.version>
+        <jaxb-api.version>4.0.2</jaxb-api.version>
+        <jaxb-runtime.version>4.0.5</jaxb-runtime.version>
         <istack-commons-runtime.version>3.0.8</istack-commons-runtime.version>
         <xerces.version>2.12.1-sp1</xerces.version>
         <semver4j.version>3.1.0</semver4j.version>
@@ -200,7 +200,7 @@
         <dependency>
             <groupId>pentaho</groupId>
             <artifactId>mondrian</artifactId>
-            <version>3.6.7-JS-vfs1-1</version>
+            <version>3.6.7-JS-vfs1-1-jakarta</version>
             <exclusions>
                 <exclusion>
                     <groupId>xerces</groupId>
@@ -239,9 +239,9 @@
             <version>${istack-commons-runtime.version}</version>
         </dependency>
         <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-            <version>1.1</version>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <version>2.1.3</version>
         </dependency>
         <dependency>
             <groupId>net.sf.saxon</groupId>

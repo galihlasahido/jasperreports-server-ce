@@ -24,7 +24,7 @@ package com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.common.provider;
 import com.jaspersoft.jasperserver.api.engine.common.service.impl.NavigationActionModelSupport;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @author: Igor.Nesterenko

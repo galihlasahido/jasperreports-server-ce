@@ -63,15 +63,15 @@ public class JdbcConnector<ConnectionDescriptionType extends Resource> implement
     private static final String AWS_ATHENA_SIMBA_DRIVER_NAME = "com.simba.athena.jdbc42.Driver";
 
     private Map<Connection, BaseJdbcDataSource> openConnections = new HashMap<Connection, BaseJdbcDataSource>();
-    @javax.annotation.Resource(name = "dataSourceServiceFactories")
+    @jakarta.annotation.Resource(name = "dataSourceServiceFactories")
     private DataSourceServiceFactoryImpl dataSourceServiceFactory;
     @Autowired
     private ApplicationContext applicationContext;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private SecureExceptionHandler secureExceptionHandler;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private MessageSource messageSource;
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     private RepositoryService repository;
 
     @Override

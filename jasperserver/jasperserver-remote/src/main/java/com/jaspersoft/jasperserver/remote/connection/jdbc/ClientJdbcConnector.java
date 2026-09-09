@@ -39,9 +39,9 @@ import java.sql.Connection;
 @Service
 public class ClientJdbcConnector<ConnectionDescriptionType extends ClientResource<ConnectionDescriptionType>> implements Connector<Connection, ConnectionDescriptionType> {
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ResourceConverterProvider resourceConverterProvider;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private JdbcConnector jdbcConnector;
 
     @Override

@@ -36,7 +36,7 @@ import org.apache.commons.net.util.TrustManagerUtils;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.net.UnknownHostException;
 import java.util.Map;
 

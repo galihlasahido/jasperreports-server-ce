@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.inputcontrols.cascade;
 
 import com.jaspersoft.jasperserver.api.common.domain.impl.ValidationErrorImpl;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author inesterenko

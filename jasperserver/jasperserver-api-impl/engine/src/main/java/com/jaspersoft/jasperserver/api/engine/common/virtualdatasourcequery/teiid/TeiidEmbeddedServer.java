@@ -18,6 +18,13 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+// PULAU JAVAX YANG DISENGAJA: Teiid 9.1.1 (mesin virtual data source) dan
+// Bitronix BTM yang dipakainya sebagai transaction manager keduanya berhenti di
+// namespace javax dan tidak punya penerus Jakarta. Mentransformasi sembilan jar
+// Teiid saja tidak cukup, karena BitronixTransactionManager tetap
+// mengimplementasikan javax.transaction.TransactionManager. Jadi subsistem ini
+// dibiarkan utuh di javax; API-nya (javax.resource, javax.transaction) ikut
+// sebagai jar biasa di WEB-INF/lib, sama seperti jembatan JMS Nevado.
 package com.jaspersoft.jasperserver.api.engine.common.virtualdatasourcequery.teiid;
 
 import bitronix.tm.BitronixTransactionManager;

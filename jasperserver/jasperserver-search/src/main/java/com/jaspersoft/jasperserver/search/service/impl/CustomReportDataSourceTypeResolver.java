@@ -31,7 +31,7 @@ import com.jaspersoft.jasperserver.search.service.ResourceTypeResolver;
  */
 public class CustomReportDataSourceTypeResolver implements ResourceTypeResolver {
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected RepositoryService repositoryService;
 
     @Override

@@ -24,7 +24,7 @@ package com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.content.representation;
 import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.common.representation.HypermediaRepresentation;
 import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.content.dto.ContentReference;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author: Igor.Nesterenko

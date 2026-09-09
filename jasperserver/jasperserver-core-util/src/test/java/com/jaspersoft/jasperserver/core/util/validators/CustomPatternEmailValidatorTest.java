@@ -40,7 +40,7 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(locations={"classpath:context.xml"})
 public class CustomPatternEmailValidatorTest {
 
-    @javax.annotation.Resource(name="customEmailValidator")
+    @jakarta.annotation.Resource(name="customEmailValidator")
     private InputValidator<String> validator;
 
     @Test

@@ -98,25 +98,25 @@ public class PermissionsServiceImpl implements PermissionsService {
         ALLOWED_MASKS = Collections.unmodifiableSet(set);
     }
 
-    @javax.annotation.Resource(name = "objectPermissionService")
+    @jakarta.annotation.Resource(name = "objectPermissionService")
     protected ObjectPermissionService objectPermissionService;
-    @javax.annotation.Resource(name = "externalAclService")
+    @jakarta.annotation.Resource(name = "externalAclService")
     protected AclService aclService;
-    @javax.annotation.Resource(name = "aclSecurityChecker")
+    @jakarta.annotation.Resource(name = "aclSecurityChecker")
     protected AclPermissionsSecurityChecker aclPermissionsSecurityChecker;
-    @javax.annotation.Resource(name = "repositoryOIRetrievalStrategy")
+    @jakarta.annotation.Resource(name = "repositoryOIRetrievalStrategy")
     protected ObjectIdentityRetrievalStrategy repositoryOIRetrievalStrategy;
-    @javax.annotation.Resource(name = "objectPermissionService")
+    @jakarta.annotation.Resource(name = "objectPermissionService")
     protected PersistentObjectResolver persistentObjectResolver;
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     protected RepositoryService repositoryService;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected AuditHelper auditHelper;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ResourcesManagementRemoteService resourcesManagementRemoteService;
-    @javax.annotation.Resource(name = "mappingResourceFactory")
+    @jakarta.annotation.Resource(name = "mappingResourceFactory")
     private ResourceFactory resourceFactory;
-    @javax.annotation.Resource(name = "concreteUserAuthorityService")
+    @jakarta.annotation.Resource(name = "concreteUserAuthorityService")
     protected UserAuthorityService userAuthorityService;
 
     protected Comparator<Permission> permissionComparator = new Comparator<Permission>() {

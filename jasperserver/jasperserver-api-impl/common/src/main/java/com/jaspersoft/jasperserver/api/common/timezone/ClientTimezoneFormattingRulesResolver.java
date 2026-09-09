@@ -22,7 +22,7 @@ package com.jaspersoft.jasperserver.api.common.timezone;
 
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;

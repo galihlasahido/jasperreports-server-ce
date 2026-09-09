@@ -26,23 +26,24 @@ import com.jaspersoft.jasperserver.api.security.UsernamePasswordAuthenticationFi
 import com.jaspersoft.jasperserver.api.security.encryption.EncryptionRequestUtils;
 import com.jaspersoft.jasperserver.api.security.externalAuth.ExternalDataSynchronizer;
 import java.util.Map;
-import org.jasig.cas.client.session.SessionMappingStorage;
-import org.jasig.cas.client.session.SingleSignOutFilter;
+import org.apereo.cas.client.session.SessionMappingStorage;
+import org.apereo.cas.client.session.SingleSignOutFilter;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.cas.authentication.CasAuthenticationToken;
+import org.springframework.security.cas.authentication.CasServiceTicketAuthenticationToken;
 import org.springframework.security.cas.web.CasAuthenticationFilter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 import org.springframework.security.authentication.AuthenticationManager;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -65,8 +66,15 @@ public class JSCasProcessingFilter extends CasAuthenticationFilter {
 			throws AuthenticationException, IOException {
             String password = obtainTicket(request);
 		if (password != null && password.trim().length() > 0){
-			final String username = CAS_STATEFUL_IDENTIFIER;
-			UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
+			// Sampai Spring Security 5, tiket CAS diserahkan sebagai
+			// UsernamePasswordAuthenticationToken dengan username ajaib
+			// CasAuthenticationFilter.CAS_STATEFUL_IDENTIFIER. Spring Security 6
+			// menghapus konstanta itu dan CasAuthenticationProvider.supports()
+			// tidak lagi menerima UsernamePasswordAuthenticationToken, sehingga
+			// token seperti itu akan jatuh ke DaoAuthenticationProvider dan
+			// otentikasi CAS diam-diam gagal. Penggantinya adalah tipe token
+			// khusus CasServiceTicketAuthenticationToken.
+			CasServiceTicketAuthenticationToken authRequest = CasServiceTicketAuthenticationToken.stateful(password);
 			authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
 
 			return this.getAuthenticationManager().authenticate(authRequest);

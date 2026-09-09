@@ -29,7 +29,7 @@ import org.springframework.web.servlet.ThemeResolver;
 import org.springframework.web.servlet.theme.SessionThemeResolver;
 import org.springframework.web.util.WebUtils;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * This is an implementation of ThemeResolver for JasperServer.

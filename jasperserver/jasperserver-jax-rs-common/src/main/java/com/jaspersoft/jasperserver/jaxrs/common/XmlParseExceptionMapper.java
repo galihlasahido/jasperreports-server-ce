@@ -22,10 +22,10 @@ package com.jaspersoft.jasperserver.jaxrs.common;
 
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
-import javax.xml.bind.UnmarshalException;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
+import jakarta.xml.bind.UnmarshalException;
 
 /**
  * @author Vasyl Spachynskyi

@@ -24,8 +24,8 @@ import com.jaspersoft.jasperserver.dto.adhoc.query.el.ClientLiteral;
 import com.jaspersoft.jasperserver.dto.adhoc.query.el.adapters.DomELCommonSimpleDateFormats;
 import com.jaspersoft.jasperserver.dto.adhoc.query.el.ast.ClientELVisitor;
 
-import javax.validation.constraints.Pattern;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.validation.constraints.Pattern;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author Grant Bacon <gbacon@tibco.com>

@@ -30,7 +30,7 @@ import com.jaspersoft.jasperserver.remote.resources.converters.ResourceConverter
 import com.jaspersoft.jasperserver.remote.resources.converters.ToServerConversionOptions;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * <p></p>

@@ -20,7 +20,7 @@
  */
 package com.jaspersoft.jasperserver.api.metadata.olap.service;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 import com.jaspersoft.jasperserver.api.JasperServerAPI;
 import com.jaspersoft.jasperserver.api.common.domain.ExecutionContext;

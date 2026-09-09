@@ -22,9 +22,9 @@ package com.jaspersoft.jasperserver.war.tags;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.tagext.TagSupport;
 
 import com.jaspersoft.jasperserver.war.common.WebConfiguration;
 import org.springframework.web.context.support.WebApplicationContextUtils;

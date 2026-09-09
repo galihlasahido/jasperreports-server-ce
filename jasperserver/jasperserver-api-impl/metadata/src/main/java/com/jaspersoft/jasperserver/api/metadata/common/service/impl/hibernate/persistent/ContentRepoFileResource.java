@@ -47,7 +47,7 @@ import com.jaspersoft.jasperserver.api.metadata.common.domain.util.GzipDataConta
 import com.jaspersoft.jasperserver.api.metadata.common.service.ResourceFactory;
 import com.jaspersoft.jasperserver.api.metadata.common.service.impl.hibernate.ReferenceResolver;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
 

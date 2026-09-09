@@ -23,10 +23,10 @@ package com.jaspersoft.jasperserver.war.util;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.web.firewall.RequestRejectedException;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 

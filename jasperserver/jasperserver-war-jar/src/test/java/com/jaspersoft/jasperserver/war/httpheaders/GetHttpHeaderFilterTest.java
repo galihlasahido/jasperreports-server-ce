@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.war.httpheaders;
 
 import org.junit.Test;
 
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletException;
 import java.io.IOException;
 
 import static org.springframework.http.HttpMethod.GET;

@@ -23,8 +23,8 @@ package com.jaspersoft.jasperserver.jaxrs.common;
 import com.jaspersoft.jasperserver.dto.common.ErrorDescriptor;
 import com.jaspersoft.jasperserver.remote.exception.ErrorDescriptorBuildingService;
 
-import javax.annotation.Resource;
-import javax.ws.rs.core.Response;
+import jakarta.annotation.Resource;
+import jakarta.ws.rs.core.Response;
 
 /**
  * @author Vasyl Spachynskyi

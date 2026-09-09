@@ -22,8 +22,8 @@ package com.jaspersoft.jasperserver.api.logging.filter;
 
 import com.jaspersoft.jasperserver.api.logging.context.LoggingContextProvider;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletException;
 
 /**
  * @author Sergey Prilukin

@@ -88,8 +88,8 @@
                             Exclude the jboss jsf/jstl packages
             -->
             <module name="javax.faces.api"/>
-            <module name="javax.servlet.jstl.api"/>
-            <module name="javax.xml.bind.api"/>
+            <module name="jakarta.servlet.jstl.api"/>
+            <module name="jakarta.xml.bind.api"/>
 
             <!-- http://bugzilla.jaspersoft.com/show_bug.cgi?id=44406
                     2016-08-01 sblazhyi
@@ -108,10 +108,10 @@
             <module name="org.codehaus.jackson.jackson-mapper-asl"/>
             <module name="org.codehaus.jackson.jackson-xc"/>
             <module name="org.codehaus.jettison"/>
-            <module name="javax.ws.rs.api"/>
+            <module name="jakarta.ws.rs.api"/>
 
             <!--  http://bugzilla.jaspersoft.com/show_bug.cgi?id=44994 -->
-            <module name="javax.annotation"/>
+            <module name="jakarta.annotation"/>
         </exclusions>
 
 
@@ -133,7 +133,7 @@
                   Declaring a dependency on this jaspserver created module makes them available.
 			-->
             <module name="jaspersoft.org.apache.batik"/>
-            <module name="jaspersoft.javax.validation.api" slot="1.1" export="true"/>
+            <module name="jaspersoft.jakarta.validation.api" slot="1.1" export="true"/>
 
             <!--
                 2013-03-26  thorick
@@ -151,8 +151,8 @@
 
             <module name="com.sun.xml.bind" slot="2.1.5"/>
             <module name="javax.faces.api" slot="1.1"/>
-            <module name="javax.servlet.jstl.api" slot="1.1.2"/>
-            <module name="javax.xml.bind.api" slot="2.1"/>
+            <module name="jakarta.servlet.jstl.api" slot="1.1.2"/>
+            <module name="jakarta.xml.bind.api" slot="2.1"/>
             <module name="org.apache.log4j" slot="1.2.12"/>
             -->
 
@@ -164,8 +164,8 @@
             		
             -->
             <module name="javax.faces.api"/>
-            <module name="javax.servlet.jstl.api"/>
-			<module name="javax.xml.bind.api"/>
+            <module name="jakarta.servlet.jstl.api"/>
+			<module name="jakarta.xml.bind.api"/>
 			
 
             <!--  http://bugzilla.jaspersoft.com/show_bug.cgi?id=31844 jboss7-->
@@ -276,7 +276,7 @@
             <resource-root path="WEB-INF/lib/slf4j-api-1.7.25.jar"  use-physical-code-source="true"/>
             <resource-root path="WEB-INF/lib/commons-logging-1.2.jar" use-physical-code-source="true"/>
 
-            <resource-root path="WEB-INF/lib/javax.ws.rs-api-2.0.1.jar" use-physical-code-source="true"/>
+            <resource-root path="WEB-INF/lib/jakarta.ws.rs-api-2.0.1.jar" use-physical-code-source="true"/>
         </resources>
     </deployment>
 

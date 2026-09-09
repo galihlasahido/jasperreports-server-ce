@@ -33,7 +33,7 @@ import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.content.dto.ContentRefer
 import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.content.representation.ContentReferenceCollectionRepresentation;
 import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.common.provider.RequestInfoProvider;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

@@ -22,7 +22,7 @@ package com.jaspersoft.jasperserver.war.action;
 
 import java.io.OutputStream;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.webflow.execution.RequestContext;
 

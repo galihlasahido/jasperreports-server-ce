@@ -22,7 +22,7 @@
 <%@ taglib prefix="js" uri="/WEB-INF/jasperserver.tld" %>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <c:set var="openWithJrws" value="${openInEditor &&
     (fileResource.fileResource.fileType=='jrxml' || fileResource.fileResource.fileType=='xml' ||

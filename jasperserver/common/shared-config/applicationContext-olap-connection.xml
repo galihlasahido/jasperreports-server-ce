@@ -50,7 +50,7 @@
     </bean>
 
     <!--
-      <bean id="mondrianConnectionCacheFactory" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+      <bean id="mondrianConnectionCacheFactory" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean">
         <property name="cacheManager">
            <ref bean="cacheManager"/>
         </property>
@@ -69,20 +69,20 @@
         <!-- <property name="sharedMondrianConectionCacheFactory" ref="sharedMondrianConnectionCacheFactory"/> -->
     </bean>
 
-    <bean id="olapFiltersCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
+    <bean id="olapFiltersCache" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean"
           lazy-init="true">
         <property name="cacheManager" ref="${bean.olapCacheManager}"/>
         <property name="cacheName" value="olapFilters" />
     </bean>
 
     <!-- Setup a cache for Mondrian connections to synch cache flushing -->
-    <bean id="olapCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" lazy-init="true" depends-on="sysProperties">
+    <bean id="olapCacheManager" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheManagerFactoryBean" lazy-init="true" depends-on="sysProperties">
         <property name="configLocation">
             <value>${resource.root}/olap-ehcache.xml</value>
         </property>
     </bean>
 
-    <bean id="sharedMondrianConnectionCacheFactory" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
+    <bean id="sharedMondrianConnectionCacheFactory" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean"
           lazy-init="true" depends-on="contextApplicationContextProvider">
         <property name="cacheManager" ref="${bean.olapCacheManager}"/>
         <property name="cacheName">

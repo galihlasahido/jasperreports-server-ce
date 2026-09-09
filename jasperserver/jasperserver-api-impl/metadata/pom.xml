@@ -35,6 +35,10 @@
     </parent>
     <dependencies>
         <dependency>
+            <groupId>org.owasp</groupId>
+            <artifactId>csrfguard-extension-session</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.jaspersoft.jasperserver.api.common.impl</groupId>
             <artifactId>jasperserver-api-common-impl</artifactId>
         </dependency>
@@ -178,14 +182,14 @@
             <artifactId>xercesImpl</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <version>${javax.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
             <version>${validation.api.version}</version>
         </dependency>
         <dependency>
@@ -255,35 +259,23 @@
             <artifactId>json-org</artifactId>
             <version>1.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-jmx</artifactId>
-            <version>3.3.2.GA</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
+<dependency>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate.validator.version}</version>
         </dependency>
         <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>javax.el-api</artifactId>
-            <version>2.2.4</version>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
+            <version>5.0.1</version>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>javax.el</artifactId>
-            <version>2.2.4</version>
+            <!-- Implementasi EL Glassfish mentok di 4.0.2; API-nya 5.0.1.
+                 Tomcat 10.1 menyediakan EL 5.0 sendiri, jadi implementasi ini
+                 hanya dipakai di luar kontainer. -->
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <version>4.0.2</version>
             <scope>test</scope>
         </dependency>
         <!-- OWASP ESAPI: START -->
@@ -407,10 +399,20 @@
                 </executions>
 
                 <dependencies>
+                    <!-- Byte Buddy bawaan Hibernate 5.6.15 hanya mengenali kelas
+                         sampai Java 20 dan menolak target 21 dengan "Java 21 (65)
+                         is not supported". Dinaikkan di sini alih-alih memakai
+                         net.bytebuddy.experimental, supaya enhancement entitas
+                         berjalan di jalur yang didukung, bukan jalur eksperimental. -->
                     <dependency>
-                        <groupId>javax.transaction</groupId>
-                        <artifactId>jta</artifactId>
-                        <version>1.1</version>
+                        <groupId>net.bytebuddy</groupId>
+                        <artifactId>byte-buddy</artifactId>
+                        <version>${byte-buddy.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>jakarta.transaction</groupId>
+                        <artifactId>jakarta.transaction-api</artifactId>
+                        <version>2.0.1</version>
                         <exclusions>
                             <exclusion>
                                 <groupId>org.slf4j</groupId>
@@ -501,7 +503,7 @@
                         <include>**/security/**/*Test.java</include>
                         <include>**/RepoQueryTest.java</include>                        
                     </includes>
-                    <argLine>${argLine}</argLine>
+                    <argLine>${argLine} ${surefire.addOpens}</argLine>
                     <!--<argLine>-Xms512m -Xmx1024m -XX:PermSize=32m -XX:MaxPermSize=128m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005</argLine>-->
                 </configuration>
             </plugin>

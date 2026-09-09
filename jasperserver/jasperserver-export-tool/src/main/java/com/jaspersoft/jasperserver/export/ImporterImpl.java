@@ -102,7 +102,7 @@ public class ImporterImpl extends BaseExporterImporter implements Importer {
 
 	public void setTask(ImportTask task) {
 		this.task = task;
-		Assert.notNull(task);
+		Assert.notNull(task, "task tidak boleh null");
 		this.input = task.getInput();
 
 		boolean close = false;

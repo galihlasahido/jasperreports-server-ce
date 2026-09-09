@@ -22,7 +22,7 @@ package com.jaspersoft.jasperserver.api.security.externalAuth.preauth;
 
 import org.junit.Test;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;

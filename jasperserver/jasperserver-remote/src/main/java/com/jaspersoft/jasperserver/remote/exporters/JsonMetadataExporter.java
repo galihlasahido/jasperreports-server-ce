@@ -22,7 +22,7 @@ package com.jaspersoft.jasperserver.remote.exporters;
 
 import java.util.HashMap;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import net.sf.jasperreports.engine.JRExporter;
 

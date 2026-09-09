@@ -29,8 +29,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -61,8 +61,8 @@ import net.sf.jasperreports.engine.JasperReportsContext;
 import org.springframework.beans.factory.annotation.Autowired;
 */
 /*  2012-09-13  thorick: backout 24858 to fix build
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 */
 /*  2012-09-13  thorick: backout 24858 to fix build
 import java.util.List;

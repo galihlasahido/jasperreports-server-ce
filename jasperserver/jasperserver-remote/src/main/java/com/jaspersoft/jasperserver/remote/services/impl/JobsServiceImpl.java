@@ -54,7 +54,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TimeZone;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import org.quartz.Calendar;
 import org.quartz.ObjectAlreadyExistsException;
 import org.quartz.impl.calendar.AnnualCalendar;

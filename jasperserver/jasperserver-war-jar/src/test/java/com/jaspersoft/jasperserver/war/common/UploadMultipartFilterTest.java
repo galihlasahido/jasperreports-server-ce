@@ -27,12 +27,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -59,7 +59,7 @@ public class UploadMultipartFilterTest {
     private HttpServletRequest servletRequest = mock(HttpServletRequest.class);
     private HttpServletResponse servletResponse = mock(HttpServletResponse.class);
     private FilterChain filterChain = mock(FilterChain.class);
-    private MultipartResolver multipartResolver = mock(CommonsMultipartResolver.class);
+    private MultipartResolver multipartResolver = mock(StandardServletMultipartResolver.class);
     private MultipartHttpServletRequest multipartHttpServletRequest = mock(MultipartHttpServletRequest.class);
     private Iterator fileNamesIterator = mock(Iterator.class);
     private MultipartFile multipartFile = mock(MultipartFile.class);

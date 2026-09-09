@@ -46,9 +46,9 @@ import static com.jaspersoft.jasperserver.remote.resources.validation.Validation
  */
 @Service
 public class MondrianXmlaDefinitionValidator extends GenericResourceValidator<MondrianXMLADefinition> {
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     private RepositoryService repositoryService;
-    @javax.annotation.Resource(name = "concreteTenantService")
+    @jakarta.annotation.Resource(name = "concreteTenantService")
     private TenantService tenantService;
 
     @Override

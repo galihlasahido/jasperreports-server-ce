@@ -45,10 +45,10 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 
-import javax.annotation.PostConstruct;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-import javax.validation.groups.Default;
+import jakarta.annotation.PostConstruct;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
+import jakarta.validation.groups.Default;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -91,7 +91,7 @@ public class ProfileAttributesResolverImpl implements ProfileAttributesResolver 
     private List<String> attributePlaceholderPatterns;
     @CheckAttributePatterns
     private List<String> parametrizedResourcePatterns;
-    @javax.annotation.Resource(name = "beanValidator")
+    @jakarta.annotation.Resource(name = "beanValidator")
     private Validator validator;
     private Pattern compiledAttributePlaceholderPattern;
     private Pattern compiledParametrizedResourcePattern;

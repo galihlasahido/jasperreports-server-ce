@@ -93,7 +93,7 @@
 
     <!-- SSO -  single sign out listener -->
     <listener>
-        <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+        <listener-class>org.apereo.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
     </listener>
 
     <!-- XSS jsp ELResolver -->
@@ -518,7 +518,7 @@
         <servlet-name>JerseyREST</servlet-name>
         <servlet-class>com.jaspersoft.jasperserver.jaxrs.JrsJerseyServletContainer</servlet-class>
         <init-param>
-            <param-name>javax.ws.rs.Application</param-name>
+            <param-name>jakarta.ws.rs.Application</param-name>
             <param-value>com.jaspersoft.jasperserver.jaxrs.RestSpringApplication</param-value>
         </init-param>
         <init-param>
@@ -531,14 +531,14 @@
                 com.jaspersoft.ji.adhoc_engine.rest
 
                 <!-- Jackson 2.x JAX-RS @Providers -->
-                <!--com.fasterxml.jackson.jaxrs.json-->
+                <!--com.fasterxml.jackson.jakarta.rs.json-->
             </param-value>
         </init-param>
         <init-param>
             <param-name>com.sun.jersey.config.property.classname</param-name>
             <param-value>
-                class com.fasterxml.jackson.jaxrs.xml.JacksonXMLProvider,
-                class com.fasterxml.jackson.jaxrs.xml.JacksonJaxbXMLProvider
+                class com.fasterxml.jackson.jakarta.rs.xml.JacksonXMLProvider,
+                class com.fasterxml.jackson.jakarta.rs.xml.JacksonXmlBindXMLProvider
             </param-value>
         </init-param>
         <!--Enable to log request/responces-->

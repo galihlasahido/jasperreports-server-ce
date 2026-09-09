@@ -25,7 +25,7 @@ import com.jaspersoft.jasperserver.api.common.domain.jaxb.NamedPropertyHolder;
 import com.jaspersoft.jasperserver.api.engine.scheduling.domain.ReportJob;
 import com.jaspersoft.jasperserver.dto.common.ExportType;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;

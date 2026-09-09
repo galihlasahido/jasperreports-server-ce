@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.jaxrs.resources;
 import com.jaspersoft.jasperserver.dto.resources.ResourceMediaType;
 import org.testng.annotations.Test;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;

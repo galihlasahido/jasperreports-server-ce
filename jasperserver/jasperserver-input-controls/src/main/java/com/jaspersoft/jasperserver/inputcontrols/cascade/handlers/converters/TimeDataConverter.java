@@ -24,7 +24,7 @@ import com.jaspersoft.jasperserver.api.common.timezone.TimeZoneTransformer;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.sql.Time;
 import java.text.ParseException;
 

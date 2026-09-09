@@ -66,7 +66,7 @@ import org.springframework.webflow.core.collection.ParameterMap;
 import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.execution.RequestContext;
 
-import javax.servlet.ServletRequest;
+import jakarta.servlet.ServletRequest;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -121,14 +121,14 @@ public abstract class ReportParametersAction extends FormAction implements Repor
     private String inputNamePrefix;
     private String attributeInputControlsInformation;
     private String inputControlsAttrName;
-    @javax.annotation.Resource(name = "${bean.reportLoadingService}")
+    @jakarta.annotation.Resource(name = "${bean.reportLoadingService}")
     protected ReportLoadingService reportLoadingService;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected InputControlsLogicService inputControlsLogicService;
     private String attributeReportOptionsURI;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected ServletContextWrapper servletContextWrapper;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected ObjectPermissionService objectPermissionService;
 
     /**

@@ -80,7 +80,7 @@ public class DefaultReportJobValidator implements ReportJobValidator, Applicatio
     private String engineServiceBeanName;
     private ApplicationContext applicationContext;
 
-    @javax.annotation.Resource(name = "emailInputValidator")
+    @jakarta.annotation.Resource(name = "emailInputValidator")
     private InputValidator emailValidator;
 
     public void setEngineServiceBeanName(String engineServiceBeanName) {

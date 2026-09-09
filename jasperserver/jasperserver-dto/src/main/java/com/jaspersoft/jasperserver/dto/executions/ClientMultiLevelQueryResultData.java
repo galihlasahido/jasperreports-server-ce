@@ -22,8 +22,8 @@ package com.jaspersoft.jasperserver.dto.executions;
 
 import com.jaspersoft.jasperserver.dto.adhoc.dataset.ClientMultiLevelDataset;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import static com.jaspersoft.jasperserver.dto.utils.ValueObjectUtils.copyOf;
 

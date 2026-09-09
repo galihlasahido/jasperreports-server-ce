@@ -22,7 +22,7 @@ package com.jaspersoft.jasperserver.war.tags;
 
 import com.jaspersoft.jasperserver.jsp.XSSEscapeXmlELResolver;
 
-import javax.servlet.jsp.tagext.TagSupport;
+import jakarta.servlet.jsp.tagext.TagSupport;
 
 /**
  * This jstl tag is an 'escape' hatch in case some EL's need to be left unescaped by XSSEscapeXmlELResolver.

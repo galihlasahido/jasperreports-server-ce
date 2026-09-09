@@ -20,7 +20,7 @@
  */
 package com.jaspersoft.jasperserver.remote.services;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * <p></p>

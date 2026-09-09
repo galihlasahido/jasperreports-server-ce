@@ -20,8 +20,8 @@
  */
 package com.jaspersoft.jasperserver.dto.adhoc.query.order;
 
-import javax.validation.constraints.Min;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.validation.constraints.Min;
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.List;
 

@@ -25,7 +25,7 @@ package com.jaspersoft.jasperserver.ws.xml;
  *
  * @author  Administrator
  */
-public class ByteArrayDataSource implements javax.activation.DataSource {
+public class ByteArrayDataSource implements jakarta.activation.DataSource {
     
     private byte[] buffer;
     private String contenType = "application/octet-stream";

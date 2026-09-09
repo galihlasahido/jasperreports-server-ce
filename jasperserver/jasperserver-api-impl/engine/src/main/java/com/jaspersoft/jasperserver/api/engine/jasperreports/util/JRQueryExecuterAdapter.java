@@ -119,7 +119,7 @@ public class JRQueryExecuterAdapter {
 
 
 		try {
-			QueryExecuterFactory queryExecuterFactory = JRQueryExecuterUtils.getInstance(DefaultJasperReportsContext.getInstance()).getExecuterFactory(query.getLanguage());
+			JRQueryExecuterFactory queryExecuterFactory = JRQueryExecuterUtils.getInstance(DefaultJasperReportsContext.getInstance()).getExecuterFactory(query.getLanguage());
 			
 			JRParameter[] dsParameters = getDatasetParameters(queryExecuterFactory, 
 					parameterValues, parameterTypes, additionalParameters);
@@ -297,7 +297,7 @@ public class JRQueryExecuterAdapter {
 	
 	public static JRQueryExecuter createQueryExecuter(JasperReport report, Map parameterValues, Query query) {
 		try {
-			QueryExecuterFactory queryExecuterFactory = JRQueryExecuterUtils.getInstance(DefaultJasperReportsContext.getInstance()).getExecuterFactory(query.getLanguage());
+			JRQueryExecuterFactory queryExecuterFactory = JRQueryExecuterUtils.getInstance(DefaultJasperReportsContext.getInstance()).getExecuterFactory(query.getLanguage());
 
 			ReportQueryDataset dataset = new ReportQueryDataset(report, query, queryExecuterFactory);
 

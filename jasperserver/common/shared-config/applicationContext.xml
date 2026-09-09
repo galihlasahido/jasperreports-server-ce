@@ -231,7 +231,11 @@
     <bean id="themeHibernateListener" class="com.jaspersoft.jasperserver.war.themes.ThemeHibernateListener">
         <property name="themeCacheBeanName" value="themeCache" />
     </bean>
-<!--TODO: hibernateUpgrade - recheck statistics thru JMX-->
+<!-- org.hibernate.jmx.StatisticsService sudah tidak ada sejak Hibernate 4;
+         blok di bawah tidak bisa lagi diaktifkan apa adanya. Dependensi
+         hibernate-jmx 3.3.2.GA (artefak 2009) ikut dihapus bersama upgrade ke
+         Hibernate 6. Statistik Hibernate sekarang diambil lewat
+         SessionFactory.getStatistics(). -->
     <!-- Hibernate 3.0's JMX statistics service (uncomment this and the next bean if you wish to access Hibernate statistics via JMX)
     <bean name="jasperserver:type=HibernateStatistics" class="org.hibernate.jmx.StatisticsService">
         <property name="sessionFactory" ref="sessionFactory"/>
@@ -805,7 +809,7 @@
         <property name="hibernateRepositoryEhcache" ref="hibernateRepositoryEhcache"/>
     </bean>
 
-    <bean id="hibernateRepositoryEhcache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
+    <bean id="hibernateRepositoryEhcache" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean"
           lazy-init="true">
         <property name="cacheManager" ref="cacheManager"/>
         <property name="cacheName" value="hibernate_repository_ehcache" />
@@ -943,19 +947,19 @@
     </bean>
 </beans>
 <beans profile="jrs">
-	<bean id="engineCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
+	<bean id="engineCache" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean"
 		lazy-init="true">
 		<property name="cacheManager" ref="engineCacheManager"/>
 		<property name="cacheName" value="engineCache" />
 	</bean>
 
-    <bean id="diagnosticCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
+    <bean id="diagnosticCache" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean"
           lazy-init="true">
         <property name="cacheManager" ref="engineCacheManager"/>
         <property name="cacheName" value="diagnosticCache" />
     </bean>
 
-	<bean id="engineCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" depends-on="sysProperties">
+	<bean id="engineCacheManager" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheManagerFactoryBean" depends-on="sysProperties">
 		<property name="configLocation">
 			<value>${resource.root}/engine-ehcache.xml</value>
 		</property>
@@ -1270,13 +1274,13 @@
     </bean>
 
      <!-- Setup a cache for ACLs -->
-    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" depends-on="sysProperties"  p:shared="false" p:acceptExisting="true">
+    <bean id="cacheManager" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheManagerFactoryBean" depends-on="sysProperties"  p:shared="false" p:acceptExisting="true">
       <property name="configLocation">
          <value>${resource.root}/ehcache.xml</value>
       </property>
     </bean>
 
-    <bean id="aclCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+    <bean id="aclCache" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean">
       <property name="cacheManager">
          <ref bean="cacheManager"/>
       </property>
@@ -1292,12 +1296,12 @@
 
     </bean>
 
-    <bean id="attributeCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" lazy-init="true">
+    <bean id="attributeCache" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean" lazy-init="true">
         <property name="cacheManager" ref="cacheManager"/>
         <property name="cacheName" value="attributeCache" />
     </bean>
 
-    <bean id="inputControlCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" lazy-init="true">
+    <bean id="inputControlCache" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean" lazy-init="true">
         <property name="cacheManager" ref="cacheManager"/>
         <property name="cacheName" value="inputControlCache" />
         <property name="timeToIdleSeconds" value="360000"/>
@@ -1335,17 +1339,17 @@
         <property name="transactional" value="false" />
     </bean>
 
-    <bean id="teiidResultsetEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" lazy-init="true">
+    <bean id="teiidResultsetEhCache" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean" lazy-init="true">
         <property name="cacheManager" ref="cacheManager"/>
         <property name="cacheName" value="teiidResultsetEhCache" />
     </bean>
 
-    <bean id="teiidResultsetReplEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" lazy-init="true">
+    <bean id="teiidResultsetReplEhCache" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean" lazy-init="true">
         <property name="cacheManager" ref="cacheManager"/>
         <property name="cacheName" value="teiidResultsetReplEhCache" />
     </bean>
 
-    <bean id="teiidPreparedPlanEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" lazy-init="true">
+    <bean id="teiidPreparedPlanEhCache" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean" lazy-init="true">
         <property name="cacheManager" ref="cacheManager"/>
         <property name="cacheName" value="teiidPreparedPlanEhCache" />
     </bean>
@@ -1537,7 +1541,7 @@
         <value>com.jaspersoft.jasperserver.api.JSException</value>
         <value>com.jaspersoft.jasperserver.api.ExceptionListWrapper</value>
         <value>com.jaspersoft.commons.dataset.expr.DomELParsingException</value>
-        <value>javax.validation.ConstraintViolationException</value>
+        <value>jakarta.validation.ConstraintViolationException</value>
     </util:list>
 
     <bean id="messageProviderFactory" class="com.jaspersoft.jasperserver.api.engine.jasperreports.util.MessageSourceMessageProviderFactory">
@@ -1676,8 +1680,8 @@
 
     <alias name="${bean.calendarFormatProvider}" alias="configurableCalendarFormatProvider"/>
 
-    <!-- handle file uploads using commons-fileupload
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    <!-- handle file uploads
+    <bean id="multipartResolver" class="com.jaspersoft.jasperserver.war.JSStandardMultipartResolver"/>
      -->
 
     <bean id="engineCacheDeleteListener" class="com.jaspersoft.jasperserver.api.engine.jasperreports.service.impl.EngineCacheDeleteListener">
@@ -2240,7 +2244,7 @@
     </bean>
 
     <!-- Cache for for QueryExecutorService -->
-    <bean id="systemUserStorageCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
+    <bean id="systemUserStorageCache" class="com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean"
           lazy-init="true">
         <property name="cacheManager" ref="cacheManager"/>
         <property name="cacheName" value="systemUserStorageCache" />

@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.dto.job.wrappers;
 
 import com.jaspersoft.jasperserver.dto.common.DeepCloneable;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;

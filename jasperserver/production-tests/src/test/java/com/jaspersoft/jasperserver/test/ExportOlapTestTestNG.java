@@ -223,7 +223,7 @@ public class ExportOlapTestTestNG extends BaseExportTestCaseTestNG {
 		return olapConnectionService;
 	}
 
-    @javax.annotation.Resource(name = "olapConnectionService")
+    @jakarta.annotation.Resource(name = "olapConnectionService")
 	public void setOlapConnectionService(OlapConnectionService olapConnectionService) {
         m_logger.info("ExportOlapTestTestNG => setOlapConnectionService() called");
 		this.olapConnectionService = olapConnectionService;

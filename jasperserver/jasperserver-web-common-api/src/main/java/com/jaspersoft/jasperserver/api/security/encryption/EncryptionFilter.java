@@ -28,8 +28,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.context.MessageSource;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.KeyPair;
 import java.security.KeyStoreException;

@@ -68,8 +68,8 @@ NOTES:
 
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="tx" uri="http://tiles.apache.org/tags-tiles-extras"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <%@ taglib prefix="js" uri="/WEB-INF/jasperserver.tld" %>
 
 <tx:useAttribute id="containerID" name="containerID" classname="java.lang.String" ignore="true"/>

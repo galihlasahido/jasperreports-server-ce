@@ -41,7 +41,7 @@ public class TibcoDriverManagerImpl implements TibcoDriverManager {
     public static final String GOOGLE_BIGQUERY_PROGRESS_DRIVER_CLASS = "tibcosoftware.jdbc.googlebigquery.GoogleBigQueryDriver";
 
     private TibcoDriverManagerImpl() {
-        // call of javax.ws.rs.ext.RuntimeDelegate.setInstance() isn't needed here,
+        // call of jakarta.ws.rs.ext.RuntimeDelegate.setInstance() isn't needed here,
         // because it is already done in com.jaspersoft.jasperserver.jaxrs.RestSpringApplication
         preLoadDrivers();
     }

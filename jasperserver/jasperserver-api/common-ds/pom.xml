@@ -37,15 +37,26 @@
 
     <dependencies>
         <dependency>
+            <!-- JCA (javax.resource). Dipakai kode integrasi Teiid
+                 (WorkManager, ConnectionFactory, XATerminator). Teiid 9.1.1 dan
+                 Bitronix BTM tidak punya penerus Jakarta, jadi subsistem virtual
+                 data source sengaja tetap di javax; lihat catatan di
+                 TeiidEmbeddedServer. Dinyatakan eksplisit karena dulu hanya ikut
+                 transitif lewat jar Teiid. -->
+            <groupId>javax.resource</groupId>
+            <artifactId>javax.resource-api</artifactId>
+            <version>1.7.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-            <version>1.3.2</version>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>2.1.1</version>
         </dependency>
 
         <dependency>

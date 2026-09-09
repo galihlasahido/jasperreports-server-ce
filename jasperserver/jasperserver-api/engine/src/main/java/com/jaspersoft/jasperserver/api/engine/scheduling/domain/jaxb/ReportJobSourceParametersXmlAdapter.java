@@ -24,7 +24,7 @@ import com.jaspersoft.jasperserver.api.engine.scheduling.domain.ReportJobSource;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.types.date.RelativeDateRange;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Collection;
 import java.util.HashMap;

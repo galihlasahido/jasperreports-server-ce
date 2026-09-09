@@ -36,7 +36,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.activation.FileDataSource;
+import jakarta.activation.FileDataSource;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

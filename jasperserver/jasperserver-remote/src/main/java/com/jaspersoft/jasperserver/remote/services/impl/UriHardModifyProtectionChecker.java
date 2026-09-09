@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
  */
 @Service
 public class UriHardModifyProtectionChecker {
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected Set<String> modifyProtected;
 
     public boolean isHardModifyProtected(String uri){

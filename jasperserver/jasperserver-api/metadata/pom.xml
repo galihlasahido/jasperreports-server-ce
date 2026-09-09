@@ -122,8 +122,8 @@
             <artifactId>ji-jpivot</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>javax.mail</groupId>
-                    <artifactId>mail</artifactId>
+                    <groupId>jakarta.mail</groupId>
+                    <artifactId>jakarta.mail-api</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.apache.xmlgraphics</groupId>
@@ -233,8 +233,8 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <version>${javax.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -338,7 +338,7 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
+            <artifactId>hibernate-core-jakarta</artifactId>
             <version>${hibernate.core.version}</version>
             <exclusions>
                 <exclusion>
@@ -363,6 +363,18 @@
                 <exclusion>
                     <groupId>net.sf.ehcache</groupId>
                     <artifactId>ehcache</artifactId>
+                </exclusion>
+                <!-- Hibernate tidak pernah merilis hibernate-ehcache-jakarta:
+                     modul ini hanya ada dalam varian javax dan menarik
+                     hibernate-core (javax) secara transitif. Dua inti Hibernate
+                     di classpath membuat org.hibernate.query.Query yang terpilih
+                     adalah yang mewarisi javax.persistence.Query, sehingga
+                     getResultList() tidak ditemukan saat kompilasi. Kelas region
+                     factory-nya sendiri tidak menyentuh paket persistence, jadi
+                     aman berjalan di atas hibernate-core-jakarta. -->
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-core</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -409,12 +421,12 @@
                     <artifactId>xercesImpl</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>jsp-api</artifactId>
+                    <groupId>jakarta.servlet.jsp</groupId>
+                    <artifactId>jakarta.servlet.jsp-api</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>jsp-api</artifactId>
+                    <groupId>jakarta.servlet.jsp</groupId>
+                    <artifactId>jakarta.servlet.jsp-api</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.apache.ant</groupId>
@@ -451,13 +463,13 @@
             <version>${log4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate.validator.version}</version>
         </dependency>
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
             <version>${validation.api.version}</version>
         </dependency>
   </dependencies>

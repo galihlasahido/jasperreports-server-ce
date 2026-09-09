@@ -58,7 +58,10 @@
         </dependency>
 
         <dependency>
-          <groupId>org.skyscreamer</groupId>
+          <!-- Tetap di namespace javax: nevado-jms hanya dipakai
+               JRSNevadoCacheManagerPeerProviderFactory, yang menyambung ke API
+               replikasi JMS milik Ehcache 2.10 yang juga berbasis javax. -->
+            <groupId>org.skyscreamer</groupId>
           <artifactId>nevado-jms</artifactId>
           <version>1.3.2-JS</version>
             <exclusions>
@@ -81,9 +84,12 @@
             </exclusions>
         </dependency>
         <dependency>
+            <!-- Satu-satunya pemakai JMS di repo ini adalah
+               JRSNevadoCacheManagerPeerProviderFactory, yang menyambung ke API
+               replikasi Ehcache 2.10 berbasis javax. Lihat catatan di berkas itu. -->
             <groupId>javax.jms</groupId>
             <artifactId>javax.jms-api</artifactId>
-            <version>${jms-api.version}</version>
+            <version>2.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
@@ -133,89 +139,44 @@
             <groupId>com.jaspersoft.jasperserver.api.metadata</groupId>
             <artifactId>jasperserver-api-metadata</artifactId>
         </dependency>
+        <!-- Groovy 4 (groupId pindah ke org.apache.groovy). Groovy 3 berhenti di
+             berkas kelas Java 17, sedangkan basis kode ini dikompilasi ke 21;
+             ekspresi laporan Groovy yang menyentuh kelas JasperServer akan gagal
+             saat runtime dengan "Unsupported class file major version 65".
+             JasperReports 6.20.3 sendiri sudah menargetkan Groovy 4.
+             groovy-all adalah pom agregat; di sini hanya modul yang benar-benar
+             dipakai mesin ekspresi yang diambil, sehingga daftar pengecualian
+             panjang untuk membuang perkakas baris perintah dan modul tes tidak
+             lagi diperlukan. -->
         <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>3.0.13</version>
-            <type>pom</type>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.ant</groupId>
-                    <artifactId>ant-antlr</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-cli</groupId>
-                    <artifactId>commons-cli</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.ant</groupId>
-                    <artifactId>ant</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.ant</groupId>
-                    <artifactId>ant-launcher</artifactId>
-                </exclusion>
-                <exclusion>
-                     <groupId>org.apiguardian</groupId>
-                     <artifactId>apiguardian-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>junit-jupiter-engine</artifactId>
-                    <groupId>org.junit.jupiter</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>junit-platform-engine</artifactId>
-                    <groupId>org.junit.platform</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>junit-platform-launcher</artifactId>
-                    <groupId>org.junit.platform</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>ant-junit</artifactId>
-                    <groupId>org.apache.ant</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>testng</artifactId>
-                    <groupId>org.testng</groupId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>groovy-ant</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>groovy-cli-picocli</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>groovy-console</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>groovy-docgenerator</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>groovy-groovydoc</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>groovy-test</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>groovy-test-junit5</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>groovy-testng</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>groovy-groovysh</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>${groovy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy-json</artifactId>
+            <version>${groovy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy-xml</artifactId>
+            <version>${groovy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy-sql</artifactId>
+            <version>${groovy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy-datetime</artifactId>
+            <version>${groovy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy-templates</artifactId>
+            <version>${groovy.version}</version>
         </dependency>
 
         <dependency>

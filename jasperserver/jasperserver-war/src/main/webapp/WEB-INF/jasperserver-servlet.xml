@@ -116,8 +116,9 @@
         <entry key="enableAccessibility" value="#{configurationBean.enableAccessibility}"/>
     </util:map>
 
-    <!-- handle file uploads using commons-fileupload -->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <!-- handle file uploads using the container's own multipart parsing;
+         Spring 6 menghapus CommonsMultipartResolver -->
+    <bean id="multipartResolver" class="com.jaspersoft.jasperserver.war.JSStandardMultipartResolver">
         <!-- property should be kept in sync with one in applicationContext-security-web.xml-->
         <property name="maxUploadSize" value="${file.upload.max.size}" />
     </bean>

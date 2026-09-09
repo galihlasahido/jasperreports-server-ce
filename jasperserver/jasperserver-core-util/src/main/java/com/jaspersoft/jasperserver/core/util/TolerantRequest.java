@@ -20,9 +20,9 @@
  */
 package com.jaspersoft.jasperserver.core.util;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * This class is used to override HttpServeletRequest so that it can return TolerantHttpSession instead of HttpSession

@@ -22,7 +22,7 @@
 
     IMPORTANT: Do not remove the comments between the tags, they need to prevent unnecessary spaces in the output.
 
---%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%--
+--%><%@ taglib prefix="c" uri="jakarta.tags.core" %><%--
 --%><%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %><%--
 
 --%><c:choose><%--

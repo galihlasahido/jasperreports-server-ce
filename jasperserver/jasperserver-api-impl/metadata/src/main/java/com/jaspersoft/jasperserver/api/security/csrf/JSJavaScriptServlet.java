@@ -22,13 +22,14 @@
 package com.jaspersoft.jasperserver.api.security.csrf;
 
 import org.owasp.csrfguard.CsrfGuard;
+import org.owasp.csrfguard.session.LogicalSession;
 import org.owasp.csrfguard.servlet.JavaScriptServlet;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -53,10 +54,16 @@ public class JSJavaScriptServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         synchronized (this) {
+            // CSRFGuard 4 memindahkan pengelolaan token dari CsrfGuard ke
+            // TokenService, dan sesi diwakili LogicalSession (bukan HttpSession
+            // langsung). Pasangan getTokenValue/updateToken yang lama —
+            // "ambil token, kalau kosong buat" — kini dinyatakan satu metode:
+            // createMasterTokenIfAbsent.
             CsrfGuard csrfGuard = CsrfGuard.getInstance();
-            String csrfToken = csrfGuard.getTokenValue(req);
-            if (csrfToken == null || csrfToken.length() == 0)
-                csrfGuard.updateToken(req.getSession(false));
+            LogicalSession logicalSession = csrfGuard.getLogicalSessionExtractor().extract(req);
+            if (logicalSession != null) {
+                csrfGuard.getTokenService().createMasterTokenIfAbsent(logicalSession.getKey());
+            }
         }
         jss.doPost(req, resp);
     }

@@ -35,7 +35,7 @@ public class ValueFormattingUtils {
 
     private final static Log log = LogFactory.getLog(ValueFormattingUtils.class);
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected DataConverterService dataConverterService;
 
     public String formatSingleValue(Object value) {

@@ -52,11 +52,11 @@ import static com.jaspersoft.jasperserver.remote.resources.validation.Validation
 public class VirtualDataSourceResourceValidator extends GenericResourceValidator<VirtualReportDataSource> {
 
     private final Pattern specCharacters = Pattern.compile("^\\d|[\\s\\*\\(\\)\\-\\+=:;\\.\\,\"\\\\/<>\\[\\]'!%]+");
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     private RepositoryService service;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private SearchCriteriaFactory searchCriteriaFactory;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     ProfileAttributesResolver profileAttributesResolver;
 
     @Override

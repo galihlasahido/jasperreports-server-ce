@@ -22,9 +22,9 @@ package com.jaspersoft.jasperserver.api.engine.scheduling.domain.jaxb;
 
 import net.sf.jasperreports.types.date.RelativeDateRange;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  * <p></p>

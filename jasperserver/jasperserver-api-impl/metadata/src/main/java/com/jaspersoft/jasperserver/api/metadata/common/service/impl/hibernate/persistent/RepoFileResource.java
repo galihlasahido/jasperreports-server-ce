@@ -33,7 +33,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXParseException;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.InputStream;
 import java.sql.Blob;

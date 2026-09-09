@@ -26,11 +26,11 @@ import com.jaspersoft.jasperserver.dto.resources.domain.validation.ValidReferenc
 import com.jaspersoft.jasperserver.dto.utils.ValueObjectUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlElements;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
+import jakarta.xml.bind.annotation.XmlElements;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;

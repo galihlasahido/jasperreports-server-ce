@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.war.util;
 
 import java.io.UnsupportedEncodingException;
 
-import javax.mail.internet.MimeUtility;
+import jakarta.mail.internet.MimeUtility;
 
 import com.jaspersoft.jasperserver.api.JSExceptionWrapper;
 

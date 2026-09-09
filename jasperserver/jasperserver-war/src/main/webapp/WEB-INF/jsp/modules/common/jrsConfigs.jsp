@@ -20,8 +20,8 @@
   ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
   --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="authz"%>
 <%@ page import="com.jaspersoft.jasperserver.api.common.util.TimeZoneContextHolder" %>

@@ -20,7 +20,7 @@
  */
 package com.jaspersoft.jasperserver.dto.adhoc.query.adapter;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * @author Vasyl Spachynskyi

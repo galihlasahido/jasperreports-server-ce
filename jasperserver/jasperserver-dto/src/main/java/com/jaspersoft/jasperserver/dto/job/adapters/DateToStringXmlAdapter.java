@@ -20,8 +20,8 @@
  */
 package com.jaspersoft.jasperserver.dto.job.adapters;
 
-import javax.xml.bind.DatatypeConverter;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.Calendar;
 import java.util.Date;
 

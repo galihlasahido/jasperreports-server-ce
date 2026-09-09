@@ -31,12 +31,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import java.io.IOException;
 
 /**
@@ -63,7 +63,7 @@ public class MetadataAuthenticationProcessingFilter implements Filter, Initializ
 	protected ExternalUserService externalUserService;
 
     public void afterPropertiesSet() throws Exception {
-        Assert.notNull(externalUserService);
+        Assert.notNull(externalUserService, "externalUserService tidak boleh null");
     }
 
     /**

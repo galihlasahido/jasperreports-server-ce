@@ -37,6 +37,18 @@ import java.util.Properties;
 
 import static com.jaspersoft.jasperserver.api.engine.replication.JRSActiveMQInitialContextFactory.CACHE_REPLICATION_SETTINGS_XML_FILE;
 
+/*
+ * Pulau javax yang disengaja.
+ *
+ * Kelas ini menyambungkan replikasi JMS milik Ehcache 2.10 dengan Nevado
+ * (JMS di atas AWS SQS). Ehcache 2.10 sudah EOL dan API replikasinya
+ * berbasis javax.jms; mentransformasinya ke jakarta akan memutus
+ * hibernate-ehcache yang memakai Ehcache yang sama. Karena kedua sisi
+ * sambungan ini (Ehcache dan Nevado) tetap di javax dan tidak ada kode lain
+ * yang menyentuhnya, berkas ini sengaja dibiarkan di javax.jms.
+ *
+ * Konfigurasinya di ehcache.xml dikirim dalam keadaan dikomentari.
+ */
 public class JRSNevadoCacheManagerPeerProviderFactory extends CacheManagerPeerProviderFactory {
 	static final Log log = LogFactory.getLog(JRSNevadoCacheManagerPeerProviderFactory.class);
 

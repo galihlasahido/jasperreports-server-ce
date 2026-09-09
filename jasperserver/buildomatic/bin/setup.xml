@@ -1391,31 +1391,36 @@
                 </then>
             </elseif>
             <else>
-                <var name="groovy.version" value="3.0.13"/>
+                <!-- Groovy 3 berhenti di berkas kelas Java 17 (major 61). Target
+                     kompilasi proyek ini 21 (major 65), dan Scanner.groovy milik
+                     gerbang manifest dependensi membaca kelas-kelas itu, sehingga
+                     Groovy 3 gagal dengan "Unsupported class file major version 65".
+                     Groovy 4 juga berpindah groupId ke org.apache.groovy. -->
+                <var name="groovy.version" value="4.0.28"/>
                 <echo>Didn't find groovy JAR, downloading groovy ${groovy.version}</echo>
                 <runmaven dir="${basedir}">
                     <arg value="dependency:copy"/>
-                    <arg value="-Dartifact=org.codehaus.groovy:groovy:${groovy.version}:jar"/>
+                    <arg value="-Dartifact=org.apache.groovy:groovy:${groovy.version}:jar"/>
                     <arg value="-DoutputDirectory=${ant.home}/lib"/>
                 </runmaven>
                 <runmaven dir="${basedir}">
                     <arg value="dependency:copy"/>
-                    <arg value="-Dartifact=org.codehaus.groovy:groovy-ant:${groovy.version}:jar"/>
+                    <arg value="-Dartifact=org.apache.groovy:groovy-ant:${groovy.version}:jar"/>
                     <arg value="-DoutputDirectory=${ant.home}/lib"/>
                 </runmaven>
                 <runmaven dir="${basedir}">
                     <arg value="dependency:copy"/>
-                    <arg value="-Dartifact=org.codehaus.groovy:groovy-console:${groovy.version}:jar"/>
+                    <arg value="-Dartifact=org.apache.groovy:groovy-console:${groovy.version}:jar"/>
                     <arg value="-DoutputDirectory=${ant.home}/lib"/>
                 </runmaven>
                 <runmaven dir="${basedir}">
                     <arg value="dependency:copy"/>
-                    <arg value="-Dartifact=org.codehaus.groovy:groovy-nio:${groovy.version}:jar"/>
+                    <arg value="-Dartifact=org.apache.groovy:groovy-nio:${groovy.version}:jar"/>
                     <arg value="-DoutputDirectory=${ant.home}/lib"/>
                 </runmaven>
                 <runmaven dir="${basedir}">
                     <arg value="dependency:copy"/>
-                    <arg value="-Dartifact=org.codehaus.groovy:groovy-astbuilder:${groovy.version}:jar"/>
+                    <arg value="-Dartifact=org.apache.groovy:groovy-astbuilder:${groovy.version}:jar"/>
                     <arg value="-DoutputDirectory=${ant.home}/lib"/>
                 </runmaven>
                 <taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy">

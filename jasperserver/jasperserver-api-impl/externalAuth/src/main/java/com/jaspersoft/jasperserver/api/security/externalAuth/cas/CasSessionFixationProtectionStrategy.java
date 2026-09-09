@@ -24,19 +24,20 @@ import com.jaspersoft.jasperserver.api.security.externalAuth.LogMasker;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jasig.cas.client.Protocol;
-import org.jasig.cas.client.configuration.ConfigurationKeys;
-import org.jasig.cas.client.session.SessionMappingStorage;
-import org.jasig.cas.client.session.SingleSignOutHandler;
-import org.jasig.cas.client.util.CommonUtils;
+import org.apereo.cas.client.Protocol;
+import org.apereo.cas.client.configuration.ConfigurationKeys;
+import org.apereo.cas.client.session.SessionMappingStorage;
+import org.apereo.cas.client.session.SingleSignOutHandler;
+// safeGetParameter pindah dari CommonUtils ke WebUtils di klien CAS Apereo 4.
+import org.apereo.cas.client.util.WebUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
 import org.springframework.util.Assert;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
 
@@ -77,7 +78,7 @@ public class CasSessionFixationProtectionStrategy extends SessionFixationProtect
 		super.onAuthentication(authentication, request, response);
 
 		final HttpSession newSession = request.getSession();
-		final String token = CommonUtils.safeGetParameter(request, this.artifactParameterName, this.safeParameters);
+		final String token = WebUtils.safeGetParameter(request, this.artifactParameterName, this.safeParameters);
 		// SECURITY FIX (JSP-21)
 		logger.debug("Recording the new session after the previous one was destroyed to prevent session fixation (token "
 				+ LogMasker.mask(token) + ").");
@@ -106,7 +107,7 @@ public class CasSessionFixationProtectionStrategy extends SessionFixationProtect
 		Assert.notNull(this.sessionMappingStorage, "sessionMappingStorage property must be specified.  " +
 				"It should be the same sessionMappingStorage as that used by CAS SingleSignOutFilter");
 
-		//copied from org.jasig.cas.client.session.SingleSignOutHandler.init()
+		//copied from org.apereo.cas.client.session.SingleSignOutHandler.init()
 		if (this.artifactParameterOverPost) {
 			this.safeParameters = Arrays.asList(this.logoutParameterName, this.artifactParameterName);
 		} else {

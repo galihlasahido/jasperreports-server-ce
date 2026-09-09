@@ -19,7 +19,7 @@
   ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
   --%>
 <%@ page contentType="text/javascript; charset=utf-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page import="java.util.Set"%>
 <%@ page import="java.util.Map"%>
 <%

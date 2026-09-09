@@ -26,7 +26,7 @@ import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.common.representation.em
 import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.common.representation.Link;
 import com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.resource.representation.ResourceLookupCollectionRepresentation;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 import java.text.MessageFormat;
 
 

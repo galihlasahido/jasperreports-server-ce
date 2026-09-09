@@ -30,17 +30,18 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.owasp.csrfguard.CsrfGuard;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Properties;
 
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.never;
@@ -56,7 +57,14 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class JSCsrfGuardFilterTest {
-    public static final String CSRF_TOKEN_VALUE = "12345_Token";
+    private static final String TEST_SESSION_ID = "test-session-id";
+    /**
+     * CSRFGuard 3 membandingkan token request dengan atribut HttpSession,
+     * sehingga nilai apa pun bisa dipasang di kedua sisi. CSRFGuard 4 menyimpan
+     * token di TokenHolder yang dikunci sesi logis, jadi tes harus memakai token
+     * yang benar-benar dibuat CSRFGuard, bukan konstanta karangan.
+     */
+    private static String CSRF_TOKEN_VALUE;
     public static final String AJAX_HEADER = "X-Requested-With";
     private static JSCsrfGuardFilter filter = new JSCsrfGuardFilter();
 
@@ -83,10 +91,20 @@ public class JSCsrfGuardFilterTest {
     @Before
     public void setupTest() {
         reset(requestMock);
-        when(sessionMock.getAttribute(CsrfGuard.getInstance().getSessionKey())).thenReturn(CSRF_TOKEN_VALUE);
-//        when(requestMock.getSession()).thenReturn(sessionMock);
-        when(requestMock.getSession(false)).thenReturn(sessionMock);
-        when(requestMock.getSession(true)).thenReturn(sessionMock);
+        // Buat master token lewat API CSRFGuard 4 dan pakai nilainya di request.
+        CsrfGuard csrfGuard = CsrfGuard.getInstance();
+        csrfGuard.getTokenService().createMasterTokenIfAbsent(TEST_SESSION_ID);
+        CSRF_TOKEN_VALUE = csrfGuard.getTokenService().getMasterToken(TEST_SESSION_ID);
+        // SessionTokenKeyExtractor memanggil getSession(boolean) -- bukan getSession()
+        // tanpa argumen. Tanpa stub yang cocok, extract() mengembalikan null,
+        // CsrfGuardFilter masuk ke handleNoSession dan meloloskan request
+        // (ValidateWhenNoSessionExists=false), sehingga tes "tanpa token harus
+        // ditolak" lulus karena alasan yang salah.
+        when(requestMock.getSession(anyBoolean())).thenReturn(sessionMock);
+        // CSRFGuard 4 mengambil kunci sesi logis lewat SessionTokenKeyExtractor,
+        // yang memakai id HttpSession. Tanpa id, penyimpanan token melempar
+        // NullPointerException ("key is null") sebelum filter sempat dijalankan.
+        when(sessionMock.getId()).thenReturn(TEST_SESSION_ID);
         when(requestMock.getRequestURL()).thenReturn(new StringBuffer("testCSRF.html"));
         when(requestMock.getRequestURI()).thenReturn("testCSRF.html");
     }
@@ -154,7 +172,6 @@ public class JSCsrfGuardFilterTest {
     public void testAjaxRequestWithoutTokenFails() throws Exception {
         when(requestMock.getHeader(HTTP.USER_AGENT)).thenReturn("Mozilla/1.2.3");
         when(requestMock.getMethod()).thenReturn("POST");
-        when(requestMock.getHeader(AJAX_HEADER)).thenReturn("XmlHttpRequest");
 
         Method doFilter = JSCsrfGuardFilter.class.getDeclaredMethod("doFilter", ServletRequest.class, ServletResponse.class, FilterChain.class);
         doFilter.invoke(filter, requestMock, responseMock, filterChainMock);
@@ -166,8 +183,19 @@ public class JSCsrfGuardFilterTest {
     public void testAjaxRequestWithTokenPasses() throws Exception {
         when(requestMock.getHeader(HTTP.USER_AGENT)).thenReturn("Mozilla/1.2.3");
         when(requestMock.getMethod()).thenReturn("POST");
-        when(requestMock.getHeader(AJAX_HEADER)).thenReturn("XmlHttpRequest");
         when(requestMock.getHeader(CsrfGuard.getInstance().getTokenName())).thenReturn(CSRF_TOKEN_VALUE);
+        // CSRFGuard 4 menelusuri daftar nama header saat mencari token, bukan
+        // hanya memanggil getHeader dengan nama token. Tanpa getHeaderNames yang
+        // memuat nama itu, token di header tidak pernah terlihat dan request
+        // ditolak dengan "Required Token is missing from the Request".
+        // CSRFGuard 4 mendeteksi Ajax lewat getHeaders() (jamak, Enumeration) dan
+        // membandingkan persis dengan "XMLHttpRequest". CSRFGuard 3 memakai
+        // getHeader() tunggal, sehingga nilai "XmlHttpRequest" dulu cukup.
+        // Kalau request tidak dikenali Ajax, token di header tidak pernah dibaca
+        // dan request ditolak dengan "Required Token is missing from the Request".
+        when(requestMock.getHeaders(AJAX_HEADER)).thenReturn(
+                java.util.Collections.enumeration(
+                        java.util.Collections.singletonList("XMLHttpRequest")));
 
         Method doFilter = JSCsrfGuardFilter.class.getDeclaredMethod("doFilter", ServletRequest.class, ServletResponse.class, FilterChain.class);
         doFilter.invoke(filter, requestMock, responseMock, filterChainMock);

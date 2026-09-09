@@ -22,7 +22,7 @@
 package com.jaspersoft.jasperserver.jaxrs.poc.hypermedia.root.dto;
 
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author: Igor.Nesterenko

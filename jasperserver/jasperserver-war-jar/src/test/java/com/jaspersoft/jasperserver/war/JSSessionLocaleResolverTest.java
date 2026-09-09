@@ -23,9 +23,9 @@ package com.jaspersoft.jasperserver.war;
 import com.jaspersoft.jasperserver.war.common.JasperServerConstImpl;
 import org.junit.Test;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;

@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.remote.services.impl.reportinfo;
 import net.sf.jasperreports.engine.PrintBookmark;
 import net.sf.jasperreports.engine.PrintParts;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 import java.util.List;
 
 /**

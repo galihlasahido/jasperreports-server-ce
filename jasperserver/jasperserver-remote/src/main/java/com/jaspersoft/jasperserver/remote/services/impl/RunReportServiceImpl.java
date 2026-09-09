@@ -97,8 +97,8 @@ import org.springframework.util.Assert;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
-import javax.annotation.Resource;
-import javax.ws.rs.core.Response;
+import jakarta.annotation.Resource;
+import jakarta.ws.rs.core.Response;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
@@ -496,7 +496,7 @@ public class RunReportServiceImpl implements RunReportService, Serializable, Dis
 
     private ReportExecution createFreshReportExecutionCopy(ReportExecution copy, ReportExecutionOptions options) {
         String requestId = copy.getRequestId();
-        Assert.notNull(requestId);
+        Assert.notNull(requestId, "requestId tidak boleh null");
 
         options.setRequestId(requestId);
 

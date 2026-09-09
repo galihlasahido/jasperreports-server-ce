@@ -39,7 +39,7 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(locations={"classpath:context.xml"})
 public class EmailValidatorTest {
 
-    @javax.annotation.Resource(name="emailValidator")
+    @jakarta.annotation.Resource(name="emailValidator")
     private InputValidator<String> validator;
 
     @Test

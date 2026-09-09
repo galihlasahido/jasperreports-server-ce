@@ -37,7 +37,7 @@ import org.owasp.esapi.errors.ValidationException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSetMetaData;

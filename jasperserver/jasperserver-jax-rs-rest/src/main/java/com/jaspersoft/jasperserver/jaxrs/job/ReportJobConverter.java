@@ -128,12 +128,12 @@ public class ReportJobConverter implements ToClientConverter<ReportJob, ClientRe
         add("SSH_PASSPHRASE_PROPERTY");
     }};
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private InputControlsLogicService inputControlsLogicService;
 
     private FtpTypeAdapter ftpTypeAdapter = new FtpTypeAdapter();
 
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     private RepositoryService repositoryService;
 
 

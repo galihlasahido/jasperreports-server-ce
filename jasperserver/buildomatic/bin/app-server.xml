@@ -933,7 +933,7 @@ tomcat copies to this location from the jasperserver war file META-INF/context.x
                 <delete>
                     <fileset dir="${warTargetDir}/WEB-INF" includes="weblogic.xml"/>
                     <fileset dir="${warTargetDir}/WEB-INF/lib" includes="hk2-api-*.jar"/>
-                    <fileset dir="${warTargetDir}/WEB-INF/lib" includes="javax.ws.rs-api-*.jar"/>
+                    <fileset dir="${warTargetDir}/WEB-INF/lib" includes="jakarta.ws.rs-api-*.jar"/>
                     <fileset dir="${warTargetDir}/WEB-INF/lib" includes="jersey-common-*.jar"/>
                     <fileset dir="${warTargetDir}/WEB-INF/lib" includes="jersey-container-servlet-core-*.jar"/>
                     <fileset dir="${warTargetDir}/WEB-INF/lib" includes="jersey-server-*.jar"/>

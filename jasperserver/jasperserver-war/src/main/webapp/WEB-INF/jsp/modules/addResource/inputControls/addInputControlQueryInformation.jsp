@@ -22,7 +22,7 @@
 
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <t:insertTemplate template="/WEB-INF/jsp/templates/page.jsp">
      <t:putAttribute name="pageTitle"><spring:message code="addinputcontrol.queryextra.page.title"/></t:putAttribute>

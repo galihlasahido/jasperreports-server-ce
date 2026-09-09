@@ -29,7 +29,7 @@ import com.jaspersoft.jasperserver.api.metadata.user.service.UserAuthorityServic
 import com.jaspersoft.jasperserver.remote.exception.IllegalParameterValueException;
 import com.jaspersoft.jasperserver.remote.exception.ResourceNotFoundException;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Map;
 import java.util.Set;
 

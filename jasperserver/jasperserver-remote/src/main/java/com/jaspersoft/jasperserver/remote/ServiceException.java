@@ -23,7 +23,7 @@
 package com.jaspersoft.jasperserver.remote;
 
 import com.jaspersoft.jasperserver.api.JSException;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *

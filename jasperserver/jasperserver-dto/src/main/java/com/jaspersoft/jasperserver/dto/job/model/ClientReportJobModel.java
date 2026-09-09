@@ -42,9 +42,9 @@ import com.jaspersoft.jasperserver.dto.job.ClientJobSource;
 import com.jaspersoft.jasperserver.dto.job.ClientJobTrigger;
 import com.jaspersoft.jasperserver.dto.job.ClientReportJob;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElements;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.sql.Timestamp;
 import java.util.Set;
 

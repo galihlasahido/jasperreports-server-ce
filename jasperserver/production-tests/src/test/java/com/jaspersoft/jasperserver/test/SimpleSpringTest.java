@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.test;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;

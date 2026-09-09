@@ -40,9 +40,9 @@ import java.util.Arrays;
  */
 @Service
 public class ReferenceValidator {
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private RepositoryService concreteRepository;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ResourceConverterProvider resourceConverterProvider;
 
     public void validateReference(String uri, String referenceAttributeName, boolean isMandatory, String... expectedTypes) {

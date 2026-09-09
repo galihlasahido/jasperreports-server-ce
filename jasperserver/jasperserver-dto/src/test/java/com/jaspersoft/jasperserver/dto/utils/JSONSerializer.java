@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
-import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
+import com.fasterxml.jackson.module.jakarta.xmlbind.JakartaXmlBindAnnotationIntrospector;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -92,7 +92,7 @@ public class JSONSerializer {
 
     private void configure() {
         mapper = new ObjectMapper();
-        AnnotationIntrospector primary = new JaxbAnnotationIntrospector();
+        AnnotationIntrospector primary = new JakartaXmlBindAnnotationIntrospector();
         AnnotationIntrospector secondary = new JacksonAnnotationIntrospector();
         AnnotationIntrospector pair = AnnotationIntrospector.pair(primary, secondary);
         mapper.setAnnotationIntrospector(pair);

@@ -29,10 +29,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.owasp.csrfguard.CsrfGuard;
 import org.springframework.mock.web.MockHttpSession;
 
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.InputStream;
 import java.util.Properties;
 

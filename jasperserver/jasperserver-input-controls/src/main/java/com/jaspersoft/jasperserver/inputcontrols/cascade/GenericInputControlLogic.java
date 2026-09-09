@@ -93,19 +93,19 @@ public class GenericInputControlLogic<T extends InputControlsContainer> implemen
 
     private final static Log log = LogFactory.getLog(GenericInputControlLogic.class);
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected ControlLogicCacheManager controlLogicCacheManager;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected CachedRepositoryService cachedRepositoryService;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected CachedEngineService cachedEngineService;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected Map<String, Map<String, Object>> inputControlTypeConfiguration;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected FilterResolver filterResolver;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected boolean allowExtraReportParameters = false;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     protected ValueFormattingUtils valueFormattingUtils;
 
     /**

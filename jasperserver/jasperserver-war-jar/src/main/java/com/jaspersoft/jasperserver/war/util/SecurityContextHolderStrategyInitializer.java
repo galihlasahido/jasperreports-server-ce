@@ -21,8 +21,8 @@
 
 package com.jaspersoft.jasperserver.war.util;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.apache.commons.logging.Log;

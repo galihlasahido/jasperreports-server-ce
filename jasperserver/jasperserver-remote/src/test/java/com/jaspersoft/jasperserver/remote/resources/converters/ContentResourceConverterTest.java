@@ -33,7 +33,7 @@ import com.jaspersoft.jasperserver.dto.common.ClientTypeUtility;
 import com.jaspersoft.jasperserver.dto.resources.ClientFile;
 
 import static java.lang.System.getenv;
-import javax.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.DatatypeConverter;
 
 import java.util.ArrayList;
 

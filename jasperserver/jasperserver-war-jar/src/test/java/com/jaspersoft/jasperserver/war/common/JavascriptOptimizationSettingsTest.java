@@ -31,9 +31,9 @@ import org.junit.jupiter.api.function.Executable;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import static com.jaspersoft.jasperserver.war.common.JavascriptOptimizationSettings.OPTIMIZE_JAVASCRIPT_SESSION_PARAM;
 import static org.junit.jupiter.api.Assertions.assertAll;

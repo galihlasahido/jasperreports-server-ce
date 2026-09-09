@@ -31,7 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +49,7 @@ public class ResourceConverterProviderImpl implements ResourceConverterProvider 
     private ApplicationContext context;
     @Autowired
     private BinaryDataResourceConverter binaryDataResourceConverter;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private List<Class<?>> disabledResourceTypes;
     private List<String> disabledResourceClientTypes = new ArrayList<String>();
     private Map<String, ToClientConverter<? super Resource, ? extends ClientResource, ToClientConversionOptions>> toClientConverters;

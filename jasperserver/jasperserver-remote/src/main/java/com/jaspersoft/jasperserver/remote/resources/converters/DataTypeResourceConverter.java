@@ -29,7 +29,7 @@ import com.jaspersoft.jasperserver.inputcontrols.cascade.InputControlValidationE
 import com.jaspersoft.jasperserver.inputcontrols.cascade.handlers.converters.DataConverterService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 /**

@@ -20,7 +20,7 @@
  */
 package com.jaspersoft.jasperserver.dto.resources;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * <p>Currently stub type, represents report topic, not domain. Shown as report unit.</p>

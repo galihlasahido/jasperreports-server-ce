@@ -25,7 +25,7 @@ import com.jaspersoft.jasperserver.dto.adhoc.query.el.ClientExpressions;
 import com.jaspersoft.jasperserver.dto.adhoc.query.el.ClientOperator;
 import com.jaspersoft.jasperserver.dto.adhoc.query.el.ast.ClientELVisitor;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 

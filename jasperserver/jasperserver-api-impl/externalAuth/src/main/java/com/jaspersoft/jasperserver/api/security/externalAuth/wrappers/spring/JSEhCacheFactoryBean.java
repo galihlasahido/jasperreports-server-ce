@@ -21,10 +21,10 @@
 package com.jaspersoft.jasperserver.api.security.externalAuth.wrappers.spring;
 
 import com.jaspersoft.jasperserver.api.JasperServerAPI;
-import org.springframework.cache.ehcache.EhCacheFactoryBean;
+import com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean;
 
 /**
- * Wrapper class for org.springframework.cache.ehcache.EhCacheFactoryBean
+ * Wrapper class for com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean
  * @author dlitvak
  * @version $Id$
  * @since 6.0

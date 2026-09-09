@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.api.engine.scheduling.domain.reportjobmodel;
 import com.jaspersoft.jasperserver.api.JasperServerAPI;
 import com.jaspersoft.jasperserver.api.engine.scheduling.domain.ReportJobCalendarTrigger;
 
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 import java.util.SortedSet;
 

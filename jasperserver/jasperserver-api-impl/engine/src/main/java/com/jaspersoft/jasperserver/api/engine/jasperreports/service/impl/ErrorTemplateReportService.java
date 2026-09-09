@@ -27,7 +27,7 @@ import com.jaspersoft.jasperserver.api.metadata.jasperreports.service.ReportData
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Locale;
 import java.util.Map;
 

@@ -27,8 +27,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import javax.validation.ConstraintValidatorContext;
-import javax.validation.ConstraintViolation;
+import jakarta.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintViolation;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -153,9 +153,12 @@ public class ConstraintValidatorContextDecoratorTest {
     }
 
     private ConstraintViolationImpl createViolation(Map<String, Object> expressionVariables) {
+        // Hibernate Validator 8 menghapus satu parameter dari forBeanValidation
+        // (12 menjadi 11): String, Map, Map, String, Class, T, Object, Object,
+        // Path, ConstraintDescriptor, Object.
         return (ConstraintViolationImpl) ConstraintViolationImpl.forBeanValidation(null,
                 null, expressionVariables, null, null, null,
-                null, null, null, null, null,null
+                null, null, null, null, null
         );
     }
 }

@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.api.metadata.jdbc;
 
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.Map;

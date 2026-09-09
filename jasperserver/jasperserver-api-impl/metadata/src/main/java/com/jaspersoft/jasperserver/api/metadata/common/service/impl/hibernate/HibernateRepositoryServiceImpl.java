@@ -167,7 +167,7 @@ public class HibernateRepositoryServiceImpl extends HibernateDaoImpl implements 
 
     private ApplicationContext applicationContext; //needed for validation settings
 
-    @javax.annotation.Resource(name = "accessService")
+    @jakarta.annotation.Resource(name = "accessService")
     AccessService accessService;
 
 

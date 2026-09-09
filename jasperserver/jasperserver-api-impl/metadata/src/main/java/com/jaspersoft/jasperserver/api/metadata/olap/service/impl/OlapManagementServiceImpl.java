@@ -43,7 +43,7 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.cache.ehcache.EhCacheFactoryBean;
+import com.jaspersoft.jasperserver.api.common.cache.EhCacheFactoryBean;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

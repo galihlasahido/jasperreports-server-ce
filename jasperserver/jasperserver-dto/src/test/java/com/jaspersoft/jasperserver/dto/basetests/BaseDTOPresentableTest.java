@@ -28,7 +28,7 @@ import com.jaspersoft.jasperserver.dto.utils.XMLSerializer;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 
 import static com.jaspersoft.jasperserver.dto.utils.CustomAssertions.assertNodesEquals;
 import static org.junit.Assert.assertEquals;

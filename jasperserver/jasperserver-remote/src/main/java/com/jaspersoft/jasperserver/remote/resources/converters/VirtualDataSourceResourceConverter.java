@@ -44,7 +44,7 @@ import java.util.Map;
  */
 @Service
 public class VirtualDataSourceResourceConverter extends ResourceConverterImpl<VirtualReportDataSource, ClientVirtualDataSource> {
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     protected RepositoryService repositoryService;
 
     @Override

@@ -26,7 +26,7 @@ import com.jaspersoft.jasperserver.dto.common.ErrorDescriptorBuilder;
 import com.jaspersoft.jasperserver.remote.connection.UnsupportedDataSourceException;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * <p></p>

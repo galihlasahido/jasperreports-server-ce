@@ -44,7 +44,7 @@ Usage:
 
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="tx" uri="http://tiles.apache.org/tags-tiles-extras"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!--/WEB-INF/jsp/templates/page.jsp revision A-->
 <tx:useAttribute id="pageTitle" name="pageTitle" classname="java.lang.String" ignore="false"/>

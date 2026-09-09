@@ -239,8 +239,8 @@
                 </property>
             </properties>
             <capabilities>
-                <capability name="javax.servlet.api:v25"/>
-                <capability name="javax.transaction.api"/>
+                <capability name="jakarta.servlet.api:v25"/>
+                <capability name="jakarta.transaction.api"/>
                 <capability name="org.apache.felix.log" startlevel="1"/>
                 <capability name="org.jboss.osgi.logging" startlevel="1"/>
                 <capability name="org.apache.felix.configadmin" startlevel="1"/>

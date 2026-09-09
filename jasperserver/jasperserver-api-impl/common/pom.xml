@@ -40,7 +40,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration>
-                    <argLine>${argLine}</argLine>
+                    <argLine>${argLine} ${surefire.addOpens}</argLine>
                     <environmentVariables>
                         <ks>${project.build.directory}/test-classes</ks>
                         <ksp>${project.build.directory}/test-classes</ksp>
@@ -98,7 +98,7 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
+            <artifactId>hibernate-core-jakarta</artifactId>
             <version>${hibernate.core.version}</version>
             <exclusions>
                 <exclusion>
@@ -131,6 +131,18 @@
                 <exclusion>
                     <groupId>net.sf.ehcache</groupId>
                     <artifactId>ehcache</artifactId>
+                </exclusion>
+                <!-- Hibernate tidak pernah merilis hibernate-ehcache-jakarta:
+                     modul ini hanya ada dalam varian javax dan menarik
+                     hibernate-core (javax) secara transitif. Dua inti Hibernate
+                     di classpath membuat org.hibernate.query.Query yang terpilih
+                     adalah yang mewarisi javax.persistence.Query, sehingga
+                     getResultList() tidak ditemukan saat kompilasi. Kelas region
+                     factory-nya sendiri tidak menyentuh paket persistence, jadi
+                     aman berjalan di atas hibernate-core-jakarta. -->
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-core</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

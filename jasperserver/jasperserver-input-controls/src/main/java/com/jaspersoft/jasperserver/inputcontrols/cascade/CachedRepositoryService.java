@@ -42,13 +42,13 @@ public class CachedRepositoryService {
 
     private static final String URI_RESOURCE_TYPE_MAPPING_CACHE_KEY = "uriResourceTypeMapping";
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private ControlLogicCacheManager controlLogicCacheManager;
 
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     private RepositoryService repositoryService;
 
-    @javax.annotation.Resource(name = "inputControlsCachingEnabled")
+    @jakarta.annotation.Resource(name = "inputControlsCachingEnabled")
     private boolean doCache;
 
     protected Map<String, Class<? super Resource>> getUriResourceTypeMapping() {

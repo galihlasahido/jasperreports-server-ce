@@ -20,7 +20,7 @@
  */
 package com.jaspersoft.jasperserver.api.engine.scheduling.domain.jaxb;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.HashMap;
 
 /**

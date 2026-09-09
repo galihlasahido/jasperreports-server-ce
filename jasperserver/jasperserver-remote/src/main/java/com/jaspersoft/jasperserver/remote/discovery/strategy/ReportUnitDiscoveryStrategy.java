@@ -53,7 +53,7 @@ public class ReportUnitDiscoveryStrategy implements DiscoveryStrategy<ReportUnit
             "hyperlinkType", "hyperlinkTarget"
             )));
 
-    @javax.annotation.Resource(name = "concreteRepository")
+    @jakarta.annotation.Resource(name = "concreteRepository")
     protected RepositoryService repositoryService;
 
     protected final ExecutionContext executionContext = ExecutionContextImpl.getRuntimeExecutionContext();

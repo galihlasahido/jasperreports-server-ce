@@ -24,7 +24,7 @@ package com.jaspersoft.jasperserver.remote.settings;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
 
 /**
@@ -32,7 +32,7 @@ import java.util.HashMap;
  */
 public class RequestSettingsProvider implements SettingsProvider {
 
-    private javax.servlet.http.HttpServletRequest getRequest() {
+    private jakarta.servlet.http.HttpServletRequest getRequest() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         return attr.getRequest();
     }

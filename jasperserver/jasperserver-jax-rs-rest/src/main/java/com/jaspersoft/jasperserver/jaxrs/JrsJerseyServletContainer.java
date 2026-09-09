@@ -25,8 +25,8 @@ import org.glassfish.jersey.server.internal.RuntimeDelegateImpl;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.WebConfig;
 
-import javax.servlet.ServletException;
-import javax.ws.rs.ext.RuntimeDelegate;
+import jakarta.servlet.ServletException;
+import jakarta.ws.rs.ext.RuntimeDelegate;
 
 /**
  * <p></p>

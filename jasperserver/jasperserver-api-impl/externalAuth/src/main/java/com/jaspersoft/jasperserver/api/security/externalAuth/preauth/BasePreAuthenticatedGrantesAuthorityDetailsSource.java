@@ -23,7 +23,7 @@ package com.jaspersoft.jasperserver.api.security.externalAuth.preauth;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author oleg

@@ -24,7 +24,7 @@
   session="true"
   contentType="text/html"
 %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="js" uri="/WEB-INF/jasperserver.tld" %>
 
