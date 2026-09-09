@@ -1244,10 +1244,18 @@
           </exclusion>
         </exclusions>
       </dependency>
+      <!-- Varian Jakarta hasil transformasi. Commons FileUpload 1.x hanya ada di
+           namespace javax, dan penerusnya (commons-fileupload2-jakarta) memakai
+           paket lain sehingga tidak bisa menggantikannya bagi pemanggil yang
+           sudah dikompilasi terhadap org.apache.commons.fileupload. Pemanggilnya
+           di sini adalah ji-wcf (lapisan JPivot/OLAP), yang juga ditransformasi:
+           tanpa varian ini, membuka tampilan OLAP gagal dengan NoSuchMethodError
+           ServletFileUpload.isMultipartContent(jakarta.servlet.http.HttpServletRequest).
+           Lihat vm/jakarta-transform.sh. -->
       <dependency>
         <groupId>commons-fileupload</groupId>
         <artifactId>commons-fileupload</artifactId>
-        <version>1.6.0</version>
+        <version>1.6.0-jakarta</version>
       </dependency>
       <dependency>
         <groupId>commons-io</groupId>
