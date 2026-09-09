@@ -274,12 +274,23 @@
         <webflow:flow-location-pattern value="/WEB-INF/flows/**/*Flow.xml" />
     </webflow:flow-registry>
 
-    <!-- Spring Web Flow 3 membuang dukungan OGNL sepenuhnya; satu-satunya bahasa
-         ekspresi yang tersisa adalah SpEL, dan itulah default flow-builder-services
-         ketika expression-parser tidak disebutkan. Atribut dan bean
-         WebFlowOgnlExpressionParser karenanya dihapus. Ekspresi di berkas
-         *Flow.xml perlu diperiksa: sintaks OGNL dan SpEL tidak sepenuhnya sama. -->
-    <webflow:flow-builder-services id="flowBuilderServices" view-factory-creator="mvcViewFactoryCreator"/>
+    <!--
+        Spring Web Flow 3 membuang dukungan OGNL. Penggantinya BUKAN SpEL:
+        berkas *Flow.xml di sini memakai sintaks template ${...} pada atribut
+        seperti then, to dan value (mis. then="${requestParameters.method}"),
+        dan itu delimiter Unified EL. Parser SpEL bawaan SWF memakai #{...},
+        sehingga ${...} diperlakukan sebagai teks biasa dan alur gagal dengan
+        "Cannot find state with id '${requestParameters.method}'".
+        WebFlowELExpressionParser memakai delimiter yang sama dengan OGNL, jadi
+        seluruh berkas alur tetap berlaku apa adanya.
+    -->
+    <bean id="expressionFactory" class="jakarta.el.ExpressionFactory" factory-method="newInstance"/>
+
+    <bean id="expressionParser" class="org.springframework.webflow.expression.el.WebFlowELExpressionParser">
+        <constructor-arg ref="expressionFactory"/>
+    </bean>
+
+    <webflow:flow-builder-services id="flowBuilderServices" view-factory-creator="mvcViewFactoryCreator" expression-parser="expressionParser"/>
 
     <bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
         <property name="viewResolvers">
