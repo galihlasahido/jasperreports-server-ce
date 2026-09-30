@@ -34,6 +34,7 @@ import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import java.io.IOException;
 import java.util.*;
@@ -140,8 +141,15 @@ public abstract class BaseExportImportCommand {
 		ctx.getEnvironment().setActiveProfiles("default","engine","jrs");
 		String[] resourceFileNames=resourceFileName.split(",");
 		List<Resource> resourcesList=new ArrayList<>();
+		// BUGFIX (Spring 6): locate the config files with a resolver of their own. Asking the
+		// context poisons its resolver's root-dir cache with the pattern's root ("" for a plain
+		// "applicationContext*.xml"), and Spring 6.1+ then derives every later root directory
+		// from that cached parent. Each <context:component-scan> package is then looked up as a
+		// bogus ClassPathResource("classpath*:com/...") that "does not exist", which Spring 6 treats
+		// as fatal - so js-export/js-import died at startup on the first scanned package.
+		PathMatchingResourcePatternResolver configResolver = new PathMatchingResourcePatternResolver();
 		for(String fileName: resourceFileNames){
-			resourcesList.addAll(Arrays.asList(ctx.getResources(fileName)));
+			resourcesList.addAll(Arrays.asList(configResolver.getResources(fileName)));
 		}
 		Resource[] resources=resourcesList.toArray(new Resource[0]);
         commandOut.info("First resource path: " + resources[0].getFile().getParent());

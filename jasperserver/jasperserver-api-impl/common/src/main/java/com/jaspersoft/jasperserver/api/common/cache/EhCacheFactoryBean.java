@@ -17,6 +17,7 @@
  */
 package com.jaspersoft.jasperserver.api.common.cache;
 
+import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.config.CacheConfiguration;
@@ -74,9 +75,21 @@ public class EhCacheFactoryBean implements FactoryBean<Ehcache>, InitializingBea
         }
         String name = (this.cacheName != null ? this.cacheName : this.beanName);
         if (!this.cacheManager.cacheExists(name)) {
-            // Sama seperti Spring: kalau cache belum ada di ehcache.xml, buat
-            // dari template default milik CacheManager.
-            this.cacheManager.addCache(name);
+            if (this.cacheManager.getConfiguration().getDefaultCacheConfiguration() != null) {
+                // ehcache.xml punya <defaultCache>: pakai sebagai templat.
+                this.cacheManager.addCache(name);
+            } else {
+                // BUGFIX: tanpa <defaultCache>, CacheManager.addCache(String) menolak
+                // ("Caches cannot be added by name when default cache config is not
+                // specified"). Alat import/export sengaja memakai ehcache kosong
+                // (ehcache-data-snapshots.xml, bug 35993), dan EhCacheFactoryBean bawaan
+                // Spring menanganinya dengan membangun Cache dari konfigurasi eksplisit
+                // berisi nilai bawaan Spring: 10000 entri, TTL dan TTI 120 detik.
+                CacheConfiguration fallback = new CacheConfiguration(name, 10000);
+                fallback.setTimeToLiveSeconds(120);
+                fallback.setTimeToIdleSeconds(120);
+                this.cacheManager.addCache(new Cache(fallback));
+            }
         }
         this.cache = this.cacheManager.getEhcache(name);
 
