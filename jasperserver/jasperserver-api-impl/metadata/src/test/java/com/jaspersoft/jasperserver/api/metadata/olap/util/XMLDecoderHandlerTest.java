@@ -21,6 +21,8 @@
 
 package com.jaspersoft.jasperserver.api.metadata.olap.util;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javax.xml.parsers.SAXParserFactory;
@@ -42,6 +44,21 @@ import static org.junit.Assert.assertTrue;
  */
 public class XMLDecoderHandlerTest {
 
+    /**
+     * View.options is a fixture that deliberately calls a static factory (java.lang.Math.max).
+     * The hardened handler refuses that class unless a deployment opts in, which is exactly the
+     * documented escape hatch, so the test opts in instead of weakening the allow-list.
+     */
+    @BeforeClass
+    public static void allowMathForFixture() {
+        System.setProperty(XMLDecoderHandler.ALLOWED_PACKAGES_PROPERTY, "java.lang.Math");
+    }
+
+    @AfterClass
+    public static void restoreAllowList() {
+        System.clearProperty(XMLDecoderHandler.ALLOWED_PACKAGES_PROPERTY);
+    }
+
     @Test
     public void parse_withCustomParser_success() throws Exception {
         XMLDecoderHandler handler = new XMLDecoderHandler();
@@ -56,6 +73,40 @@ public class XMLDecoderHandlerTest {
                 stream.close();
             }
         }
+    }
+
+    /**
+     * A view saved from the UI by java.beans.XMLEncoder. The encoder names the result of
+     * <code>BookmarkState.isShowProperties()</code> ("Boolean0") and points a dozen later
+     * elements at it with idref. The handler used to drop the id of an instance call, which
+     * made such a view fail to open with "Cannot find an object referenced by id: Boolean0".
+     * The same document must give the same answer under the standard decoder.
+     */
+    @Test
+    public void parse_resultOfInstanceCallReferencedByIdref_success() throws Exception {
+        Object custom;
+        try (InputStream stream = new BufferedInputStream(new FileInputStream("target/test-classes/View.saved-with-idref.options"))) {
+            XMLDecoderHandler handler = new XMLDecoderHandler();
+            SAXParserFactory.newInstance().newSAXParser().parse(stream, handler);
+            custom = handler.getResult();
+        }
+        assertNotNull(custom);
+        Object standard;
+        try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("target/test-classes/View.saved-with-idref.options")))) {
+            standard = decoder.readObject();
+        }
+        // BookmarkState has no toString/equals, so its identity hash differs between the two decoders
+        assertEquals(standard.toString().replaceAll("@[0-9a-f]+", "@"), custom.toString().replaceAll("@[0-9a-f]+", "@"));
+    }
+
+    @Test
+    public void parse_emptyString_keptAsEmptyString() throws Exception {
+        String xml = "<java><object class=\"java.util.HashMap\"><void method=\"put\">"
+                + "<string>sql</string><string></string></void></object></java>";
+        XMLDecoderHandler handler = new XMLDecoderHandler();
+        SAXParserFactory.newInstance().newSAXParser()
+                .parse(new java.io.ByteArrayInputStream(xml.getBytes("UTF-8")), handler);
+        assertEquals("", ((java.util.Map) handler.getResult()).get("sql"));
     }
 
     @Test

@@ -235,7 +235,12 @@ public class XMLDecoderHandler extends DefaultHandler {
             else if (qName.equals("void") && (methodName = attributes.getValue("", "method")) != null) {
                 checkAndReplaceConstructedObject();
                 //lastMethodName.push(methodName);
-                objects.push(new DeferredOperation(null, methodName, null));
+                // BUGFIX: java.beans.XMLEncoder gives an id to the *result* of an instance call
+                // (e.g. <void id="Boolean0" method="isShowProperties"/>) whenever another element
+                // later points at the same value with <object idref="Boolean0"/>. The id used to
+                // be dropped here, so any view saved with such a reference could never be reopened
+                // ("Cannot find an object referenced by id: Boolean0").
+                objects.push(new DeferredOperation(null, methodName, attributes.getValue("", "id")));
             }
 
             // instance property setters
@@ -266,6 +271,15 @@ public class XMLDecoderHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (lastValuePart != null){
             this.characters(lastValuePart.toCharArray(), 0, 0);
+        }
+
+        // BUGFIX: an empty string is written by java.beans.XMLEncoder as <string></string>,
+        // which never produces a characters() event, so the value was never pushed and the
+        // surrounding call lost an argument and left the stack out of step - the decoder then
+        // returned an unfinished DeferredOperation instead of the map.
+        if (qName.equals("string") && String.class.equals(lastClass)) {
+            objects.push("");
+            lastClass = null;
         }
 
         // objects, primitives and arrays
@@ -305,7 +319,10 @@ public class XMLDecoderHandler extends DefaultHandler {
             else if (obj instanceof DeferredOperation) {
                 DeferredOperation deferredOperation = (DeferredOperation) obj;
                 try {
-                    makeCall(deferredOperation, objects.peek());
+                    Object result = makeCall(deferredOperation, objects.peek());
+                    if (deferredOperation.id != null) {
+                        idedObjects.put(deferredOperation.id, result);
+                    }
                 } catch (Exception e) {
                     throw new JSException("Cannot call an instance method " + deferredOperation.methodName, e);
                 }
@@ -409,20 +426,25 @@ public class XMLDecoderHandler extends DefaultHandler {
         return obj;
     }
 
-    private void makeCall(DeferredOperation methodInfo, Object owner) throws Exception {
+    /**
+     * @return what the call returned, so that a later idref can point at it
+     */
+    private Object makeCall(DeferredOperation methodInfo, Object owner) throws Exception {
+        Object result = null;
         Method method = MethodUtils.getMatchingAccessibleMethod(owner.getClass(), methodInfo.methodName, getParameterTypes(methodInfo.parameters));
         if (method == null) {
             // check if parameters are null, i.e. will match any class
             if (methodInfo.parameters.contains(null)) {
                 for (Method m : owner.getClass().getMethods()) {
                     if (m.getName().equals(methodInfo.methodName) && m.getParameterTypes().length == methodInfo.parameters.size()) {
-                        m.invoke(owner, methodInfo.parameters.toArray());
+                        result = m.invoke(owner, methodInfo.parameters.toArray());
                     }
                 }
             }
         } else {
-            method.invoke(owner, methodInfo.parameters.toArray());
+            result = method.invoke(owner, methodInfo.parameters.toArray());
         }
+        return result;
     }
 
     /**

@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="25.0.4.1" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <string>/analysis/views/SugarCRM_sample/print</string>
+   <object class="java.util.HashMap">
+    <void method="put">
+     <string>visible</string>
+     <boolean>true</boolean>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>/analysis/views/SugarCRM_sample/mdxedit</string>
+   <object class="java.util.HashMap">
+    <void method="put">
+     <string>visible</string>
+     <boolean>false</boolean>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>/analysis/views/SugarCRM_sample/chart</string>
+   <object class="java.util.HashMap">
+    <void method="put">
+     <string>visible</string>
+     <boolean>true</boolean>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>drillThruSQL</string>
+   <string></string>
+  </void>
+  <void method="put">
+   <string>/analysis/views/SugarCRM_sample/table</string>
+   <object class="java.util.HashMap">
+    <void method="put">
+     <string>visible</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>swapAxes</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>sortRank</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>mdxQuery</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>nonEmpty</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>expandAll</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>excel</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>columnAxisBuilder</string>
+     <object class="com.tonbeller.jpivot.table.span.PropertySpanBuilder$BookmarkState" id="PropertySpanBuilder$BookmarkState0">
+      <void id="Boolean0" method="isShowProperties"/>
+     </object>
+    </void>
+    <void method="put">
+     <string>drillMember</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>drillReplace</string>
+     <boolean>false</boolean>
+    </void>
+    <void method="put">
+     <string>rowAxisBuilder</string>
+     <object class="com.tonbeller.jpivot.table.span.PropertySpanBuilder$BookmarkState"/>
+    </void>
+    <void method="put">
+     <string>drillPosition</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>cornerBuilder</string>
+     <null/>
+    </void>
+    <void method="put">
+     <string>cellBuilder</string>
+     <null/>
+    </void>
+    <void method="put">
+     <string>drillThrough</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>axisStyle</string>
+     <object class="com.tonbeller.jpivot.table.navi.AxisStyleUI$BookmarkState">
+      <void property="levelStyle">
+       <boolean>true</boolean>
+      </void>
+     </object>
+    </void>
+    <void method="put">
+     <string>slicerBuilder</string>
+     <null/>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>/analysis/views/SugarCRM_sample/toolbar</string>
+   <object class="java.util.HashMap">
+    <void method="put">
+     <null/>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>visible</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>mdxEditButton</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>swapAxes</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>saveas</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>chartPropertiesButton01</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>save</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>nonEmpty</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>printxls</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>propertiesButton</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>printPropertiesButton01</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>chartButton01</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>drillReplace</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>sortConfigButton</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>cubeNaviButton</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>printpdf</string>
+     <boolean>true</boolean>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>/analysis/views/SugarCRM_sample/printform</string>
+   <object class="java.util.HashMap">
+    <void method="put">
+     <string>pageOrientationLandscape</string>
+     <object idref="Boolean0"/>
+    </void>
+    <void method="put">
+     <string>includeParentCellsExcel</string>
+     <object idref="Boolean0"/>
+    </void>
+    <void method="put">
+     <string>paperType</string>
+     <string>A4</string>
+    </void>
+    <void method="put">
+     <string>visible</string>
+     <boolean>false</boolean>
+    </void>
+    <void method="put">
+     <string>includeParentCellsPdf</string>
+     <object idref="Boolean0"/>
+    </void>
+    <void method="put">
+     <string>tableWidth</string>
+     <double>0.0</double>
+    </void>
+    <void method="put">
+     <string>chartPageBreak</string>
+     <object idref="Boolean0"/>
+    </void>
+    <void method="put">
+     <string>includeParentColumnsExcel</string>
+     <object idref="Boolean0"/>
+    </void>
+    <void method="put">
+     <string>reportTitle</string>
+     <string></string>
+    </void>
+    <void method="put">
+     <string>paperTypeStandard</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>pageOrientationPortrait</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>pageHeight</string>
+     <double>29.7</double>
+    </void>
+    <void method="put">
+     <string>pageWidth</string>
+     <double>21.0</double>
+    </void>
+    <void method="put">
+     <string>includeParentColumnsPdf</string>
+     <object idref="Boolean0"/>
+    </void>
+    <void method="put">
+     <string>paperTypeCustom</string>
+     <object idref="Boolean0"/>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>/analysis/views/SugarCRM_sample/navi</string>
+   <object class="java.util.HashMap">
+    <void method="put">
+     <string>visible</string>
+     <boolean>false</boolean>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>/analysis/views/SugarCRM_sample/displayform</string>
+   <object class="java.util.HashMap">
+    <void method="put">
+     <string>extensions(axisStyle).levelStyle</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>extensions(axisStyle).hideSpans</string>
+     <object idref="Boolean0"/>
+    </void>
+    <void method="put">
+     <string>visible</string>
+     <boolean>false</boolean>
+    </void>
+    <void method="put">
+     <string>extensions(drillThrough).includeOnlySelectedMeasure</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>extensions(sortRank).sortAcrossCubeHierarchy</string>
+     <object idref="Boolean0"/>
+    </void>
+    <void method="put">
+     <string>extensions(sortRank).displayFirstNumRows</string>
+     <object idref="Boolean0"/>
+    </void>
+    <void method="put">
+     <string>extensions(sortRank).sortInDescendingOrder</string>
+     <object idref="Boolean0"/>
+    </void>
+    <void method="put">
+     <string>rowAxisBuilder.axisConfig.propertyConfig.showProperties</string>
+     <object idref="Boolean0"/>
+    </void>
+    <void method="put">
+     <string>extensions(drillThrough).hideDillThroughLinks</string>
+     <object idref="Boolean0"/>
+    </void>
+    <void method="put">
+     <string>extensions(sortRank).topBottomCount</string>
+     <int>10</int>
+    </void>
+    <void method="put">
+     <string>extensions(drillThrough).showTableBelowCube</string>
+     <object idref="Boolean0"/>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>/analysis/views/SugarCRM_sample/chartform</string>
+   <object class="java.util.HashMap">
+    <void method="put">
+     <string>showSlicer</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>showLegend</string>
+     <boolean>true</boolean>
+    </void>
+    <void method="put">
+     <string>axisFontStyleDisp</string>
+     <int>-1</int>
+    </void>
+    <void method="put">
+     <string>legendFontNameDisp</string>
+     <string>defaultfont</string>
+    </void>
+    <void method="put">
+     <string>bgColorR</string>
+     <int>255</int>
+    </void>
+    <void method="put">
+     <string>chartHeight</string>
+     <int>300</int>
+    </void>
+    <void method="put">
+     <string>slicerFontStyleDisp</string>
+     <int>-1</int>
+    </void>
+    <void method="put">
+     <string>bgColorG</string>
+     <int>255</int>
+    </void>
+    <void method="put">
+     <string>chartTitle</string>
+     <string></string>
+    </void>
+    <void method="put">
+     <string>drillThroughEnabled</string>
+     <object idref="Boolean0"/>
+    </void>
+    <void method="put">
+     <string>bgColorB</string>
+     <int>255</int>
+    </void>
+    <void method="put">
+     <string>axisTickFontStyleDisp</string>
+     <int>-1</int>
+    </void>
+    <void method="put">
+     <string>tickLabelRotate</string>
+     <int>30</int>
+    </void>
+    <void method="put">
+     <string>defaultFontStyle</string>
+     <int>1</int>
+    </void>
+    <void method="put">
+     <string>visible</string>
+     <boolean>false</boolean>
+    </void>
+    <void method="put">
+     <string>fontSizeDisp</string>
+     <int>-1</int>
+    </void>
+    <void method="put">
+     <string>slicerFontSizeDisp</string>
+     <int>-1</int>
+    </void>
+    <void method="put">
+     <string>axisTickFontSizeDisp</string>
+     <int>-1</int>
+    </void>
+    <void method="put">
+     <string>fontStyleDisp</string>
+     <int>-1</int>
+    </void>
+    <void method="put">
+     <string>vertAxisLabel</string>
+     <string></string>
+    </void>
+    <void method="put">
+     <string>horizAxisLabel</string>
+     <string></string>
+    </void>
+    <void method="put">
+     <string>slicerAlignment</string>
+     <int>3</int>
+    </void>
+    <void method="put">
+     <string>chartWidth</string>
+     <int>500</int>
+    </void>
+    <void method="put">
+     <string>defaultFontSize</string>
+     <int>12</int>
+    </void>
+    <void method="put">
+     <string>slicerFontNameDisp</string>
+     <string>defaultfont</string>
+    </void>
+    <void method="put">
+     <string>axisTickFontNameDisp</string>
+     <string>defaultfont</string>
+    </void>
+    <void method="put">
+     <string>axisFontNameDisp</string>
+     <string>defaultfont</string>
+    </void>
+    <void method="put">
+     <string>fontNameDisp</string>
+     <string>defaultfont</string>
+    </void>
+    <void method="put">
+     <string>legendFontSizeDisp</string>
+     <int>-1</int>
+    </void>
+    <void method="put">
+     <string>chartType</string>
+     <int>1</int>
+    </void>
+    <void method="put">
+     <string>legendPosition</string>
+     <int>3</int>
+    </void>
+    <void method="put">
+     <string>defaultFontName</string>
+     <string>SansSerif</string>
+    </void>
+    <void method="put">
+     <string>axisFontSizeDisp</string>
+     <int>-1</int>
+    </void>
+    <void method="put">
+     <string>legendFontStyleDisp</string>
+     <int>-1</int>
+    </void>
+    <void method="put">
+     <string>slicerPosition</string>
+     <int>1</int>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <string>/analysis/views/SugarCRM_sample.drillthroughtable</string>
+   <object class="java.util.HashMap">
+    <void method="put">
+     <string>visible</string>
+     <boolean>false</boolean>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
+
